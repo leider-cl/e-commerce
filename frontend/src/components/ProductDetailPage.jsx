@@ -20,7 +20,7 @@ export function ProductDetailPage({
         <div className="product-detail-empty">
           <span className="contact-kicker">Producto</span>
           <h1>Cargando producto</h1>
-          <p>Estamos preparando la informaci?n t?cnica.</p>
+          <p>Estamos preparando la información técnica.</p>
         </div>
       </section>
     );
@@ -30,12 +30,12 @@ export function ProductDetailPage({
     return (
       <section className="product-detail-page">
         <button type="button" className="secondary-action product-detail-back" onClick={onBackToCatalog}>
-          Volver al cat?logo
+          Volver al catálogo
         </button>
         <div className="product-detail-empty">
           <span className="contact-kicker">Producto</span>
           <h1>Producto no encontrado</h1>
-          <p>El producto solicitado no existe o ya no est? disponible.</p>
+          <p>El producto solicitado no existe o ya no está disponible.</p>
         </div>
       </section>
     );
@@ -48,14 +48,14 @@ export function ProductDetailPage({
   return (
     <section className="product-detail-page">
       <button type="button" className="secondary-action product-detail-back" onClick={onBackToCatalog}>
-        Volver al cat?logo
+        Volver al catálogo
       </button>
 
       <article className="product-detail-layout">
         <div className="product-detail-gallery">
           <img src={currentImage} alt={product.name} draggable="false" />
           {images.length > 1 ? (
-            <div className="modal-thumbnails" aria-label="Im?genes del producto">
+            <div className="modal-thumbnails" aria-label="Imágenes del producto">
               {images.map((image, index) => (
                 <button
                   className={index === selectedImageIndex ? "is-active" : ""}
@@ -78,7 +78,7 @@ export function ProductDetailPage({
 
           <dl className="product-specs">
             <div>
-              <dt>Categor?a</dt>
+              <dt>Categoría</dt>
               <dd>{product.category}</dd>
             </div>
             <div>
@@ -102,7 +102,7 @@ export function ProductDetailPage({
               })
             }
           >
-            {reachedCartLimit ? "Stock m?ximo en carrito" : "Agregar al carrito"}
+            {reachedCartLimit ? "Stock máximo en carrito" : "Agregar al carrito"}
           </button>
         </div>
       </article>
