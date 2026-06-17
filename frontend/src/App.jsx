@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { ProductCard } from "./components/ProductCard";
 import "./App.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL || "/api";
 
 const contactItems = [
   { label: "Ventas", value: "contacto@leider.cl" },
