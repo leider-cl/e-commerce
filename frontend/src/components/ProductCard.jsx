@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 
-export function ProductCard({ product, onAddToCart, onViewDetails, currencyFormatter }) {
+export function ProductCard({ product, onAddToCart, onViewDetails, currencyFormatter, cartQuantity = 0 }) {
   const images = useMemo(() => {
     const productImages = product.image_urls?.length ? product.image_urls : [product.image_url];
     return productImages.filter(Boolean);
@@ -38,6 +38,7 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
   }
 
   const activeImage = images[activeImageIndex];
+  const reachedStockLimit = cartQuantity >= product.stock;
 
   return (
     <article className="product-card">
@@ -97,6 +98,7 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
             </button>
             <button
               type="button"
+              disabled={reachedStockLimit}
               onClick={(event) =>
                 onAddToCart(product, {
                   imageUrl: activeImage,
@@ -104,7 +106,7 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
                 })
               }
             >
-              Agregar
+              {reachedStockLimit ? "Stock mÃ¡ximo" : "Agregar"}
             </button>
           </div>
         </div>

@@ -22,6 +22,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedProductImageIndex, setSelectedProductImageIndex] = useState(0);
+  const [cartNotice, setCartNotice] = useState("");
 
   const currencyFormatter = useMemo(
     () =>
@@ -69,6 +70,10 @@ function App() {
   }, [selectedCategory, searchTerm, products]);
 
   const cartTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const cartQuantityByProductId = useMemo(
+    () => new Map(cartItems.map((item) => [item.id, item.quantity])),
+    [cartItems],
+  );
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   function animateProductToCart({ imageUrl, sourceElement }) {
@@ -108,7 +113,21 @@ function App() {
     });
   }
 
+  function clampCartQuantity(value, stock) {
+    const numericValue = Number.parseInt(value, 10);
+    if (Number.isNaN(numericValue) || numericValue <= 0) return 0;
+    return Math.min(numericValue, stock);
+  }
+
   function addToCart(product, animationPayload) {
+    const currentQuantity = cartQuantityByProductId.get(product.id) ?? 0;
+
+    if (currentQuantity >= product.stock) {
+      setCartNotice(`No hay más stock disponible para ${product.name}. Stock máximo: ${product.stock}.`);
+      return;
+    }
+
+    setCartNotice("");
     animateProductToCart(animationPayload ?? {});
 
     setCartItems((currentItems) => {
@@ -124,17 +143,27 @@ function App() {
     });
   }
 
-  function decreaseCartItem(productId) {
+  function updateCartItemQuantity(productId, value) {
     setCartItems((currentItems) =>
       currentItems.flatMap((item) => {
         if (item.id !== productId) return [item];
-        if (item.quantity <= 1) return [];
-        return [{ ...item, quantity: item.quantity - 1 }];
+
+        const nextQuantity = clampCartQuantity(value, item.stock);
+
+        if (nextQuantity >= item.stock && Number.parseInt(value, 10) > item.stock) {
+          setCartNotice(`Solo hay ${item.stock} unidades disponibles de ${item.name}.`);
+        } else {
+          setCartNotice("");
+        }
+
+        if (nextQuantity === 0) return [];
+        return [{ ...item, quantity: nextQuantity }];
       }),
     );
   }
 
   function removeFromCart(productId) {
+    setCartNotice("");
     setCartItems((currentItems) => currentItems.filter((item) => item.id !== productId));
   }
 
@@ -277,6 +306,7 @@ function App() {
                 onAddToCart={addToCart}
                 onViewDetails={openProductDetails}
                 currencyFormatter={currencyFormatter}
+                cartQuantity={cartQuantityByProductId.get(product.id) ?? 0}
               />
             ))
           )}
@@ -293,6 +323,7 @@ function App() {
             <p>Agrega productos para preparar una solicitud de cotización.</p>
           ) : (
             <>
+              {cartNotice ? <p className="cart-notice" role="alert">{cartNotice}</p> : null}
               <div className="cart-items">
                 {cartItems.map((item) => (
                   <article className="cart-item" key={item.id}>
@@ -328,7 +359,7 @@ function App() {
         <div className="contact-grid">
           <article className="contact-card contact-card-main">
             <span className="contact-kicker">Cotización técnica</span>
-            <h3>¿Necesitas una balanza, sensor o sistema específico?</h3>
+            <h3>¿Necesitas algo específico?</h3>
             <p>
               Indícanos qué necesitas: producto, cantidad y contexto de uso.
             </p>
@@ -412,6 +443,7 @@ function App() {
               <button
                 type="button"
                 className="primary-action modal-cart-action"
+                disabled={(cartQuantityByProductId.get(selectedProduct.id) ?? 0) >= selectedProduct.stock}
                 onClick={() =>
                   addToCart(selectedProduct, {
                     imageUrl: getProductImages(selectedProduct)[selectedProductImageIndex],
@@ -419,7 +451,9 @@ function App() {
                   })
                 }
               >
-                Agregar al carrito
+                {(cartQuantityByProductId.get(selectedProduct.id) ?? 0) >= selectedProduct.stock
+                  ? "Stock mÃ¡ximo en carrito"
+                  : "Agregar al carrito"}
               </button>
             </div>
           </section>
