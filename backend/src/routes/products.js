@@ -6,7 +6,19 @@ export const productsRouter = Router();
 productsRouter.get("/products", async (_req, res) => {
   try {
     const result = await pool.query(
-      "SELECT id, name, slug, category, price, stock, description, tag FROM products ORDER BY id"
+      `SELECT
+        id,
+        name,
+        slug,
+        category,
+        price,
+        stock,
+        description,
+        tag,
+        image_url,
+        COALESCE(image_urls, ARRAY[image_url]) AS image_urls
+      FROM products
+      ORDER BY id`
     );
     res.json(result.rows);
   } catch (error) {
@@ -18,7 +30,19 @@ productsRouter.get("/products", async (_req, res) => {
 productsRouter.get("/products/:id", async (req, res) => {
   try {
     const result = await pool.query(
-      "SELECT id, name, slug, category, price, stock, description, tag FROM products WHERE id = $1",
+      `SELECT
+        id,
+        name,
+        slug,
+        category,
+        price,
+        stock,
+        description,
+        tag,
+        image_url,
+        COALESCE(image_urls, ARRAY[image_url]) AS image_urls
+      FROM products
+      WHERE id = $1`,
       [req.params.id]
     );
     if (result.rows.length === 0) {

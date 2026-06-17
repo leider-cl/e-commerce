@@ -208,13 +208,70 @@
 }
 
 .product-visual {
+  position: relative;
   display: grid;
   place-items: center;
   min-height: 12rem;
-  background:
-    radial-gradient(circle at center, transparent 0 36%, rgba(255,255,255,0.12) 37% 38%, transparent 39%),
-    var(--inverse);
+  padding: 1rem;
+  background: #f7f7f5;
   color: var(--inverse-text);
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.product-visual img {
+  width: 100%;
+  height: 13rem;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.gallery-control {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.gallery-control-prev {
+  left: 0.75rem;
+}
+
+.gallery-control-next {
+  right: 0.75rem;
+}
+
+.gallery-dots {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.85rem;
+  left: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.gallery-dots button {
+  width: 1.65rem;
+  height: 0.35rem;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--ink);
+  cursor: pointer;
+}
+
+.gallery-dots button.is-active {
+  background: var(--ink);
 }
 
 .product-visual span {
@@ -268,6 +325,17 @@
 
 .product-footer button {
   cursor: pointer;
+}
+
+.cart-flyer {
+  position: fixed;
+  z-index: 9999;
+  object-fit: contain;
+  padding: 0.35rem;
+  background: #f7f7f5;
+  border: 1px solid var(--ink);
+  pointer-events: none;
+  mix-blend-mode: multiply;
 }
 
 .site-footer {

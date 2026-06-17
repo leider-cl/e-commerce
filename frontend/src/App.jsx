@@ -13,6 +13,7 @@ const contactItems = [
 
 function App() {
   const pageRef = useRef(null);
+  const cartLinkRef = useRef(null);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
   const [searchTerm, setSearchTerm] = useState("");
   const [cartItems, setCartItems] = useState([]);
@@ -68,7 +69,46 @@ function App() {
   const cartTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
-  function addToCart(product) {
+  function animateProductToCart({ imageUrl, sourceElement }) {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduceMotion || !imageUrl || !sourceElement || !cartLinkRef.current) return;
+
+    const sourceRect = sourceElement.getBoundingClientRect();
+    const targetRect = cartLinkRef.current.getBoundingClientRect();
+    const floatingImage = document.createElement("img");
+
+    floatingImage.src = imageUrl;
+    floatingImage.alt = "";
+    floatingImage.className = "cart-flyer";
+    floatingImage.style.left = `${sourceRect.left}px`;
+    floatingImage.style.top = `${sourceRect.top}px`;
+    floatingImage.style.width = `${sourceRect.width}px`;
+    floatingImage.style.height = `${sourceRect.height}px`;
+    document.body.appendChild(floatingImage);
+
+    gsap.to(floatingImage, {
+      x: targetRect.left + targetRect.width / 2 - sourceRect.left - sourceRect.width / 2,
+      y: targetRect.top + targetRect.height / 2 - sourceRect.top - sourceRect.height / 2,
+      scale: 0.16,
+      rotate: -5,
+      autoAlpha: 0.35,
+      duration: 0.72,
+      ease: "power3.inOut",
+      onComplete: () => {
+        floatingImage.remove();
+        gsap.fromTo(
+          cartLinkRef.current,
+          { scale: 1 },
+          { scale: 1.08, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out" },
+        );
+      },
+    });
+  }
+
+  function addToCart(product, animationPayload) {
+    animateProductToCart(animationPayload ?? {});
+
     setCartItems((currentItems) => {
       const existingItem = currentItems.find((item) => item.id === product.id);
 
@@ -121,7 +161,7 @@ function App() {
         <div className="header-actions">
           <nav className="main-nav" aria-label="Main navigation">
             <a href="#catalogo">Catálogo</a>
-            <a href="#carrito">Carrito ({cartCount})</a>
+            <a href="#carrito" ref={cartLinkRef}>Carrito ({cartCount})</a>
             <a href="#contacto">Contacto</a>
           </nav>
         </div>
