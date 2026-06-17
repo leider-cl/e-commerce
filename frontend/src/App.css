@@ -212,7 +212,7 @@
   display: grid;
   place-items: center;
   min-height: 12rem;
-  padding: 1rem;
+  padding: 0.35rem;
   background: #f7f7f5;
   color: var(--inverse-text);
   overflow: hidden;
@@ -223,7 +223,8 @@
 .product-visual img {
   width: 100%;
   height: 13rem;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
   mix-blend-mode: multiply;
 }
 
@@ -232,14 +233,15 @@
   top: 50%;
   display: grid;
   place-items: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.35rem;
+  height: 2.35rem;
   padding: 0;
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.78);
+  color: var(--inverse-text);
+  background: var(--inverse);
   border: 1px solid var(--ink);
-  border-radius: 999px;
   cursor: pointer;
+  font-size: 1.45rem;
+  line-height: 1;
   transform: translateY(-50%);
 }
 
@@ -251,30 +253,56 @@
   right: 0.75rem;
 }
 
-.gallery-dots {
+.image-count {
   position: absolute;
-  right: 1rem;
-  bottom: 0.85rem;
-  left: 1rem;
-  display: flex;
+  right: 0.55rem;
+  top: 0.55rem;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  gap: 0.4rem;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  padding: 0.16rem 0.3rem;
+  color: var(--inverse-text);
+  background: var(--inverse);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  font-family: "Courier New", monospace;
+  font-size: 0.56rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
 }
 
-.gallery-dots button {
-  width: 1.65rem;
-  height: 0.35rem;
-  padding: 0;
-  background: transparent;
-  border: 1px solid var(--ink);
+.modal-thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.modal-thumbnails button {
+  width: 3.25rem;
+  height: 3.25rem;
+  padding: 0.2rem;
+  background: #f7f7f5;
+  border: 1px solid var(--line);
   cursor: pointer;
 }
 
-.gallery-dots button.is-active {
-  background: var(--ink);
+.modal-thumbnails button.is-active {
+  border-color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink);
 }
 
-.product-visual span {
+.modal-thumbnails img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.product-visual > span:not(.image-count) {
   display: grid;
   place-items: center;
   width: 5rem;
@@ -327,6 +355,22 @@
   cursor: pointer;
 }
 
+.product-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.product-actions button {
+  width: 100%;
+}
+
+.secondary-product-action {
+  color: var(--ink) !important;
+  background: transparent !important;
+}
+
 .cart-flyer {
   position: fixed;
   z-index: 9999;
@@ -336,6 +380,111 @@
   border: 1px solid var(--ink);
   pointer-events: none;
   mix-blend-mode: multiply;
+}
+
+.modal-open {
+  overflow: hidden;
+}
+
+.product-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.product-modal {
+  position: relative;
+  display: grid;
+  width: min(62rem, 100%);
+  max-height: min(42rem, 92vh);
+  overflow: auto;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+}
+
+.modal-close {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  justify-self: end;
+  min-height: 2.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--inverse);
+  color: var(--inverse-text);
+  border: 0;
+  border-left: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal-gallery {
+  display: grid;
+  gap: 1rem;
+  padding: 0.5rem;
+  background: #f7f7f5;
+  border-bottom: 1px solid var(--ink);
+}
+
+.modal-gallery > img {
+  width: 100%;
+  height: min(22rem, 52vh);
+  object-fit: cover;
+  object-position: center;
+  mix-blend-mode: multiply;
+}
+
+.modal-content {
+  padding: 1.25rem;
+}
+
+.modal-content h2 {
+  margin: 0.6rem 0 1rem;
+  font-size: clamp(2rem, 7vw, 4.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.modal-content p {
+  max-width: 58ch;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.product-specs {
+  display: grid;
+  gap: 0;
+  margin: 1.5rem 0;
+  border-top: 1px solid var(--ink);
+}
+
+.product-specs div {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.product-specs dt {
+  font-family: "Courier New", monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.product-specs dd {
+  margin: 0;
+  color: var(--muted);
+}
+
+.modal-cart-action {
+  width: 100%;
 }
 
 .site-footer {
@@ -370,6 +519,15 @@
 
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .product-actions {
+    flex-direction: row;
   }
 }
 
@@ -619,9 +777,15 @@
   border-bottom: 1px solid var(--line);
 }
 
-.cart-item div {
+.cart-item > div:first-child {
   display: grid;
   gap: 0.25rem;
+}
+
+.cart-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .cart-item span {
@@ -629,7 +793,7 @@
 }
 
 .cart-item button {
-  min-height: 2.75rem;
+  min-height: 2.45rem;
   padding: 0.7rem 0.9rem;
   color: var(--ink);
   background: transparent;
@@ -673,6 +837,29 @@
 @media (min-width: 1024px) {
   .cart-section {
     padding: 5rem 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-modal {
+    grid-template-columns: minmax(0, 1fr) minmax(24rem, 0.9fr);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .modal-gallery {
+    min-height: 100%;
+    border-right: 1px solid var(--ink);
+    border-bottom: 0;
+    align-content: center;
+  }
+
+  .modal-content {
+    padding: 2rem;
   }
 }
 

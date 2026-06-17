@@ -20,6 +20,8 @@ function App() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState(["Todas"]);
   const [loading, setLoading] = useState(true);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProductImageIndex, setSelectedProductImageIndex] = useState(0);
 
   const currencyFormatter = useMemo(
     () =>
@@ -122,9 +124,54 @@ function App() {
     });
   }
 
+  function decreaseCartItem(productId) {
+    setCartItems((currentItems) =>
+      currentItems.flatMap((item) => {
+        if (item.id !== productId) return [item];
+        if (item.quantity <= 1) return [];
+        return [{ ...item, quantity: item.quantity - 1 }];
+      }),
+    );
+  }
+
   function removeFromCart(productId) {
     setCartItems((currentItems) => currentItems.filter((item) => item.id !== productId));
   }
+
+  function getProductImages(product) {
+    if (!product) return [];
+
+    const images = product.image_urls?.length ? product.image_urls : [product.image_url];
+    return images.filter(Boolean);
+  }
+
+  function openProductDetails(product) {
+    setSelectedProduct(product);
+    setSelectedProductImageIndex(0);
+  }
+
+  function closeProductDetails() {
+    setSelectedProduct(null);
+    setSelectedProductImageIndex(0);
+  }
+
+  useEffect(() => {
+    if (!selectedProduct) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeProductDetails();
+      }
+    };
+
+    document.body.classList.add("modal-open");
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.classList.remove("modal-open");
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedProduct]);
 
   useEffect(() => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -228,6 +275,7 @@ function App() {
                 product={product}
                 key={product.id}
                 onAddToCart={addToCart}
+                onViewDetails={openProductDetails}
                 currencyFormatter={currencyFormatter}
               />
             ))
@@ -252,7 +300,10 @@ function App() {
                       <strong>{item.name}</strong>
                       <span>{item.quantity} × {currencyFormatter.format(item.price)}</span>
                     </div>
-                    <button type="button" onClick={() => removeFromCart(item.id)}>Quitar</button>
+                    <div className="cart-item-actions">
+                      <button type="button" onClick={() => decreaseCartItem(item.id)}>Quitar 1</button>
+                      <button type="button" onClick={() => removeFromCart(item.id)}>Quitar todo</button>
+                    </div>
                   </article>
                 ))}
               </div>
@@ -301,6 +352,79 @@ function App() {
         <p>LEIDER — Equipamiento técnico industrial</p>
         <span>Balanzas, sensores, pulseras y accesorios para tu operación.</span>
       </footer>
+
+      {selectedProduct ? (
+        <div className="product-modal-backdrop" role="presentation" onMouseDown={closeProductDetails}>
+          <section
+            className="product-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="product-modal-title"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <button className="modal-close" type="button" onClick={closeProductDetails} aria-label="Cerrar detalle">
+              Cerrar
+            </button>
+
+            <div className="modal-gallery">
+              <img
+                src={getProductImages(selectedProduct)[selectedProductImageIndex]}
+                alt={selectedProduct.name}
+                draggable="false"
+              />
+              {getProductImages(selectedProduct).length > 1 ? (
+                <div className="modal-thumbnails" aria-label="Imágenes del producto">
+                  {getProductImages(selectedProduct).map((image, index) => (
+                    <button
+                      className={index === selectedProductImageIndex ? "is-active" : ""}
+                      type="button"
+                      key={image}
+                      onClick={() => setSelectedProductImageIndex(index)}
+                      aria-label={`Ver imagen ${index + 1}`}
+                    >
+                      <img src={image} alt="" draggable="false" />
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+
+            <div className="modal-content">
+              <span className="contact-kicker">{selectedProduct.tag}</span>
+              <h2 id="product-modal-title">{selectedProduct.name}</h2>
+              <p>{selectedProduct.description}</p>
+
+              <dl className="product-specs">
+                <div>
+                  <dt>Categoría</dt>
+                  <dd>{selectedProduct.category}</dd>
+                </div>
+                <div>
+                  <dt>Stock</dt>
+                  <dd>{selectedProduct.stock} disponible</dd>
+                </div>
+                <div>
+                  <dt>Precio</dt>
+                  <dd>{currencyFormatter.format(selectedProduct.price)} CLP</dd>
+                </div>
+              </dl>
+
+              <button
+                type="button"
+                className="primary-action modal-cart-action"
+                onClick={() =>
+                  addToCart(selectedProduct, {
+                    imageUrl: getProductImages(selectedProduct)[selectedProductImageIndex],
+                    sourceElement: document.querySelector(".product-modal .modal-gallery img"),
+                  })
+                }
+              >
+                Agregar al carrito
+              </button>
+            </div>
+          </section>
+        </div>
+      ) : null}
     </main>
   );
 }

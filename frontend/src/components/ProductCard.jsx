@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 
-export function ProductCard({ product, onAddToCart, currencyFormatter }) {
+export function ProductCard({ product, onAddToCart, onViewDetails, currencyFormatter }) {
   const images = useMemo(() => {
     const productImages = product.image_urls?.length ? product.image_urls : [product.image_url];
     return productImages.filter(Boolean);
@@ -59,7 +59,7 @@ export function ProductCard({ product, onAddToCart, currencyFormatter }) {
                   onClick={showPreviousImage}
                   aria-label="Ver imagen anterior"
                 >
-                  ←
+                  ‹
                 </button>
                 <button
                   className="gallery-control gallery-control-next"
@@ -67,19 +67,9 @@ export function ProductCard({ product, onAddToCart, currencyFormatter }) {
                   onClick={showNextImage}
                   aria-label="Ver imagen siguiente"
                 >
-                  →
+                  ›
                 </button>
-                <div className="gallery-dots" aria-label="Imágenes del producto">
-                  {images.map((image, index) => (
-                    <button
-                      className={index === activeImageIndex ? "is-active" : ""}
-                      type="button"
-                      key={image}
-                      onClick={() => setActiveImageIndex(index)}
-                      aria-label={`Ver imagen ${index + 1}`}
-                    />
-                  ))}
-                </div>
+                <span className="image-count">{activeImageIndex + 1}/{images.length}</span>
               </>
             ) : null}
           </>
@@ -87,6 +77,7 @@ export function ProductCard({ product, onAddToCart, currencyFormatter }) {
           <span aria-hidden="true">{product.category.slice(0, 2).toUpperCase()}</span>
         )}
       </div>
+
       <div className="product-content">
         <div className="product-meta">
           <span>{product.tag}</span>
@@ -94,22 +85,28 @@ export function ProductCard({ product, onAddToCart, currencyFormatter }) {
         </div>
         <h3>{product.name}</h3>
         <p>{product.description}</p>
+
         <div className="product-footer">
           <div className="price-stack">
             <strong>{currencyFormatter.format(product.price)}</strong>
             <span>CLP</span>
           </div>
-          <button
-            type="button"
-            onClick={(event) =>
-              onAddToCart(product, {
-                imageUrl: activeImage,
-                sourceElement: event.currentTarget.closest(".product-card")?.querySelector("img"),
-              })
-            }
-          >
-            Agregar
-          </button>
+          <div className="product-actions">
+            <button type="button" className="secondary-product-action" onClick={() => onViewDetails(product)}>
+              Ver detalle
+            </button>
+            <button
+              type="button"
+              onClick={(event) =>
+                onAddToCart(product, {
+                  imageUrl: activeImage,
+                  sourceElement: event.currentTarget.closest(".product-card")?.querySelector("img"),
+                })
+              }
+            >
+              Agregar
+            </button>
+          </div>
         </div>
       </div>
     </article>
