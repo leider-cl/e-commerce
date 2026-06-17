@@ -1,0 +1,610 @@
+.site-shell {
+  width: min(100%, 76rem);
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4.5rem;
+  padding: 0.75rem 0;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(1rem);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 2.75rem;
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--inverse-text);
+  background: var(--inverse);
+}
+
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+@media (max-width: 767px) {
+  .site-header {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.main-nav {
+  display: none;
+}
+
+.hero-section {
+  display: grid;
+  gap: 1.5rem;
+  padding: 3.5rem 0 2rem;
+}
+
+.eyebrow,
+.section-heading span,
+.hero-panel span,
+.product-meta,
+.site-footer {
+  font-family: "Courier New", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero-copy h1 {
+  max-width: 12ch;
+  margin: 0.8rem 0 1rem;
+  font-size: clamp(2.6rem, 8vw, 5.8rem);
+  line-height: 0.86;
+  letter-spacing: -0.08em;
+}
+
+.hero-copy p {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.65;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.primary-action,
+.secondary-action,
+.product-footer button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--ink);
+  font-family: "Courier New", monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.primary-action,
+.product-footer button {
+  color: var(--inverse-text);
+  background: var(--inverse);
+}
+
+.secondary-action {
+  background: transparent;
+}
+
+.primary-action:hover,
+.secondary-action:hover,
+.product-footer button:hover {
+  transform: translateY(-2px);
+}
+
+.hero-panel {
+  padding: 1.25rem;
+  color: var(--inverse-text);
+  background: var(--inverse);
+  border: 1px solid var(--ink);
+}
+
+.hero-panel strong {
+  display: block;
+  margin: 0.75rem 0;
+  font-size: clamp(4rem, 20vw, 8rem);
+  line-height: 0.8;
+}
+
+.hero-panel p {
+  max-width: 16rem;
+  margin: 0;
+  color: #d8d8d8;
+  line-height: 1.5;
+}
+
+.category-strip {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--ink);
+}
+
+.category-strip a {
+  min-height: 4rem;
+  padding: 1rem;
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.catalog-section {
+  padding: 3rem 0;
+}
+
+.section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: clamp(2rem, 8vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.product-card {
+  display: grid;
+  min-height: 100%;
+  background: var(--panel);
+  border: 1px solid var(--ink);
+}
+
+.product-visual {
+  display: grid;
+  place-items: center;
+  min-height: 12rem;
+  background:
+    radial-gradient(circle at center, transparent 0 36%, rgba(255,255,255,0.12) 37% 38%, transparent 39%),
+    var(--inverse);
+  color: var(--inverse-text);
+}
+
+.product-visual span {
+  display: grid;
+  place-items: center;
+  width: 5rem;
+  height: 5rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+}
+
+.product-content {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.product-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--muted);
+}
+
+.product-card h3 {
+  margin: 1rem 0 0.75rem;
+  font-size: 1.45rem;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.product-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.product-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: auto;
+  padding-top: 1.25rem;
+}
+
+.product-footer strong {
+  font-size: 1.25rem;
+}
+
+.product-footer button {
+  cursor: pointer;
+}
+
+.site-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 2rem 0;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+
+.site-footer p {
+  margin: 0;
+  color: var(--ink);
+}
+
+@media (min-width: 640px) {
+  .site-shell {
+    padding: 1.25rem;
+  }
+
+  .hero-actions,
+  .product-footer,
+  .site-footer {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .category-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-shell {
+    padding: 1.5rem;
+  }
+
+  .main-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-family: "Courier New", monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .main-nav a {
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .hero-section {
+    min-height: 36rem;
+    padding-top: 5rem;
+  }
+
+  .category-strip {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .catalog-section {
+    padding: 5rem 0;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-header,
+  .eyebrow,
+  .hero-copy h1,
+  .hero-copy p,
+  .hero-actions a,
+  .hero-panel,
+  .category-strip a,
+  .product-card {
+    will-change: transform, opacity;
+  }
+
+  .category-strip a,
+  .product-card,
+  .brand-mark {
+    transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+  }
+
+  .category-strip a:hover,
+  .product-card:hover {
+    transform: translateY(-0.25rem);
+  }
+
+  .brand:hover .brand-mark {
+    transform: rotate(-4deg) scale(1.04);
+  }
+}
+
+.contact-section {
+  padding: 3rem 0 4rem;
+  border-top: 1px solid var(--line);
+}
+
+.contact-heading p {
+  max-width: 44rem;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.contact-card {
+  padding: 1.25rem;
+  background: var(--panel);
+  border: 1px solid var(--ink);
+}
+
+.contact-card-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  color: var(--inverse-text);
+  background: var(--inverse);
+}
+
+.contact-card h3 {
+  max-width: 15ch;
+  margin: 0;
+  font-size: clamp(2rem, 7vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.contact-card p {
+  max-width: 40rem;
+  margin: 0;
+  color: #d8d8d8;
+  line-height: 1.6;
+}
+
+.contact-card-main .primary-action {
+  color: var(--ink);
+  background: var(--panel);
+  border-color: var(--panel);
+}
+
+.contact-kicker {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: currentColor;
+  font-family: "Courier New", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.contact-card strong {
+  display: block;
+  font-size: clamp(1.15rem, 4vw, 1.6rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.contact-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .contact-grid {
+    grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .contact-section {
+    padding: 5rem 0 6rem;
+  }
+}
+
+.category-strip button {
+  min-height: 4rem;
+  padding: 1rem;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.category-strip button.is-active {
+  color: var(--inverse-text);
+  background: var(--inverse);
+}
+
+.catalog-tools {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding: 1rem;
+  background: var(--panel);
+  border: 1px solid var(--ink);
+}
+
+.catalog-tools label,
+.catalog-tools span {
+  font-family: "Courier New", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.catalog-tools input {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.8rem 0;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  font: inherit;
+  outline: none;
+}
+
+.catalog-tools input:focus-visible {
+  border-bottom-width: 2px;
+}
+
+.cart-section {
+  padding: 3rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.cart-summary {
+  padding: 1rem;
+  background: var(--panel);
+  border: 1px solid var(--ink);
+}
+
+.cart-summary > p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.cart-items {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.cart-item div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.cart-item span {
+  color: var(--muted);
+}
+
+.cart-item button {
+  min-height: 2.75rem;
+  padding: 0.7rem 0.9rem;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink);
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.cart-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ink);
+}
+
+.cart-total span {
+  color: var(--muted);
+}
+
+.cart-total strong {
+  font-size: clamp(1.35rem, 5vw, 2rem);
+}
+
+@media (min-width: 640px) {
+  .catalog-tools {
+    grid-template-columns: auto minmax(16rem, 1fr) auto;
+    align-items: center;
+  }
+
+  .cart-item {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cart-section {
+    padding: 5rem 0;
+  }
+}
+
