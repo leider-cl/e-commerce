@@ -1,7 +1,6 @@
 ﻿import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { SiteHeader } from "./components/SiteHeader";
-import { HeroSection } from "./components/HeroSection";
 import { CategoryStrip } from "./components/CategoryStrip";
 import { CatalogSection } from "./components/CatalogSection";
 import { CartSection } from "./components/CartSection";
@@ -9,11 +8,22 @@ import { ContactSection } from "./components/ContactSection";
 import { SiteFooter } from "./components/SiteFooter";
 import { ProductModal } from "./components/ProductModal";
 import { AuthModal } from "./components/AuthModal";
-import "./App.css";
+import { PaymentResult } from "./components/PaymentResult";
+import { useAuth } from "./context/useAuth";
 
 const API_URL = import.meta.env.VITE_API_URL || "/api";
 
+const paymentParams = new URLSearchParams(window.location.search);
+const initialPaymentResult = (() => {
+  const status = paymentParams.get("status");
+  if (status) {
+    return { status, orderId: paymentParams.get("order_id") || null };
+  }
+  return null;
+})();
+
 function App() {
+  const { user } = useAuth();
   const pageRef = useRef(null);
   const cartLinkRef = useRef(null);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
@@ -26,6 +36,8 @@ function App() {
   const [selectedProductImageIndex, setSelectedProductImageIndex] = useState(0);
   const [cartNotice, setCartNotice] = useState("");
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [paymentResult, setPaymentResult] = useState(initialPaymentResult);
 
   const currencyFormatter = useMemo(
     () =>
@@ -186,6 +198,50 @@ function App() {
     setCartItems((currentItems) => currentItems.filter((item) => item.id !== productId));
   }
 
+  async function handleCheckout() {
+    if (!cartItems.length) return;
+    setCheckoutLoading(true);
+    try {
+      const res = await fetch(`${API_URL}/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ items: cartItems }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setPaymentResult({ status: "failure", orderId: null });
+      }
+    } catch {
+      setPaymentResult({ status: "failure", orderId: null });
+    } finally {
+      setCheckoutLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tokenWs = params.get("token_ws");
+
+    if (!tokenWs) return;
+
+    fetch(`${API_URL}/checkout/return?token_ws=${encodeURIComponent(tokenWs)}`, { credentials: "include" })
+      .then((r) => r.json())
+      .then((data) => {
+        setPaymentResult({ status: data.status || "success", orderId: data.order_id || null });
+      })
+      .catch(() => setPaymentResult({ status: "failure", orderId: null }));
+  }, []);
+
+  function dismissPaymentResult() {
+    setPaymentResult(null);
+    if (paymentResult?.status === "success") {
+      setCartItems([]);
+    }
+  }
+
   function openProductDetails(product) {
     setSelectedProduct(product);
     setSelectedProductImageIndex(0);
@@ -224,10 +280,6 @@ function App() {
 
       timeline
         .from(".site-header", { y: -18, autoAlpha: 0 })
-        .from(".eyebrow", { y: 14, autoAlpha: 0 }, "-=0.35")
-        .from(".hero-copy h1", { y: 24, autoAlpha: 0 }, "-=0.45")
-        .from(".hero-copy p", { y: 18, autoAlpha: 0 }, "-=0.45")
-        .from(".hero-actions a", { y: 12, autoAlpha: 0, stagger: 0.08 }, "-=0.35")
         .from(".category-strip button", { y: 14, autoAlpha: 0, stagger: 0.06 }, "-=0.3")
         .from(".catalog-tools", { y: 16, autoAlpha: 0 }, "-=0.25")
         .from(".product-card", { y: 22, autoAlpha: 0, stagger: 0.08 }, "-=0.15")
@@ -241,7 +293,6 @@ function App() {
   return (
     <main className="site-shell" ref={pageRef}>
       <SiteHeader cartCount={cartCount} cartLinkRef={cartLinkRef} onOpenAuth={() => setAuthModalOpen(true)} />
-      <HeroSection />
       <CategoryStrip
         categories={categories}
         selectedCategory={selectedCategory}
@@ -262,6 +313,9 @@ function App() {
         cartNotice={cartNotice}
         currencyFormatter={currencyFormatter}
         cartTotal={cartTotal}
+        user={user}
+        checkoutLoading={checkoutLoading}
+        onCheckout={handleCheckout}
         onDecreaseItem={decreaseCartItem}
         onIncreaseItem={increaseCartItem}
         onRemoveFromCart={removeFromCart}
@@ -282,6 +336,10 @@ function App() {
       ) : null}
 
       {authModalOpen ? <AuthModal onClose={() => setAuthModalOpen(false)} /> : null}
+
+      {paymentResult ? (
+        <PaymentResult status={paymentResult.status} orderId={paymentResult.orderId} onDismiss={dismissPaymentResult} />
+      ) : null}
     </main>
   );
 }
