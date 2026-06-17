@@ -771,7 +771,6 @@
 
 .cart-item {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 0.75rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--line);
@@ -790,6 +789,70 @@
   text-transform: uppercase;
 }
 
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.quantity-stepper {
+  display: grid;
+  grid-template-columns: 2.75rem 2.75rem 2.75rem;
+  border: 1px solid var(--ink);
+}
+
+.quantity-stepper button {
+  min-height: 2.45rem;
+  padding: 0;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  font-family: "Courier New", monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.quantity-stepper button:hover:not(:disabled) {
+  background: var(--panel);
+}
+
+.quantity-stepper button:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.quantity-stepper span {
+  display: grid;
+  place-items: center;
+  min-height: 2.45rem;
+  color: var(--ink);
+  font-weight: 700;
+  border-left: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
+}
+
+.cart-item-remove {
+  min-height: 2.45rem;
+  padding: 0 1rem;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  font-family: "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.cart-item-remove:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
 .cart-notice {
   margin: 0 0 0.75rem;
   padding: 0.75rem;
@@ -799,42 +862,8 @@
   font-weight: 700;
 }
 
-.cart-quantity-control {
-  display: grid;
-  grid-template-columns: 2.75rem minmax(4rem, 5rem) 2.75rem;
-  gap: 0.35rem;
-  align-items: center;
-}
-
-.cart-quantity-control input {
-  width: 100%;
-  min-height: 2.45rem;
-  color: var(--ink);
-  background: transparent;
-  border: 1px solid var(--ink);
-  text-align: center;
-  font: inherit;
-  font-weight: 700;
-}
-
-.cart-quantity-control .remove-line-item {
-  grid-column: 1 / -1;
-}
-
 .cart-item span {
   color: var(--muted);
-}
-
-.cart-item button {
-  min-height: 2.45rem;
-  padding: 0.7rem 0.9rem;
-  color: var(--ink);
-  background: transparent;
-  border: 1px solid var(--ink);
-  font-family: "Courier New", monospace;
-  font-weight: 700;
-  text-transform: uppercase;
-  cursor: pointer;
 }
 
 .cart-item button:disabled,
@@ -869,8 +898,12 @@
   }
 
   .cart-item {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
+  }
+
+  .cart-item-controls {
+    justify-self: end;
   }
 }
 

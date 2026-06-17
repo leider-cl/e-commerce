@@ -4,6 +4,7 @@ export function CartSection({
   currencyFormatter,
   cartTotal,
   onDecreaseItem,
+  onIncreaseItem,
   onRemoveFromCart,
 }) {
   if (cartItems.length === 0) {
@@ -33,11 +34,31 @@ export function CartSection({
             <article className="cart-item" key={item.id}>
               <div>
                 <strong>{item.name}</strong>
-                <span>{item.quantity} × {currencyFormatter.format(item.price)}</span>
+                <span>{currencyFormatter.format(item.price)} c/u</span>
               </div>
-              <div className="cart-item-actions">
-                <button type="button" onClick={() => onDecreaseItem(item.id)}>Quitar 1</button>
-                <button type="button" onClick={() => onRemoveFromCart(item.id)}>Quitar todo</button>
+              <div className="cart-item-controls">
+                <div className="quantity-stepper">
+                  <button
+                    type="button"
+                    onClick={() => onDecreaseItem(item.id)}
+                    disabled={item.quantity <= 1}
+                    aria-label="Disminuir cantidad"
+                  >
+                    −
+                  </button>
+                  <span>{item.quantity}</span>
+                  <button
+                    type="button"
+                    onClick={() => onIncreaseItem(item.id)}
+                    disabled={item.quantity >= item.stock}
+                    aria-label="Aumentar cantidad"
+                  >
+                    +
+                  </button>
+                </div>
+                <button type="button" className="cart-item-remove" onClick={() => onRemoveFromCart(item.id)}>
+                  Quitar
+                </button>
               </div>
             </article>
           ))}

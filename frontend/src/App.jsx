@@ -169,6 +169,16 @@ function App() {
     updateCartItemQuantity(productId, String(item.quantity - 1));
   }
 
+  function increaseCartItem(productId) {
+    const item = cartItems.find((i) => i.id === productId);
+    if (!item) return;
+    if (item.quantity >= item.stock) {
+      setCartNotice(`Solo hay ${item.stock} unidades disponibles de ${item.name}.`);
+      return;
+    }
+    updateCartItemQuantity(productId, String(item.quantity + 1));
+  }
+
   function removeFromCart(productId) {
     setCartNotice("");
     setCartItems((currentItems) => currentItems.filter((item) => item.id !== productId));
@@ -251,6 +261,7 @@ function App() {
         currencyFormatter={currencyFormatter}
         cartTotal={cartTotal}
         onDecreaseItem={decreaseCartItem}
+        onIncreaseItem={increaseCartItem}
         onRemoveFromCart={removeFromCart}
       />
       <ContactSection />
