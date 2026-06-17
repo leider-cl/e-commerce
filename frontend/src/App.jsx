@@ -5,7 +5,7 @@ import { CatalogSection } from "./components/CatalogSection";
 import { CartSection } from "./components/CartSection";
 import { ContactSection } from "./components/ContactSection";
 import { SiteFooter } from "./components/SiteFooter";
-import { ProductModal } from "./components/ProductModal";
+import { ProductDetailPage } from "./components/ProductDetailPage";
 import { AuthModal } from "./components/AuthModal";
 import { PaymentResult } from "./components/PaymentResult";
 import { useAuth } from "./context/useAuth";
@@ -31,7 +31,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState(["Todas"]);
   const [loading, setLoading] = useState(true);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [currentPath, setCurrentPath] = useState(() => window.location.pathname);
   const [selectedProductImageIndex, setSelectedProductImageIndex] = useState(0);
   const [cartNotice, setCartNotice] = useState("");
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -241,33 +241,35 @@ function App() {
     }
   }
 
-  function openProductDetails(product) {
-    setSelectedProduct(product);
-    setSelectedProductImageIndex(0);
+  const productSlugFromPath = currentPath.startsWith("/productos/")
+    ? decodeURIComponent(currentPath.replace("/productos/", "").split("/")[0])
+    : null;
+  const currentProduct = productSlugFromPath
+    ? products.find((product) => product.slug === productSlugFromPath)
+    : null;
+  const isProductDetailPage = Boolean(productSlugFromPath);
+
+  function navigateTo(path) {
+    window.history.pushState({}, "", path);
+    setCurrentPath(window.location.pathname);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function closeProductDetails() {
-    setSelectedProduct(null);
+  function openProductDetails(product) {
     setSelectedProductImageIndex(0);
+    navigateTo(`/productos/${product.slug}`);
+  }
+
+  function backToCatalog() {
+    setSelectedProductImageIndex(0);
+    navigateTo("/");
   }
 
   useEffect(() => {
-    if (!selectedProduct) return undefined;
-
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        closeProductDetails();
-      }
-    };
-
-    document.body.classList.add("modal-open");
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.classList.remove("modal-open");
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selectedProduct]);
+    const handlePopState = () => setCurrentPath(window.location.pathname);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   useEffect(() => {
     if (loading) return undefined;
@@ -294,45 +296,63 @@ function App() {
   return (
     <main className="site-shell" ref={pageRef}>
       <SiteHeader cartCount={cartCount} cartLinkRef={cartLinkRef} onOpenAuth={() => setAuthModalOpen(true)} />
-      <CatalogSection
-        categories={categories}
-        selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-        loading={loading}
-        filteredProducts={filteredProducts}
-        searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
-        currencyFormatter={currencyFormatter}
-        cartQuantityByProductId={cartQuantityByProductId}
-        onAddToCart={addToCart}
-        onViewDetails={openProductDetails}
-      />
-      <CartSection
-        cartItems={cartItems}
-        cartNotice={cartNotice}
-        currencyFormatter={currencyFormatter}
-        cartTotal={cartTotal}
-        user={user}
-        checkoutLoading={checkoutLoading}
-        onCheckout={handleCheckout}
-        onDecreaseItem={decreaseCartItem}
-        onIncreaseItem={increaseCartItem}
-        onRemoveFromCart={removeFromCart}
-      />
-      <ContactSection />
-      <SiteFooter />
-
-      {selectedProduct ? (
-        <ProductModal
-          product={selectedProduct}
-          selectedImageIndex={selectedProductImageIndex}
-          currencyFormatter={currencyFormatter}
-          cartQuantityByProductId={cartQuantityByProductId}
-          onClose={closeProductDetails}
-          onAddToCart={addToCart}
-          onSelectImageIndex={setSelectedProductImageIndex}
-        />
-      ) : null}
+      {isProductDetailPage ? (
+        <>
+          <ProductDetailPage
+            product={currentProduct}
+            selectedImageIndex={selectedProductImageIndex}
+            currencyFormatter={currencyFormatter}
+            cartQuantityByProductId={cartQuantityByProductId}
+            onBackToCatalog={backToCatalog}
+            onAddToCart={addToCart}
+            onSelectImageIndex={setSelectedProductImageIndex}
+            loading={loading}
+          />
+          <CartSection
+            cartItems={cartItems}
+            cartNotice={cartNotice}
+            currencyFormatter={currencyFormatter}
+            cartTotal={cartTotal}
+            user={user}
+            checkoutLoading={checkoutLoading}
+            onCheckout={handleCheckout}
+            onDecreaseItem={decreaseCartItem}
+            onIncreaseItem={increaseCartItem}
+            onRemoveFromCart={removeFromCart}
+          />
+          <SiteFooter />
+        </>
+      ) : (
+        <>
+          <CatalogSection
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+            loading={loading}
+            filteredProducts={filteredProducts}
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            currencyFormatter={currencyFormatter}
+            cartQuantityByProductId={cartQuantityByProductId}
+            onAddToCart={addToCart}
+            onViewDetails={openProductDetails}
+          />
+          <CartSection
+            cartItems={cartItems}
+            cartNotice={cartNotice}
+            currencyFormatter={currencyFormatter}
+            cartTotal={cartTotal}
+            user={user}
+            checkoutLoading={checkoutLoading}
+            onCheckout={handleCheckout}
+            onDecreaseItem={decreaseCartItem}
+            onIncreaseItem={increaseCartItem}
+            onRemoveFromCart={removeFromCart}
+          />
+          <ContactSection />
+          <SiteFooter />
+        </>
+      )}
 
       {authModalOpen ? <AuthModal onClose={() => setAuthModalOpen(false)} /> : null}
 

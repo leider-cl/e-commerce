@@ -167,29 +167,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
   .modal-open { @apply overflow-hidden; }
 
-  .product-modal-backdrop {
-    @apply fixed inset-0 z-1000 grid place-items-center p-4;
-    background: rgba(0, 0, 0, 0.55);
-  }
-  .product-modal {
-    @apply relative w-[min(62rem,100%)] max-h-[min(42rem,92vh)] overflow-auto bg-paper border border-ink lg:grid lg:grid-cols-[1fr_minmax(24rem,0.9fr)];
-  }
-  .modal-close {
-    @apply sticky top-0 z-2 justify-self-end min-h-11 px-4 py-3 bg-inverse text-inverse-text border-0 border-l border-b border-ink font-mono font-bold cursor-pointer lg:absolute lg:top-0 lg:right-0;
-  }
-  .modal-gallery {
-    @apply grid gap-4 p-2 bg-[#f7f7f5] border-b border-ink lg:min-h-full lg:border-r lg:border-b-0 lg:content-center;
-  }
-  .modal-gallery > img {
-    @apply w-full h-[min(22rem,52vh)] object-cover object-center;
-    mix-blend-mode: multiply;
-  }
-  .modal-content { @apply p-5 lg:p-8; }
-  .modal-content h2 {
-    @apply mt-[0.6rem] mb-4 text-[clamp(2rem,7vw,4.5rem)] leading-[0.9] tracking-[-0.06em];
-  }
-  .modal-content p { @apply max-w-[58ch] text-muted leading-[1.65]; }
-  .modal-cart-action { @apply w-full; }
 
   .modal-thumbnails { @apply flex gap-2 mt-4; }
   .modal-thumbnails button {
@@ -197,6 +174,29 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
   .modal-thumbnails button.is-active { @apply border-ink shadow-[inset_0_0_0_1px_black]; }
   .modal-thumbnails img { @apply w-full h-full object-contain; mix-blend-mode: multiply; }
+
+
+
+  .product-detail-page { @apply py-10 xl:py-16; }
+  .product-detail-back { @apply mb-5; }
+  .product-detail-layout {
+    @apply grid gap-6 bg-panel border border-ink p-4 md:grid-cols-[minmax(0,1fr)_minmax(20rem,0.8fr)] lg:p-6;
+  }
+  .product-detail-gallery {
+    @apply grid gap-4 bg-[#f7f7f5] border border-line p-2 content-start;
+  }
+  .product-detail-gallery > img {
+    @apply w-full h-[min(30rem,58vh)] object-cover object-center;
+    mix-blend-mode: multiply;
+  }
+  .product-detail-content { @apply min-w-0; }
+  .product-detail-content h1 {
+    @apply mt-3 mb-4 text-[clamp(2.2rem,7vw,5rem)] leading-[0.92] tracking-tighter wrap-break-word;
+  }
+  .product-detail-content p { @apply max-w-160 text-muted leading-[1.65] wrap-break-word; }
+  .product-detail-empty { @apply bg-panel border border-ink p-8; }
+  .product-detail-empty h1 { @apply m-0 mb-3 text-[clamp(2rem,7vw,4rem)] leading-none tracking-tighter; }
+  .product-detail-empty p { @apply m-0 text-muted; }
 
   .product-specs { @apply grid gap-0 my-6 border-t border-ink; }
   .product-specs div { @apply grid gap-[0.35rem] py-[0.85rem] border-b border-line; }
