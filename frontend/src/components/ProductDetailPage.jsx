@@ -6,6 +6,8 @@ export function ProductDetailPage({
   onBackToCatalog,
   onAddToCart,
   onSelectImageIndex,
+  relatedProducts = [],
+  onViewProduct,
   loading = false,
 }) {
   function getProductImages(currentProduct) {
@@ -106,6 +108,33 @@ export function ProductDetailPage({
           </button>
         </div>
       </article>
+
+      {relatedProducts.length > 0 ? (
+        <section className="related-products-section" aria-labelledby="related-products-title">
+          <div className="section-heading compact-heading">
+            <span>Tambi?n podr?a interesarte</span>
+            <h2 id="related-products-title">Productos similares</h2>
+          </div>
+          <div className="related-products-grid">
+            {relatedProducts.map((relatedProduct) => {
+              const relatedImage = relatedProduct.image_urls?.[0] ?? relatedProduct.image_url;
+              return (
+                <article className="related-product-card" key={relatedProduct.id}>
+                  <img src={relatedImage} alt={relatedProduct.name} loading="lazy" />
+                  <div>
+                    <span>{relatedProduct.tag}</span>
+                    <h3>{relatedProduct.name}</h3>
+                    <p>{currencyFormatter.format(relatedProduct.price)} CLP</p>
+                    <button type="button" className="secondary-action" onClick={() => onViewProduct(relatedProduct)}>
+                      Ver producto
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
     </section>
   );
 }

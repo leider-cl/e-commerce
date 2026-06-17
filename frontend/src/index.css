@@ -86,7 +86,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
     @apply font-mono text-xs tracking-widest uppercase;
   }
   .section-heading h2 {
-    @apply m-0 max-w-full text-[clamp(2rem,8vw,4.5rem)] leading-[0.95] tracking-tighter wrap-break-word;
+    @apply m-0 max-w-full text-[clamp(2rem,6vw,3.6rem)] leading-[0.95] tracking-tighter wrap-break-word;
   }
 
   .catalog-tools {
@@ -191,12 +191,29 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
   .product-detail-content { @apply min-w-0; }
   .product-detail-content h1 {
-    @apply mt-3 mb-4 text-[clamp(2.2rem,7vw,5rem)] leading-[0.92] tracking-tighter wrap-break-word;
+    @apply mt-3 mb-4 max-w-160 text-[clamp(2rem,5vw,3.35rem)] leading-[0.98] tracking-tighter wrap-break-word;
   }
   .product-detail-content p { @apply max-w-160 text-muted leading-[1.65] wrap-break-word; }
   .product-detail-empty { @apply bg-panel border border-ink p-8; }
-  .product-detail-empty h1 { @apply m-0 mb-3 text-[clamp(2rem,7vw,4rem)] leading-none tracking-tighter; }
+  .product-detail-empty h1 { @apply m-0 mb-3 text-[clamp(1.9rem,5vw,3rem)] leading-none tracking-tighter; }
   .product-detail-empty p { @apply m-0 text-muted; }
+
+
+
+  .compact-heading { @apply mt-10 mb-4; }
+  .compact-heading h2 { @apply text-[clamp(1.8rem,4vw,2.8rem)]; }
+  .related-products-section { @apply mt-8 border-t border-line pt-8; }
+  .related-products-grid { @apply grid grid-cols-[repeat(auto-fill,minmax(min(100%,16rem),16rem))] gap-4; }
+  .related-product-card { @apply grid bg-panel border border-ink; }
+  .related-product-card img {
+    @apply w-full h-40 object-cover object-center bg-[#f7f7f5];
+    mix-blend-mode: multiply;
+  }
+  .related-product-card div { @apply grid gap-2 p-4; }
+  .related-product-card span { @apply font-mono text-xs tracking-widest uppercase text-muted; }
+  .related-product-card h3 { @apply m-0 text-xl leading-tight tracking-[-0.03em] wrap-break-word; }
+  .related-product-card p { @apply m-0 text-sm text-muted; }
+  .related-product-card .secondary-action { @apply mt-2 w-full; }
 
   .product-specs { @apply grid gap-0 my-6 border-t border-ink; }
   .product-specs div { @apply grid gap-[0.35rem] py-[0.85rem] border-b border-line; }
@@ -260,7 +277,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
     @apply flex flex-col items-start gap-4 text-inverse-text bg-inverse;
   }
   .contact-card h3 {
-    @apply max-w-[15ch] m-0 text-[clamp(2rem,7vw,4rem)] leading-[0.95] tracking-tighter;
+    @apply max-w-[15ch] m-0 text-[clamp(1.9rem,5vw,3rem)] leading-[0.95] tracking-tighter;
   }
   .contact-card p { @apply max-w-160 m-0 leading-[1.6]; }
   .contact-card-main .primary-action { @apply text-ink bg-panel border-panel; }
@@ -280,7 +297,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
   .auth-modal { @apply relative w-[min(28rem,100%)] bg-paper border border-ink; }
   .auth-modal-content { @apply p-8 pb-6; }
-  .auth-modal-content h2 { @apply mt-[0.6rem] mb-6 text-[clamp(1.6rem,6vw,2.6rem)] leading-[0.95] tracking-tighter; }
+  .auth-modal-content h2 { @apply mt-[0.6rem] mb-6 text-[clamp(1.6rem,5vw,2.25rem)] leading-[0.95] tracking-tighter; }
   .auth-form { @apply grid gap-4; }
   .auth-field { @apply grid gap-[0.35rem]; }
   .auth-field span { @apply font-mono text-[0.75rem] font-bold tracking-widest uppercase; }

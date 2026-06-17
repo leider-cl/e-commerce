@@ -248,6 +248,11 @@ function App() {
     ? products.find((product) => product.slug === productSlugFromPath)
     : null;
   const isProductDetailPage = Boolean(productSlugFromPath);
+  const relatedProducts = currentProduct
+    ? products
+        .filter((product) => product.id !== currentProduct.id && product.category === currentProduct.category)
+        .slice(0, 3)
+    : products.filter((product) => product.slug !== productSlugFromPath).slice(0, 3);
 
   function navigateTo(path) {
     window.history.pushState({}, "", path);
@@ -306,6 +311,8 @@ function App() {
             onBackToCatalog={backToCatalog}
             onAddToCart={addToCart}
             onSelectImageIndex={setSelectedProductImageIndex}
+            relatedProducts={relatedProducts}
+            onViewProduct={openProductDetails}
             loading={loading}
           />
           <CartSection
