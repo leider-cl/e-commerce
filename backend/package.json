@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "leider-ecommerce-api",
   "version": "0.1.0",
   "private": true,
@@ -8,10 +8,11 @@
     "start": "node src/server.js"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "latest",
     "dotenv": "latest",
     "express": "latest",
+    "jsonwebtoken": "^9.0.3",
     "pg": "latest"
-  },
-  "devDependencies": {}
+  }
 }

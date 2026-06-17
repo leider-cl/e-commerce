@@ -8,6 +8,7 @@ import { CartSection } from "./components/CartSection";
 import { ContactSection } from "./components/ContactSection";
 import { SiteFooter } from "./components/SiteFooter";
 import { ProductModal } from "./components/ProductModal";
+import { AuthModal } from "./components/AuthModal";
 import "./App.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "/api";
@@ -24,6 +25,7 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedProductImageIndex, setSelectedProductImageIndex] = useState(0);
   const [cartNotice, setCartNotice] = useState("");
+  const [authModalOpen, setAuthModalOpen] = useState(false);
 
   const currencyFormatter = useMemo(
     () =>
@@ -238,7 +240,7 @@ function App() {
 
   return (
     <main className="site-shell" ref={pageRef}>
-      <SiteHeader cartCount={cartCount} cartLinkRef={cartLinkRef} />
+      <SiteHeader cartCount={cartCount} cartLinkRef={cartLinkRef} onOpenAuth={() => setAuthModalOpen(true)} />
       <HeroSection />
       <CategoryStrip
         categories={categories}
@@ -278,6 +280,8 @@ function App() {
           onSelectImageIndex={setSelectedProductImageIndex}
         />
       ) : null}
+
+      {authModalOpen ? <AuthModal onClose={() => setAuthModalOpen(false)} /> : null}
     </main>
   );
 }

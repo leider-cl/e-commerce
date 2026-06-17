@@ -936,3 +936,137 @@
   }
 }
 
+.nav-auth-trigger,
+.nav-logout {
+  background: none;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-family: "Courier New", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  min-height: 2.25rem;
+  padding: 0 0.75rem;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.nav-auth-trigger:hover,
+.nav-logout:hover {
+  background: var(--inverse);
+  color: var(--inverse-text);
+}
+
+.nav-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Courier New", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.auth-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.auth-modal {
+  position: relative;
+  width: min(28rem, 100%);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+}
+
+.auth-modal-content {
+  padding: 2rem 1.5rem;
+}
+
+.auth-modal-content h2 {
+  margin: 0.6rem 0 1.5rem;
+  font-size: clamp(1.6rem, 6vw, 2.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.auth-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.auth-field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.auth-field span {
+  font-family: "Courier New", monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.auth-field input {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0 0.75rem;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--ink);
+  font: inherit;
+  outline: none;
+}
+
+.auth-field input:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.auth-error {
+  margin: 0;
+  padding: 0.75rem;
+  color: var(--ink);
+  background: #f7f7f5;
+  border: 1px solid var(--ink);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.auth-submit {
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.auth-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.auth-switch {
+  margin: 1.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.auth-switch button {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
