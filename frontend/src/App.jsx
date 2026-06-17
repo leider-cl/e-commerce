@@ -1,15 +1,16 @@
 ﻿import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
-import { ProductCard } from "./components/ProductCard";
+import { SiteHeader } from "./components/SiteHeader";
+import { HeroSection } from "./components/HeroSection";
+import { CategoryStrip } from "./components/CategoryStrip";
+import { CatalogSection } from "./components/CatalogSection";
+import { CartSection } from "./components/CartSection";
+import { ContactSection } from "./components/ContactSection";
+import { SiteFooter } from "./components/SiteFooter";
+import { ProductModal } from "./components/ProductModal";
 import "./App.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "/api";
-
-const contactItems = [
-  { label: "Ventas", value: "contacto@leider.cl" },
-  { label: "Soporte", value: "+56 9 90229066" },
-  { label: "Horario", value: "Lun–Vie / 09:00–18:00" },
-];
 
 function App() {
   const pageRef = useRef(null);
@@ -162,16 +163,15 @@ function App() {
     );
   }
 
+  function decreaseCartItem(productId) {
+    const item = cartItems.find((i) => i.id === productId);
+    if (!item) return;
+    updateCartItemQuantity(productId, String(item.quantity - 1));
+  }
+
   function removeFromCart(productId) {
     setCartNotice("");
     setCartItems((currentItems) => currentItems.filter((item) => item.id !== productId));
-  }
-
-  function getProductImages(product) {
-    if (!product) return [];
-
-    const images = product.image_urls?.length ? product.image_urls : [product.image_url];
-    return images.filter(Boolean);
   }
 
   function openProductDetails(product) {
@@ -228,236 +228,44 @@ function App() {
 
   return (
     <main className="site-shell" ref={pageRef}>
-      <header className="site-header">
-        <a className="brand" href="#top" aria-label="LEIDER ecommerce home">
-          <span className="brand-mark">L</span>
-          <span>LEIDER</span>
-        </a>
-
-        <div className="header-actions">
-          <nav className="main-nav" aria-label="Main navigation">
-            <a href="#catalogo">Catálogo</a>
-            <a href="#carrito" ref={cartLinkRef}>Carrito ({cartCount})</a>
-            <a href="#contacto">Contacto</a>
-          </nav>
-        </div>
-      </header>
-
-      <section className="hero-section" id="top">
-        <div className="hero-copy">
-          <span className="eyebrow">Equipamiento técnico para operación real</span>
-          <h1>Catálogo técnico LEIDER.</h1>
-          <p>
-            Balanzas, sensores, pulseras y accesorios presentados con claridad
-            y precisión para tu operación industrial.
-          </p>
-          <div className="hero-actions">
-            <a className="primary-action" href="#catalogo">Ver productos</a>
-            <a className="secondary-action" href="#contacto">Solicitar cotización</a>
-          </div>
-        </div>
-      </section>
-
-      <section className="category-strip" id="categorias" aria-label="Categorías principales">
-        {categories.map((category) => (
-          <button
-            className={selectedCategory === category ? "is-active" : ""}
-            type="button"
-            key={category}
-            onClick={() => setSelectedCategory(category)}
-          >
-            {category}
-          </button>
-        ))}
-      </section>
-
-      <section className="catalog-section" id="catalogo">
-        <div className="section-heading">
-          <span>Catálogo</span>
-          <h2>Productos destacados</h2>
-        </div>
-
-        <div className="catalog-tools">
-          <label htmlFor="product-search">Buscar producto</label>
-          <input
-            id="product-search"
-            type="search"
-            placeholder="Ej: balanza, sensor, pulsera..."
-            value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
-          />
-          <span>{filteredProducts.length} resultados</span>
-        </div>
-
-        <div className="product-grid">
-          {loading ? (
-            <div className="loading-state" style={{ gridColumn: "1 / -1", textAlign: "center", padding: "3rem" }}>
-              <p>Cargando productos...</p>
-            </div>
-          ) : filteredProducts.length === 0 ? (
-            <div className="empty-state" style={{ gridColumn: "1 / -1", textAlign: "center", padding: "3rem" }}>
-              <p>No se encontraron productos.</p>
-            </div>
-          ) : (
-            filteredProducts.map((product) => (
-              <ProductCard
-                product={product}
-                key={product.id}
-                onAddToCart={addToCart}
-                onViewDetails={openProductDetails}
-                currencyFormatter={currencyFormatter}
-                cartQuantity={cartQuantityByProductId.get(product.id) ?? 0}
-              />
-            ))
-          )}
-        </div>
-      </section>
-
-      <section className="cart-section" id="carrito">
-        <div className="section-heading">
-          <span>Carrito</span>
-          <h2>Selección para cotizar</h2>
-        </div>
-        <div className="cart-summary">
-          {cartItems.length === 0 ? (
-            <p>Agrega productos para preparar una solicitud de cotización.</p>
-          ) : (
-            <>
-              {cartNotice ? <p className="cart-notice" role="alert">{cartNotice}</p> : null}
-              <div className="cart-items">
-                {cartItems.map((item) => (
-                  <article className="cart-item" key={item.id}>
-                    <div>
-                      <strong>{item.name}</strong>
-                      <span>{item.quantity} × {currencyFormatter.format(item.price)}</span>
-                    </div>
-                    <div className="cart-item-actions">
-                      <button type="button" onClick={() => decreaseCartItem(item.id)}>Quitar 1</button>
-                      <button type="button" onClick={() => removeFromCart(item.id)}>Quitar todo</button>
-                    </div>
-                  </article>
-                ))}
-              </div>
-              <div className="cart-total">
-                <span>Total referencial · CLP</span>
-                <strong>{currencyFormatter.format(cartTotal)}</strong>
-              </div>
-            </>
-          )}
-        </div>
-      </section>
-
-      <section className="contact-section" id="contacto">
-        <div className="section-heading contact-heading">
-          <span>Contacto</span>
-          <h2>Conversemos sobre tu operación.</h2>
-          <p>
-            Solicita tu cotización técnica y te contactamos en menos de 24h.
-          </p>
-        </div>
-
-        <div className="contact-grid">
-          <article className="contact-card contact-card-main">
-            <span className="contact-kicker">Cotización técnica</span>
-            <h3>¿Necesitas algo específico?</h3>
-            <p>
-              Indícanos qué necesitas: producto, cantidad y contexto de uso.
-            </p>
-            <a className="primary-action" href="mailto:ventas@leider.cl?subject=Cotización%20LEIDER">
-              Solicitar cotización
-            </a>
-          </article>
-
-          <div className="contact-list" aria-label="Canales de contacto">
-            {contactItems.map((item) => (
-              <article className="contact-card" key={item.label}>
-                <span className="contact-kicker">{item.label}</span>
-                <strong>{item.value}</strong>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <footer className="site-footer">
-        <p>LEIDER — Equipamiento técnico industrial</p>
-        <span>Balanzas, sensores, pulseras y accesorios para tu operación.</span>
-      </footer>
+      <SiteHeader cartCount={cartCount} cartLinkRef={cartLinkRef} />
+      <HeroSection />
+      <CategoryStrip
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
+      />
+      <CatalogSection
+        loading={loading}
+        filteredProducts={filteredProducts}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        currencyFormatter={currencyFormatter}
+        cartQuantityByProductId={cartQuantityByProductId}
+        onAddToCart={addToCart}
+        onViewDetails={openProductDetails}
+      />
+      <CartSection
+        cartItems={cartItems}
+        cartNotice={cartNotice}
+        currencyFormatter={currencyFormatter}
+        cartTotal={cartTotal}
+        onDecreaseItem={decreaseCartItem}
+        onRemoveFromCart={removeFromCart}
+      />
+      <ContactSection />
+      <SiteFooter />
 
       {selectedProduct ? (
-        <div className="product-modal-backdrop" role="presentation" onMouseDown={closeProductDetails}>
-          <section
-            className="product-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="product-modal-title"
-            onMouseDown={(event) => event.stopPropagation()}
-          >
-            <button className="modal-close" type="button" onClick={closeProductDetails} aria-label="Cerrar detalle">
-              Cerrar
-            </button>
-
-            <div className="modal-gallery">
-              <img
-                src={getProductImages(selectedProduct)[selectedProductImageIndex]}
-                alt={selectedProduct.name}
-                draggable="false"
-              />
-              {getProductImages(selectedProduct).length > 1 ? (
-                <div className="modal-thumbnails" aria-label="Imágenes del producto">
-                  {getProductImages(selectedProduct).map((image, index) => (
-                    <button
-                      className={index === selectedProductImageIndex ? "is-active" : ""}
-                      type="button"
-                      key={image}
-                      onClick={() => setSelectedProductImageIndex(index)}
-                      aria-label={`Ver imagen ${index + 1}`}
-                    >
-                      <img src={image} alt="" draggable="false" />
-                    </button>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-
-            <div className="modal-content">
-              <span className="contact-kicker">{selectedProduct.tag}</span>
-              <h2 id="product-modal-title">{selectedProduct.name}</h2>
-              <p>{selectedProduct.description}</p>
-
-              <dl className="product-specs">
-                <div>
-                  <dt>Categoría</dt>
-                  <dd>{selectedProduct.category}</dd>
-                </div>
-                <div>
-                  <dt>Stock</dt>
-                  <dd>{selectedProduct.stock} disponible</dd>
-                </div>
-                <div>
-                  <dt>Precio</dt>
-                  <dd>{currencyFormatter.format(selectedProduct.price)} CLP</dd>
-                </div>
-              </dl>
-
-              <button
-                type="button"
-                className="primary-action modal-cart-action"
-                disabled={(cartQuantityByProductId.get(selectedProduct.id) ?? 0) >= selectedProduct.stock}
-                onClick={() =>
-                  addToCart(selectedProduct, {
-                    imageUrl: getProductImages(selectedProduct)[selectedProductImageIndex],
-                    sourceElement: document.querySelector(".product-modal .modal-gallery img"),
-                  })
-                }
-              >
-                {(cartQuantityByProductId.get(selectedProduct.id) ?? 0) >= selectedProduct.stock
-                  ? "Stock máximo en carrito"
-                  : "Agregar al carrito"}
-              </button>
-            </div>
-          </section>
-        </div>
+        <ProductModal
+          product={selectedProduct}
+          selectedImageIndex={selectedProductImageIndex}
+          currencyFormatter={currencyFormatter}
+          cartQuantityByProductId={cartQuantityByProductId}
+          onClose={closeProductDetails}
+          onAddToCart={addToCart}
+          onSelectImageIndex={setSelectedProductImageIndex}
+        />
       ) : null}
     </main>
   );
