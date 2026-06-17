@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { SiteHeader } from "./components/SiteHeader";
-import { CategoryStrip } from "./components/CategoryStrip";
 import { CatalogSection } from "./components/CatalogSection";
 import { CartSection } from "./components/CartSection";
 import { ContactSection } from "./components/ContactSection";
@@ -295,12 +294,10 @@ function App() {
   return (
     <main className="site-shell" ref={pageRef}>
       <SiteHeader cartCount={cartCount} cartLinkRef={cartLinkRef} onOpenAuth={() => setAuthModalOpen(true)} />
-      <CategoryStrip
+      <CatalogSection
         categories={categories}
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
-      />
-      <CatalogSection
         loading={loading}
         filteredProducts={filteredProducts}
         searchTerm={searchTerm}

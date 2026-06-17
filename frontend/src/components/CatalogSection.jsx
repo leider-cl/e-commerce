@@ -1,7 +1,11 @@
+import { CategoryStrip } from "./CategoryStrip";
 import { ProductCard } from "./ProductCard";
 
 export function CatalogSection({
   loading,
+  categories,
+  selectedCategory,
+  onSelectCategory,
   filteredProducts,
   searchTerm,
   onSearchChange,
@@ -16,6 +20,12 @@ export function CatalogSection({
         <span>Catálogo</span>
         <h2>Productos destacados</h2>
       </div>
+
+      <CategoryStrip
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onSelectCategory={onSelectCategory}
+      />
 
       <div className="catalog-tools">
         <label htmlFor="product-search">Buscar producto</label>

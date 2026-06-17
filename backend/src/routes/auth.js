@@ -41,7 +41,7 @@ authRouter.post("/auth/register", async (req, res) => {
     console.log(`[VERIFY URL] ${verifyUrl}\n`);
 
     res.status(201).json({
-      message: "Registro exitoso. Revisá tu correo para verificar tu cuenta.",
+      message: "Registro exitoso. Revisa tu correo para verificar tu cuenta.",
     });
   } catch (error) {
     console.error("Error registering user:", error);
@@ -70,11 +70,11 @@ authRouter.get("/auth/verify-email", async (req, res) => {
     const user = result.rows[0];
 
     if (user.email_verified) {
-      return res.json({ message: "El email ya estaba verificado. Podés iniciar sesión." });
+      return res.json({ message: "El email ya estaba verificado. Puedes iniciar sesión." });
     }
 
     if (new Date() > new Date(user.verification_token_expires_at)) {
-      return res.status(400).json({ error: "El token de verificación expiró. Solicitá uno nuevo." });
+      return res.status(400).json({ error: "El token de verificación expiró. Solicita uno nuevo." });
     }
 
     await pool.query(
@@ -83,7 +83,7 @@ authRouter.get("/auth/verify-email", async (req, res) => {
       [user.id]
     );
 
-    res.json({ message: "Email verificado exitosamente. Ya podés iniciar sesión." });
+    res.json({ message: "Email verificado exitosamente. Ya puedes iniciar sesión." });
   } catch (error) {
     console.error("Error verifying email:", error);
     res.status(500).json({ error: "Error al verificar email" });
@@ -110,7 +110,7 @@ authRouter.post("/auth/resend-verification", async (req, res) => {
     const user = result.rows[0];
 
     if (user.email_verified) {
-      return res.json({ message: "El email ya está verificado. Podés iniciar sesión." });
+      return res.json({ message: "El email ya está verificado. Puedes iniciar sesión." });
     }
 
     const verificationToken = randomBytes(32).toString("hex");
@@ -156,13 +156,6 @@ authRouter.post("/auth/login", async (req, res) => {
 
     if (!valid) {
       return res.status(401).json({ error: "Email o contraseña incorrectos" });
-    }
-
-    if (!user.email_verified) {
-      return res.status(403).json({
-        error: "Email no verificado. Revisá tu correo o solicitá un nuevo link de verificación.",
-        needsVerification: true,
-      });
     }
 
     const token = jwt.sign(

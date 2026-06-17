@@ -59,10 +59,10 @@ export function AuthModal({ onClose }) {
           </button>
           <div className="auth-modal-content">
             <span className="contact-kicker">Cuenta</span>
-            <h2 id="auth-modal-title">Revisá tu correo</h2>
+            <h2 id="auth-modal-title">Revisa tu correo</h2>
             <p style={{ margin: "1rem 0", lineHeight: 1.5 }}>
               Te enviamos un link de verificación a <strong>{registeredEmail}</strong>.
-              Hacé clic en el link para activar tu cuenta y después iniciá sesión.
+              Haz clic en el link para activar tu cuenta y después inicia sesión.
             </p>
             <button
               type="button"
@@ -157,16 +157,16 @@ export function AuthModal({ onClose }) {
           <p className="auth-switch">
             {mode === "login" ? (
               <>
-                ¿No tenés cuenta?{" "}
+                ¿No tienes cuenta?{" "}
                 <button type="button" onClick={() => switchMode("register")}>
                   Registrate
                 </button>
               </>
             ) : (
               <>
-                ¿Ya tenés cuenta?{" "}
+                ¿Ya tienes cuenta?{" "}
                 <button type="button" onClick={() => switchMode("login")}>
-                  Iniciá sesión
+                  Inicia sesión
                 </button>
               </>
             )}
