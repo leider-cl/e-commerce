@@ -4,6 +4,7 @@ import { useAuth } from "../context/useAuth";
 export function AuthModal({ onClose }) {
   const { login, register } = useAuth();
   const [mode, setMode] = useState("login");
+  const [registeredEmail, setRegisteredEmail] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +20,7 @@ export function AuthModal({ onClose }) {
 
   function switchMode(newMode) {
     setMode(newMode);
+    setRegisteredEmail("");
     resetForm();
   }
 
@@ -30,15 +32,52 @@ export function AuthModal({ onClose }) {
     try {
       if (mode === "login") {
         await login(email, password);
+        onClose();
       } else {
         await register(name, email, password);
+        setRegisteredEmail(email);
+        resetForm();
       }
-      onClose();
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Error inesperado");
     } finally {
       setSubmitting(false);
     }
+  }
+
+  if (registeredEmail) {
+    return (
+      <div className="auth-backdrop" onMouseDown={onClose}>
+        <section
+          className="auth-modal"
+          role="dialog"
+          aria-labelledby="auth-modal-title"
+          onMouseDown={(event) => event.stopPropagation()}
+        >
+          <button className="modal-close" type="button" onClick={onClose} aria-label="Cerrar">
+            Cerrar
+          </button>
+          <div className="auth-modal-content">
+            <span className="contact-kicker">Cuenta</span>
+            <h2 id="auth-modal-title">Revisá tu correo</h2>
+            <p style={{ margin: "1rem 0", lineHeight: 1.5 }}>
+              Te enviamos un link de verificación a <strong>{registeredEmail}</strong>.
+              Hacé clic en el link para activar tu cuenta y después iniciá sesión.
+            </p>
+            <button
+              type="button"
+              className="primary-action auth-submit"
+              onClick={() => {
+                setRegisteredEmail("");
+                setMode("login");
+              }}
+            >
+              Ir a iniciar sesión
+            </button>
+          </div>
+        </section>
+      </div>
+    );
   }
 
   return (

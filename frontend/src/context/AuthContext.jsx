@@ -3,13 +3,30 @@ import { AuthContext } from "./auth-context";
 
 const API_URL = import.meta.env.VITE_API_URL || "/api";
 
+function getInitialToken() {
+  const params = new URLSearchParams(window.location.search);
+  const tokenParam = params.get("token");
+
+  if (tokenParam) {
+    localStorage.setItem("token", tokenParam);
+    const cleanUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, "", cleanUrl);
+    return tokenParam;
+  }
+
+  return localStorage.getItem("token");
+}
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(() => !!localStorage.getItem("token"));
+  const [loading, setLoading] = useState(() => !!getInitialToken());
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) return;
+
+    if (!token) {
+      return;
+    }
 
     let cancelled = false;
 
@@ -47,7 +64,7 @@ export function AuthProvider({ children }) {
     const data = await res.json();
 
     if (!res.ok) {
-      throw new Error(data.error || "Error al iniciar sesión");
+      throw { message: data.error || "Error al iniciar sesión", needsVerification: data.needsVerification };
     }
 
     localStorage.setItem("token", data.token);
@@ -68,9 +85,23 @@ export function AuthProvider({ children }) {
       throw new Error(data.error || "Error al registrar");
     }
 
-    localStorage.setItem("token", data.token);
-    setUser(data.user);
-    return data.user;
+    return data;
+  }, []);
+
+  const resendVerification = useCallback(async (email) => {
+    const res = await fetch(`${API_URL}/auth/resend-verification`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "Error al reenviar verificación");
+    }
+
+    return data;
   }, []);
 
   const logout = useCallback(() => {
@@ -79,7 +110,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, resendVerification }}>
       {children}
     </AuthContext.Provider>
   );
