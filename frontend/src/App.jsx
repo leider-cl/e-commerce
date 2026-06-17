@@ -452,7 +452,7 @@ function App() {
                 }
               >
                 {(cartQuantityByProductId.get(selectedProduct.id) ?? 0) >= selectedProduct.stock
-                  ? "Stock mÃ¡ximo en carrito"
+                  ? "Stock máximo en carrito"
                   : "Agregar al carrito"}
               </button>
             </div>
