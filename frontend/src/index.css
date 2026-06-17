@@ -1,4 +1,4 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
 @theme {
   --color-ink: #0b0b0b;
@@ -33,7 +33,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
     @apply mx-auto w-[min(100%,76rem)] p-4 sm:p-5 xl:p-6;
   }
   .site-header {
-    @apply sticky top-0 z-10 flex items-center justify-between gap-4 min-h-[4.5rem] p-0;
+    @apply sticky top-0 z-10 flex items-center justify-between gap-4 min-h-18 p-0;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     background: color-mix(in srgb, var(--color-paper) 88%, transparent);
@@ -41,7 +41,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
     border-bottom: 1px solid var(--color-line);
   }
   .brand {
-    @apply inline-flex items-center gap-[0.7rem] min-h-[2.75rem] font-mono font-bold tracking-[0.16em] no-underline;
+    @apply inline-flex items-center gap-[0.7rem] min-h-11 font-mono font-bold tracking-[0.16em] no-underline;
   }
   .brand-mark {
     @apply grid place-items-center w-9 h-9 text-inverse-text bg-inverse;
@@ -53,13 +53,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
     @apply hidden lg:flex items-center gap-6 font-mono text-xs font-bold tracking-widest uppercase;
   }
   .main-nav a {
-    @apply min-h-[2.75rem] inline-flex items-center no-underline;
+    @apply min-h-11 inline-flex items-center no-underline;
   }
   .nav-user {
     @apply inline-flex items-center gap-2 font-mono text-xs font-bold tracking-wide uppercase;
   }
   .nav-auth-trigger, .nav-logout {
-    @apply bg-none border border-ink text-ink font-mono text-xs font-bold tracking-widest uppercase cursor-pointer min-h-[2.25rem] px-3;
+    @apply bg-none border border-ink text-ink font-mono text-xs font-bold tracking-widest uppercase cursor-pointer min-h-9 px-3;
     transition: background 120ms ease, color 120ms ease;
   }
   .nav-auth-trigger:hover, .nav-logout:hover {
@@ -70,7 +70,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
     @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-ink;
   }
   .category-strip button {
-    @apply min-h-[4rem] p-4 text-ink bg-transparent border-0 border-r border-b border-ink font-mono font-bold text-left uppercase cursor-pointer;
+    @apply min-h-16 p-4 text-ink bg-transparent border-0 border-r border-b border-ink font-mono font-bold text-left uppercase cursor-pointer;
     transition: transform 180ms ease, background 180ms ease, color 180ms ease;
   }
   .category-strip button:hover {
@@ -86,7 +86,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
     @apply font-mono text-xs tracking-widest uppercase;
   }
   .section-heading h2 {
-    @apply m-0 text-[clamp(2rem,8vw,4.5rem)] leading-[0.95] tracking-[-0.05em];
+    @apply m-0 max-w-full text-[clamp(2rem,8vw,4.5rem)] leading-[0.95] tracking-tighter wrap-break-word;
   }
 
   .catalog-tools {
@@ -96,23 +96,23 @@ button, a { -webkit-tap-highlight-color: transparent; }
     @apply font-mono text-xs font-bold tracking-widest uppercase;
   }
   .catalog-tools input {
-    @apply w-full min-h-[2.75rem] py-3 px-0 text-ink bg-transparent border-0 border-b border-ink font-[inherit] outline-none;
+    @apply w-full min-h-11 py-3 px-0 text-ink bg-transparent border-0 border-b border-ink font-[inherit] outline-none;
   }
   .catalog-tools input:focus-visible {
     @apply border-b-2;
   }
 
   .product-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4;
+    @apply grid grid-cols-[repeat(auto-fit,minmax(min(100%,18rem),1fr))] gap-4;
   }
 
   .product-card {
-    @apply grid min-h-full bg-panel border border-ink;
+    @apply grid min-w-0 min-h-full bg-panel border border-ink;
     transition: transform 180ms ease, background 180ms ease, color 180ms ease;
   }
   .product-card:hover { @apply -translate-y-1; }
   .product-visual {
-    @apply relative grid place-items-center min-h-[12rem] p-[0.35rem] bg-[#f7f7f5] overflow-hidden select-none;
+    @apply relative grid place-items-center min-h-48 p-[0.35rem] bg-[#f7f7f5] overflow-hidden select-none;
     touch-action: pan-y;
   }
   .product-visual img {
@@ -124,12 +124,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
   .product-content { @apply flex flex-col p-4; }
   .product-meta {
-    @apply flex justify-between gap-4 text-muted font-mono text-xs tracking-widest uppercase;
+    @apply flex flex-wrap justify-between gap-3 text-muted font-mono text-xs tracking-widest uppercase;
   }
-  .product-card h3 { @apply m-4 mb-3 text-2xl leading-[1.05] tracking-[-0.03em]; }
-  .product-card p { @apply m-0 text-muted leading-[1.55]; }
-  .product-footer { @apply flex flex-col gap-[0.85rem] mt-auto pt-5 sm:flex-row sm:items-center sm:flex-col sm:items-stretch; }
-  .product-footer strong { @apply text-xl; }
+  .product-card h3 { @apply mt-3 mb-2 mx-0 text-2xl leading-[1.05] tracking-[-0.03em] wrap-break-word; }
+  .product-card p { @apply m-0 text-muted leading-[1.55] wrap-break-word; }
+  .product-footer { @apply flex flex-col gap-4 mt-auto pt-4; }
+  .price-stack { @apply flex items-baseline gap-1; }
+  .price-stack span { @apply font-mono text-xs text-muted uppercase; }
 
   .gallery-control {
     @apply absolute top-1/2 grid place-items-center w-[2.35rem] h-[2.35rem] p-0 text-inverse-text bg-inverse border border-ink cursor-pointer text-[1.45rem] leading-none;
@@ -142,19 +143,19 @@ button, a { -webkit-tap-highlight-color: transparent; }
     @apply absolute right-[0.55rem] top-[0.55rem] inline-flex items-center justify-center px-[0.3rem] py-[0.16rem] text-inverse-text bg-inverse border border-ink font-mono text-[0.56rem] font-bold leading-none;
   }
 
-  .product-actions { @apply flex flex-col gap-2 w-full sm:flex-row; }
+  .product-actions { @apply flex flex-col gap-2 w-full min-w-0; }
   .product-actions button { @apply w-full; }
   .secondary-product-action { @apply text-ink bg-transparent; }
   .product-actions button:disabled { @apply cursor-not-allowed opacity-45; }
 
   .cart-flyer {
-    @apply fixed z-[9999] p-[0.35rem] bg-[#f7f7f5] border border-ink pointer-events-none;
+    @apply fixed z-9999 p-[0.35rem] bg-[#f7f7f5] border border-ink pointer-events-none;
     object-fit: contain;
     mix-blend-mode: multiply;
   }
 
   .primary-action, .secondary-action, .product-footer button {
-    @apply inline-flex items-center justify-center min-h-[2.75rem] px-4 py-[0.85rem] border border-ink font-mono text-[0.82rem] font-bold tracking-widest no-underline uppercase;
+    @apply inline-flex min-w-0 items-center justify-center min-h-11 px-4 py-[0.85rem] border border-ink font-mono text-[0.82rem] font-bold tracking-widest no-underline uppercase;
     transition: transform 160ms ease, background 160ms ease, color 160ms ease;
   }
   .primary-action, .product-footer button {
@@ -167,14 +168,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .modal-open { @apply overflow-hidden; }
 
   .product-modal-backdrop {
-    @apply fixed inset-0 z-[1000] grid place-items-center p-4;
+    @apply fixed inset-0 z-1000 grid place-items-center p-4;
     background: rgba(0, 0, 0, 0.55);
   }
   .product-modal {
     @apply relative w-[min(62rem,100%)] max-h-[min(42rem,92vh)] overflow-auto bg-paper border border-ink lg:grid lg:grid-cols-[1fr_minmax(24rem,0.9fr)];
   }
   .modal-close {
-    @apply sticky top-0 z-[2] justify-self-end min-h-[2.75rem] px-4 py-3 bg-inverse text-inverse-text border-0 border-l border-b border-ink font-mono font-bold cursor-pointer lg:absolute lg:top-0 lg:right-0;
+    @apply sticky top-0 z-2 justify-self-end min-h-11 px-4 py-3 bg-inverse text-inverse-text border-0 border-l border-b border-ink font-mono font-bold cursor-pointer lg:absolute lg:top-0 lg:right-0;
   }
   .modal-gallery {
     @apply grid gap-4 p-2 bg-[#f7f7f5] border-b border-ink lg:min-h-full lg:border-r lg:border-b-0 lg:content-center;
@@ -218,17 +219,17 @@ button, a { -webkit-tap-highlight-color: transparent; }
     @apply grid grid-cols-[2.75rem_2.75rem_2.75rem] border border-ink;
   }
   .quantity-stepper button {
-    @apply min-h-[2.45rem] p-0 text-ink bg-transparent border-0 font-mono text-lg font-bold cursor-pointer;
+    @apply min-h-10 p-0 text-ink bg-transparent border-0 font-mono text-lg font-bold cursor-pointer;
     transition: background 120ms ease;
   }
   .quantity-stepper button:hover:not(:disabled) { @apply bg-panel; }
   .quantity-stepper button:disabled { @apply cursor-not-allowed opacity-30; }
   .quantity-stepper span {
-    @apply grid place-items-center min-h-[2.45rem] text-ink font-bold border-x border-ink;
+    @apply grid place-items-center min-h-10 text-ink font-bold border-x border-ink;
   }
 
   .cart-item-remove {
-    @apply min-h-[2.45rem] px-4 text-muted bg-transparent border border-line font-mono text-[0.72rem] font-bold tracking-widest uppercase cursor-pointer;
+    @apply min-h-10 px-4 text-muted bg-transparent border border-line font-mono text-[0.72rem] font-bold tracking-widest uppercase cursor-pointer;
     transition: color 120ms ease, border-color 120ms ease;
   }
   .cart-item-remove:hover { @apply text-ink border-ink; }
@@ -252,18 +253,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .cart-login-hint { @apply m-0 text-muted text-sm text-center; }
 
   .contact-section { @apply py-12 pb-16 xl:py-20 xl:pb-24 border-t border-line; }
-  .contact-heading p { @apply max-w-[44rem] m-0 text-muted leading-[1.65]; }
+  .contact-heading p { @apply max-w-176 m-0 text-muted leading-[1.65]; }
   .contact-grid { @apply grid grid-cols-1 gap-4 mt-6 md:grid-cols-[minmax(0,1.35fr)_minmax(18rem,0.65fr)]; }
   .contact-card { @apply p-5 bg-panel border border-ink; }
   .contact-card-main {
     @apply flex flex-col items-start gap-4 text-inverse-text bg-inverse;
   }
   .contact-card h3 {
-    @apply max-w-[15ch] m-0 text-[clamp(2rem,7vw,4rem)] leading-[0.95] tracking-[-0.05em];
+    @apply max-w-[15ch] m-0 text-[clamp(2rem,7vw,4rem)] leading-[0.95] tracking-tighter;
   }
-  .contact-card p { @apply max-w-[40rem] m-0 leading-[1.6]; }
+  .contact-card p { @apply max-w-160 m-0 leading-[1.6]; }
   .contact-card-main .primary-action { @apply text-ink bg-panel border-panel; }
-  .contact-card strong { @apply block text-[clamp(1.15rem,4vw,1.6rem)] leading-[1.15] break-words; }
+  .contact-card strong { @apply block text-[clamp(1.15rem,4vw,1.6rem)] leading-[1.15] wrap-break-word; }
   .contact-list { @apply grid grid-cols-1 gap-4; }
 
   .contact-kicker {
@@ -274,17 +275,17 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .site-footer p { @apply m-0 text-ink; }
 
   .auth-backdrop {
-    @apply fixed inset-0 z-[1000] grid place-items-center p-4;
+    @apply fixed inset-0 z-1000 grid place-items-center p-4;
     background: rgba(0, 0, 0, 0.55);
   }
   .auth-modal { @apply relative w-[min(28rem,100%)] bg-paper border border-ink; }
   .auth-modal-content { @apply p-8 pb-6; }
-  .auth-modal-content h2 { @apply mt-[0.6rem] mb-6 text-[clamp(1.6rem,6vw,2.6rem)] leading-[0.95] tracking-[-0.05em]; }
+  .auth-modal-content h2 { @apply mt-[0.6rem] mb-6 text-[clamp(1.6rem,6vw,2.6rem)] leading-[0.95] tracking-tighter; }
   .auth-form { @apply grid gap-4; }
   .auth-field { @apply grid gap-[0.35rem]; }
   .auth-field span { @apply font-mono text-[0.75rem] font-bold tracking-widest uppercase; }
   .auth-field input {
-    @apply w-full min-h-[2.75rem] px-3 text-ink bg-panel border border-ink font-[inherit] outline-none;
+    @apply w-full min-h-11 px-3 text-ink bg-panel border border-ink font-[inherit] outline-none;
   }
   .auth-field input:focus-visible { @apply outline-2 outline-ink outline-offset-1; }
   .auth-error { @apply m-0 p-3 text-ink bg-[#f7f7f5] border border-ink font-bold text-sm; }
@@ -303,7 +304,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .auth-divider span { @apply text-muted text-sm; }
 
   .payment-result-backdrop {
-    @apply fixed inset-0 z-[1000] grid place-items-center p-4;
+    @apply fixed inset-0 z-1000 grid place-items-center p-4;
     background: rgba(0, 0, 0, 0.55);
   }
   .payment-result {
@@ -315,6 +316,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .payment-result-icon.is-ok { @apply text-[#2a7a2a] border-[#2a7a2a]; }
   .payment-result-icon.is-fail { @apply text-[#a02a2a] border-[#a02a2a]; }
   .payment-result h2 { @apply m-0 text-[1.6rem] leading-none tracking-[-0.03em]; }
-  .payment-result p { @apply m-0 text-muted leading-[1.5]; }
+  .payment-result p { @apply m-0 text-muted leading-normal; }
   .payment-result .primary-action { @apply justify-center w-full mt-2; }
 }

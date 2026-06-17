@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { SiteHeader } from "./components/SiteHeader";
 import { CategoryStrip } from "./components/CategoryStrip";
@@ -271,6 +271,8 @@ function App() {
   }, [selectedProduct]);
 
   useEffect(() => {
+    if (loading) return undefined;
+
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (reduceMotion) return undefined;
@@ -279,16 +281,16 @@ function App() {
       const timeline = gsap.timeline({ defaults: { duration: 0.7, ease: "power3.out" } });
 
       timeline
-        .from(".site-header", { y: -18, autoAlpha: 0 })
-        .from(".category-strip button", { y: 14, autoAlpha: 0, stagger: 0.06 }, "-=0.3")
-        .from(".catalog-tools", { y: 16, autoAlpha: 0 }, "-=0.25")
-        .from(".product-card", { y: 22, autoAlpha: 0, stagger: 0.08 }, "-=0.15")
-        .from(".cart-summary", { y: 20, autoAlpha: 0 }, "-=0.2")
-        .from(".contact-card", { y: 20, autoAlpha: 0, stagger: 0.08 }, "-=0.2");
+        .from(".site-header", { y: -18, autoAlpha: 0, clearProps: "all" })
+        .from(".category-strip button", { y: 14, autoAlpha: 0, stagger: 0.06, clearProps: "all" }, "-=0.3")
+        .from(".catalog-tools", { y: 16, autoAlpha: 0, clearProps: "all" }, "-=0.25")
+        .from(".product-card", { y: 22, autoAlpha: 0, stagger: 0.08, clearProps: "all" }, "-=0.15")
+        .from(".cart-summary", { y: 20, autoAlpha: 0, clearProps: "all" }, "-=0.2")
+        .from(".contact-card", { y: 20, autoAlpha: 0, stagger: 0.08, clearProps: "all" }, "-=0.2");
     }, pageRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [loading]);
 
   return (
     <main className="site-shell" ref={pageRef}>
