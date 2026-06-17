@@ -1,8 +1,9 @@
 ﻿import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
-import { categories, products } from "./data/products";
 import { ProductCard } from "./components/ProductCard";
 import "./App.css";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 const contactItems = [
   { label: "Ventas", value: "contacto@leider.cl" },
@@ -15,6 +16,9 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState("Todas");
   const [searchTerm, setSearchTerm] = useState("");
   const [cartItems, setCartItems] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState(["Todas"]);
+  const [loading, setLoading] = useState(true);
 
   const currencyFormatter = useMemo(
     () =>
@@ -25,6 +29,26 @@ function App() {
       }),
     [],
   );
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [productsRes, categoriesRes] = await Promise.all([
+          fetch(`${API_URL}/products`),
+          fetch(`${API_URL}/categories`),
+        ]);
+        const productsData = await productsRes.json();
+        const categoriesData = await categoriesRes.json();
+        setProducts(productsData);
+        setCategories(["Todas", ...categoriesData]);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
 
   const filteredProducts = useMemo(() => {
     const normalizedSearch = searchTerm.trim().toLowerCase();
@@ -39,7 +63,7 @@ function App() {
 
       return matchesCategory && matchesSearch;
     });
-  }, [selectedCategory, searchTerm]);
+  }, [selectedCategory, searchTerm, products]);
 
   const cartTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -119,7 +143,7 @@ function App() {
       </section>
 
       <section className="category-strip" id="categorias" aria-label="Categorías principales">
-        {["Todas", ...categories].map((category) => (
+        {categories.map((category) => (
           <button
             className={selectedCategory === category ? "is-active" : ""}
             type="button"
@@ -150,14 +174,24 @@ function App() {
         </div>
 
         <div className="product-grid">
-          {filteredProducts.map((product) => (
-            <ProductCard
-              product={product}
-              key={product.id}
-              onAddToCart={addToCart}
-              currencyFormatter={currencyFormatter}
-            />
-          ))}
+          {loading ? (
+            <div className="loading-state" style={{ gridColumn: "1 / -1", textAlign: "center", padding: "3rem" }}>
+              <p>Cargando productos...</p>
+            </div>
+          ) : filteredProducts.length === 0 ? (
+            <div className="empty-state" style={{ gridColumn: "1 / -1", textAlign: "center", padding: "3rem" }}>
+              <p>No se encontraron productos.</p>
+            </div>
+          ) : (
+            filteredProducts.map((product) => (
+              <ProductCard
+                product={product}
+                key={product.id}
+                onAddToCart={addToCart}
+                currencyFormatter={currencyFormatter}
+              />
+            ))
+          )}
         </div>
       </section>
 
