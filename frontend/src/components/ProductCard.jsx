@@ -106,7 +106,7 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
                 })
               }
             >
-              {reachedStockLimit ? "Stock mÃ¡ximo" : "Agregar"}
+              {reachedStockLimit ? "Stock máximo" : "Agregar"}
             </button>
           </div>
         </div>
