@@ -15,7 +15,6 @@ export function CatalogSection({
   onViewDetails,
 }) {
   const featuredProduct = filteredProducts[0];
-  const featuredImage = featuredProduct?.image_urls?.[0] ?? featuredProduct?.image_url;
 
   return (
     <section className="catalog-section" id="catalogo">
@@ -46,12 +45,6 @@ export function CatalogSection({
                 ) : null}
               </div>
             </div>
-            {featuredProduct ? (
-              <div className="store-hero-product">
-                <img src={featuredImage} alt={featuredProduct.name} />
-                <span>{featuredProduct.tag}</span>
-              </div>
-            ) : null}
           </section>
 
           <div className="brand-strip" aria-label="Marcas destacadas">

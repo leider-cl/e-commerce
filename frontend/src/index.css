@@ -8,8 +8,8 @@
   --color-line: #e2e8f0;
   --color-inverse: #0b0b0b;
   --color-inverse-text: #ffffff;
-  --color-brand-red: #b00000;
-  --color-brand-red-dark: #820000;
+  --color-brand-red: #0F162B;
+  --color-brand-red-dark: #080d1a;
 }
 
 * { box-sizing: border-box; }
@@ -62,12 +62,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
   .category-strip { @apply h-fit overflow-hidden border border-slate-200 bg-white shadow-sm lg:sticky lg:top-40; }
   .category-strip-title { @apply border-b border-slate-200 px-4 py-4 font-mono text-lg font-black uppercase text-slate-950; }
-  .category-strip button { @apply flex w-full items-center justify-between gap-3 border-b border-slate-100 bg-white px-4 py-3 text-left font-mono text-sm font-bold text-slate-800 transition hover:bg-red-50 hover:text-brand-red; }
+  .category-strip button { @apply flex w-full items-center justify-between gap-3 border-b border-slate-100 bg-white px-4 py-3 text-left font-mono text-sm font-bold text-slate-800 transition hover:bg-slate-50 hover:text-brand-red; }
   .category-strip button.is-active { @apply bg-brand-red text-white; }
   .category-strip button strong { @apply text-lg leading-none; }
 
-  .store-hero { @apply relative grid min-h-[24rem] overflow-hidden bg-slate-950 p-6 text-white shadow-sm md:grid-cols-[minmax(0,1fr)_20rem] md:p-10; }
-  .store-hero::before { content: ""; @apply absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,.18),transparent_28%),linear-gradient(135deg,rgba(178,0,0,.85),rgba(15,23,42,.94))]; }
+  .store-hero { @apply relative grid min-h-[24rem] overflow-hidden bg-slate-950 p-6 text-white shadow-sm md:p-10; }
+  .store-hero::before { content: ""; @apply absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,.18),transparent_28%),linear-gradient(135deg,rgba(15,22,43,.92),rgba(15,23,42,.96))]; }
   .store-hero-copy { @apply relative z-10 max-w-3xl self-center; }
   .store-hero-copy span { @apply inline-flex rounded-full border border-white/30 bg-white/10 px-4 py-2 font-mono text-xs font-black uppercase tracking-widest; }
   .store-hero-copy h1 { @apply my-5 max-w-[14ch] text-[clamp(2.4rem,6vw,4.8rem)] font-black leading-[0.95] tracking-[-0.05em]; }
@@ -118,7 +118,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
   .modal-thumbnails { @apply mt-4 flex gap-2; }
   .modal-thumbnails button { @apply h-14 w-14 cursor-pointer border border-slate-200 bg-white p-1; }
-  .modal-thumbnails button.is-active { @apply border-brand-red shadow-[inset_0_0_0_1px_#b00000]; }
+  .modal-thumbnails button.is-active { @apply border-brand-red shadow-[inset_0_0_0_1px_#0F162B]; }
   .modal-thumbnails img { @apply h-full w-full object-contain; mix-blend-mode: multiply; }
 
   .product-detail-page { @apply py-8 xl:py-12; }
@@ -162,7 +162,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .quantity-stepper button:disabled { @apply cursor-not-allowed opacity-30; }
   .quantity-stepper span { @apply grid min-h-10 place-items-center border-x border-slate-300 font-black text-slate-950; }
   .cart-item-remove { @apply min-h-10 cursor-pointer border border-slate-200 bg-white px-4 font-mono text-xs font-black uppercase tracking-widest text-slate-500 hover:border-brand-red hover:text-brand-red; }
-  .cart-notice { @apply mb-3 border border-brand-red bg-red-50 p-3 font-bold text-brand-red; }
+  .cart-notice { @apply mb-3 border border-brand-red bg-slate-50 p-3 font-bold text-brand-red; }
   .cart-total { @apply mt-4 flex items-center justify-between gap-4 border-t border-slate-200 pt-4; }
   .cart-total span { @apply text-slate-600; }
   .cart-total strong { @apply text-[clamp(1.35rem,5vw,2rem)] font-black; }
@@ -195,7 +195,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .auth-field { @apply grid gap-2; }
   .auth-field span { @apply font-mono text-xs font-black uppercase tracking-widest; }
   .auth-field input { @apply min-h-11 w-full border border-slate-300 bg-white px-3 text-slate-900 outline-none focus:border-brand-red; }
-  .auth-error { @apply m-0 border border-brand-red bg-red-50 p-3 text-sm font-bold text-brand-red; }
+  .auth-error { @apply m-0 border border-brand-red bg-slate-50 p-3 text-sm font-bold text-brand-red; }
   .auth-submit { @apply mt-2 w-full justify-center; }
   .auth-submit:disabled { @apply cursor-not-allowed opacity-45; }
   .auth-switch { @apply mt-5 text-center text-sm text-slate-500; }
