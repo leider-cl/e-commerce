@@ -38,7 +38,7 @@ function App() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [paymentResult, setPaymentResult] = useState(initialPaymentResult);
-  const [selectedMaxPrice, setSelectedMaxPrice] = useState(null);
+  const [selectedPriceRange, setSelectedPriceRange] = useState(null);
 
   const currencyFormatter = useMemo(
     () =>
@@ -73,25 +73,28 @@ function App() {
   const priceBounds = useMemo(() => {
     if (products.length === 0) return { min: 0, max: 0 };
     const prices = products.map((product) => product.price);
-    return { min: 0, max: Math.max(...prices) };
+    return { min: 0, max: Math.max(...prices, 3500000) };
   }, [products]);
 
-  const activeMaxPrice = selectedMaxPrice ?? priceBounds.max;
+  const activePriceRange = selectedPriceRange ?? priceBounds;
 
   useEffect(() => {
     if (products.length === 0) return;
-    setSelectedMaxPrice((currentMaxPrice) => {
-      if (currentMaxPrice === null) return priceBounds.max;
-      return Math.min(currentMaxPrice, priceBounds.max);
+    setSelectedPriceRange((currentRange) => {
+      if (currentRange === null) return priceBounds;
+      return {
+        min: Math.max(priceBounds.min, Math.min(currentRange.min, priceBounds.max)),
+        max: Math.min(priceBounds.max, Math.max(currentRange.max, priceBounds.min)),
+      };
     });
-  }, [products.length, priceBounds.max]);
+  }, [products.length, priceBounds.min, priceBounds.max]);
 
   const filteredProducts = useMemo(() => {
     const normalizedSearch = searchTerm.trim().toLowerCase();
 
     return products.filter((product) => {
       const matchesCategory = selectedCategory === "Todas" || product.category === selectedCategory;
-      const matchesPrice = priceBounds.max === 0 || product.price <= activeMaxPrice;
+      const matchesPrice = priceBounds.max === 0 || (product.price >= activePriceRange.min && product.price <= activePriceRange.max);
       const matchesSearch =
         normalizedSearch.length === 0 ||
         product.name.toLowerCase().includes(normalizedSearch) ||
@@ -100,7 +103,7 @@ function App() {
 
       return matchesCategory && matchesSearch && matchesPrice;
     });
-  }, [selectedCategory, searchTerm, products, activeMaxPrice, priceBounds.max]);
+  }, [selectedCategory, searchTerm, products, activePriceRange.min, activePriceRange.max, priceBounds.max]);
 
   const cartTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   const cartQuantityByProductId = useMemo(
@@ -320,6 +323,12 @@ function App() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
   useEffect(() => {
+    if (window.location.pathname === "/" && window.location.hash) {
+      window.history.replaceState({}, "", "/");
+      window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "auto" }));
+    }
+  }, []);
+  useEffect(() => {
     if (!cartOpen) return undefined;
 
     const previousOverflow = document.body.style.overflow;
@@ -376,8 +385,8 @@ function App() {
             loading={loading}
             products={products}
             priceBounds={priceBounds}
-            selectedMaxPrice={activeMaxPrice}
-            onMaxPriceChange={setSelectedMaxPrice}
+            selectedPriceRange={activePriceRange}
+            onPriceRangeChange={setSelectedPriceRange}
             filteredProducts={filteredProducts}
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}

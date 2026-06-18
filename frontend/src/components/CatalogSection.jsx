@@ -8,8 +8,8 @@ export function CatalogSection({
   onSelectCategory,
   products,
   priceBounds,
-  selectedMaxPrice,
-  onMaxPriceChange,
+  selectedPriceRange,
+  onPriceRangeChange,
   filteredProducts,
   searchTerm,
   onSearchChange,
@@ -29,8 +29,8 @@ export function CatalogSection({
           products={products}
           searchTerm={searchTerm}
           priceBounds={priceBounds}
-          selectedMaxPrice={selectedMaxPrice}
-          onMaxPriceChange={onMaxPriceChange}
+          selectedPriceRange={selectedPriceRange}
+          onPriceRangeChange={onPriceRangeChange}
           currencyFormatter={currencyFormatter}
         />
 
