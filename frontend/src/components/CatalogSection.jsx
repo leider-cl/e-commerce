@@ -57,7 +57,7 @@ export function CatalogSection({
             <span className="font-mono text-xs font-black uppercase tracking-widest text-slate-600">{filteredProducts.length} resultados</span>
           </div>
 
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,19rem),19rem))] justify-start gap-6">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,15.5rem),15.5rem))] justify-start gap-5">
             {loading ? (
               <div className="col-span-full rounded-2xl border border-blue-200 bg-blue-50 p-6 text-slate-800 shadow-[0_10px_28px_rgba(15,23,42,.06)]">
                 <p className="m-0 font-mono text-sm font-bold uppercase tracking-widest text-brand-dark">Cargando productos...</p>
