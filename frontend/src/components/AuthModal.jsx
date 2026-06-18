@@ -162,7 +162,7 @@ export function AuthModal({ onClose }) {
               <>
                 ¿No tienes cuenta?{" "}
                 <button type="button" className="cursor-pointer border-0 bg-transparent p-0 font-bold text-[#2f66b3] underline" onClick={() => switchMode("register")}>
-                  Reg?strate
+                  Regístrate
                 </button>
               </>
             ) : (
