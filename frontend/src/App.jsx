@@ -316,27 +316,8 @@ function App() {
   }, [cartOpen]);
 
 
-  useEffect(() => {
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (reduceMotion) return undefined;
-
-    const ctx = gsap.context(() => {
-      const timeline = gsap.timeline({ defaults: { duration: 0.3, ease: "power2.out" } });
-
-      timeline
-        .from(".site-header", { y: -12, autoAlpha: 0, clearProps: "all" })
-        .from(".category-strip button", { y: 8, autoAlpha: 0, stagger: 0.03, clearProps: "all" }, "-=0.12")
-        .from(".catalog-tools", { y: 10, autoAlpha: 0, clearProps: "all" }, "-=0.1")
-        .from(".product-card", { y: 12, autoAlpha: 0, stagger: 0.04, clearProps: "all" }, "-=0.08")
-        .from(".contact-card", { y: 10, autoAlpha: 0, stagger: 0.04, clearProps: "all" }, "-=0.08");
-    }, pageRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <main className="site-shell" ref={pageRef}>
+    <main className="mx-auto w-full max-w-[96rem] px-3 pb-8 sm:px-4 lg:px-5" ref={pageRef}>
       <SiteHeader
         cartCount={cartCount}
         cartLinkRef={cartLinkRef}

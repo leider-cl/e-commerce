@@ -11,16 +11,16 @@ const quickCategoryGroups = [
 
 export function CategoryStrip({ categories, selectedCategory, onSelectCategory, onSearchChange }) {
   return (
-    <aside className="category-strip" id="categorias" aria-label="Categorías principales">
-      <div className="category-strip-title">
+    <aside className="h-fit overflow-hidden rounded-2xl border border-white/10 bg-[#0d1728]/82 shadow-[0_24px_80px_rgba(0,0,0,.24)] backdrop-blur-xl lg:sticky lg:top-44" id="categorias" aria-label="Categorías principales">
+      <div className="grid gap-1 border-b border-white/10 bg-white/5 px-4 py-4 font-mono text-lg font-black uppercase text-white">
         <span>Productos</span>
-        <small>Explorar por línea</small>
+        <small className="text-xs font-bold normal-case tracking-normal text-slate-400">Explorar por línea</small>
       </div>
 
-      <div className="category-list">
+      <div className="grid gap-1">
         {categories.map((category) => (
           <button
-            className={selectedCategory === category ? "is-active" : ""}
+            className={`flex w-full items-center justify-between gap-3 border-b border-white/6 bg-transparent px-4 py-3 text-left font-mono text-sm font-bold text-slate-200 transition hover:bg-white/8 hover:text-cyan-200 focus-visible:bg-white/8 focus-visible:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 ${selectedCategory === category ? "bg-cyan-400 text-slate-950 shadow-inner" : ""}`}
             type="button"
             key={category}
             onClick={() => onSelectCategory(category)}
@@ -30,11 +30,13 @@ export function CategoryStrip({ categories, selectedCategory, onSelectCategory, 
         ))}
       </div>
 
-      <div className="category-quick-groups">
+      <div className="grid gap-3 border-t border-white/10 p-2">
         {quickCategoryGroups.map((group) => (
-          <section className="category-quick-group" key={group.title}>
-            <h3>{group.title}</h3>
-            <div className="category-quick-links">
+          <section className="overflow-hidden rounded-xl border border-white/8" key={group.title}>
+            <h3 className="m-0 bg-white/5 px-3 py-3 font-mono text-xs font-black uppercase tracking-widest text-cyan-200">
+              {group.title}
+            </h3>
+            <div className="overflow-hidden">
               {group.items.map((item) => (
                 <button
                   type="button"
@@ -43,6 +45,7 @@ export function CategoryStrip({ categories, selectedCategory, onSelectCategory, 
                     onSelectCategory("Todas");
                     onSearchChange(item);
                   }}
+                  className="flex w-full items-center justify-between gap-3 border-b border-white/6 bg-transparent px-4 py-3 text-left font-mono text-sm font-bold text-slate-200 transition hover:bg-white/8 hover:text-cyan-200 focus-visible:bg-white/8 focus-visible:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60"
                 >
                   {item}
                 </button>

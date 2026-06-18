@@ -28,11 +28,11 @@ export function ProductDetailPage({
 
   if (loading) {
     return (
-      <section className="product-detail-page">
-        <div className="product-detail-empty">
-          <span className="contact-kicker">Producto</span>
-          <h1>Cargando producto</h1>
-          <p>Estamos preparando la información técnica.</p>
+      <section className="py-8 xl:py-14">
+        <div className="rounded-xl border border-white/10 bg-[#0d1728]/90 p-8">
+          <span className="mb-3 block font-mono text-xs font-black uppercase tracking-widest text-cyan-300">Producto</span>
+          <h1 className="m-0 mb-3 text-[clamp(1.9rem,5vw,3rem)] font-black leading-none tracking-tighter text-white">Cargando producto</h1>
+          <p className="m-0 text-slate-300">Estamos preparando la información técnica.</p>
         </div>
       </section>
     );
@@ -40,14 +40,18 @@ export function ProductDetailPage({
 
   if (!product) {
     return (
-      <section className="product-detail-page">
-        <button type="button" className="secondary-action product-detail-back" onClick={onBackToCatalog}>
+      <section className="py-8 xl:py-14">
+        <button
+          type="button"
+          className="mb-5 inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-white/15 bg-white/8 px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:border-cyan-300 hover:bg-white/12 hover:text-cyan-200 hover:shadow-[0_0_0_4px_rgba(34,211,238,.10)]"
+          onClick={onBackToCatalog}
+        >
           Volver al catálogo
         </button>
-        <div className="product-detail-empty">
-          <span className="contact-kicker">Producto</span>
-          <h1>Producto no encontrado</h1>
-          <p>El producto solicitado no existe o ya no está disponible.</p>
+        <div className="rounded-xl border border-white/10 bg-[#0d1728]/90 p-8">
+          <span className="mb-3 block font-mono text-xs font-black uppercase tracking-widest text-cyan-300">Producto</span>
+          <h1 className="m-0 mb-3 text-[clamp(1.9rem,5vw,3rem)] font-black leading-none tracking-tighter text-white">Producto no encontrado</h1>
+          <p className="m-0 text-slate-300">El producto solicitado no existe o ya no está disponible.</p>
         </div>
       </section>
     );
@@ -56,58 +60,64 @@ export function ProductDetailPage({
   const reachedCartLimit = product ? (cartQuantityByProductId.get(product.id) ?? 0) >= product.stock : false;
 
   return (
-    <section className="product-detail-page">
-      <button type="button" className="secondary-action product-detail-back" onClick={onBackToCatalog}>
+    <section className="py-8 xl:py-14">
+      <button
+        type="button"
+        className="mb-5 inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-white/15 bg-white/8 px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:border-cyan-300 hover:bg-white/12 hover:text-cyan-200 hover:shadow-[0_0_0_4px_rgba(34,211,238,.10)]"
+        onClick={onBackToCatalog}
+      >
         Volver al catálogo
       </button>
 
-      <article className="product-detail-layout">
-        <div className="product-detail-gallery">
+      <article className="grid gap-8 rounded-2xl border border-white/10 bg-[#0d1728]/90 p-5 shadow-[0_24px_80px_rgba(0,0,0,.24)] md:grid-cols-[minmax(0,1.1fr)_minmax(22rem,0.9fr)] lg:p-8">
+        <div className="grid content-start gap-4 rounded-xl border border-white/10 bg-[radial-gradient(circle_at_50%_35%,#ffffff_0,#eef4fb_62%,#dce7f4_100%)] p-4">
           {currentImage ? (
-            <img src={currentImage} alt={product.name} draggable="false" />
+            <img src={currentImage} alt={product.name} draggable="false" className="h-[min(32rem,60vh)] w-full object-contain object-center" style={{ mixBlendMode: "multiply" }} />
           ) : (
-            <div className="product-visual-fallback">{product.category.slice(0, 2).toUpperCase()}</div>
+            <div className="grid h-64 w-full place-items-center rounded-xl bg-[#0d1728]/50 font-mono text-3xl font-black text-slate-500">
+              {product.category.slice(0, 2).toUpperCase()}
+            </div>
           )}
           {images.length > 1 ? (
-            <div className="modal-thumbnails" aria-label="Imágenes del producto">
+            <div className="mt-4 flex gap-2" aria-label="Imágenes del producto">
               {images.map((image, index) => (
                 <button
-                  className={index === selectedImageIndex ? "is-active" : ""}
+                  className={`h-14 w-14 cursor-pointer rounded-lg border p-1 ${index === selectedImageIndex ? "border-cyan-300 shadow-[0_0_0_2px_rgba(34,211,238,.25)]" : "border-white/10 bg-[#0d1728]/60"}`}
                   type="button"
                   key={image}
                   onClick={() => onSelectImageIndex(index)}
                   aria-label={`Ver imagen ${index + 1}`}
                 >
-                  <img src={image} alt="" draggable="false" />
+                  <img src={image} alt="" draggable="false" className="h-full w-full object-contain" style={{ mixBlendMode: "multiply" }} />
                 </button>
               ))}
             </div>
           ) : null}
         </div>
 
-        <div className="product-detail-content">
-          <span className="contact-kicker">{product.tag}</span>
-          <h1>{product.name}</h1>
-          <p>{product.description}</p>
+        <div className="min-w-0">
+          <span className="mb-3 block font-mono text-xs font-black uppercase tracking-widest text-cyan-300">{product.tag}</span>
+          <h1 className="mt-3 mb-4 max-w-180 text-[clamp(2.2rem,5vw,3.5rem)] font-black leading-tight tracking-[-0.04em] text-white break-words">{product.name}</h1>
+          <p className="max-w-160 text-slate-300 leading-7 break-words">{product.description}</p>
 
-          <dl className="product-specs">
-            <div>
-              <dt>Categoría</dt>
-              <dd>{product.category}</dd>
+          <dl className="my-6 grid gap-0 border-t border-white/10">
+            <div className="grid gap-1 border-b border-white/10 py-3">
+              <dt className="font-mono text-xs font-black uppercase tracking-widest text-cyan-300">Categoría</dt>
+              <dd className="m-0 text-slate-200">{product.category}</dd>
             </div>
-            <div>
-              <dt>Stock</dt>
-              <dd>{product.stock} disponibles</dd>
+            <div className="grid gap-1 border-b border-white/10 py-3">
+              <dt className="font-mono text-xs font-black uppercase tracking-widest text-cyan-300">Stock</dt>
+              <dd className="m-0 text-slate-200">{product.stock} disponibles</dd>
             </div>
-            <div>
-              <dt>Precio</dt>
-              <dd>{currencyFormatter.format(product.price)} CLP</dd>
+            <div className="grid gap-1 border-b border-white/10 py-3">
+              <dt className="font-mono text-xs font-black uppercase tracking-widest text-cyan-300">Precio</dt>
+              <dd className="m-0 text-slate-200">{currencyFormatter.format(product.price)} CLP</dd>
             </div>
           </dl>
 
           <button
             type="button"
-            className="primary-action modal-cart-action"
+            className="inline-flex min-h-12 min-w-0 w-full items-center justify-center rounded-xl border border-cyan-400 bg-cyan-400 px-5 py-3 font-mono text-sm font-black uppercase tracking-widest text-slate-950 no-underline transition hover:bg-cyan-300 hover:border-cyan-300 disabled:cursor-not-allowed disabled:opacity-45"
             disabled={reachedCartLimit}
             onClick={() =>
               onAddToCart(product, {
@@ -122,22 +132,26 @@ export function ProductDetailPage({
       </article>
 
       {relatedProducts.length > 0 ? (
-        <section className="related-products-section" aria-labelledby="related-products-title">
-          <div className="section-heading compact-heading">
-            <span>También podría interesarte</span>
-            <h2 id="related-products-title">Productos similares</h2>
+        <section className="mt-8 border-t border-white/10 pt-8" aria-labelledby="related-products-title">
+          <div className="mb-4 mt-10 flex flex-col gap-2">
+            <span className="font-mono text-xs font-black uppercase tracking-widest text-cyan-300">También podría interesarte</span>
+            <h2 id="related-products-title" className="text-[clamp(1.8rem,4vw,2.8rem)] m-0 max-w-full font-black leading-none tracking-[-0.04em] text-white break-words">Productos similares</h2>
           </div>
-          <div className="related-products-grid">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,16rem),16rem))] gap-4">
             {relatedProducts.map((relatedProduct) => {
               const relatedImage = relatedProduct.image_urls?.[0] ?? relatedProduct.image_url;
               return (
-                <article className="related-product-card" key={relatedProduct.id}>
-                  <img src={relatedImage} alt={relatedProduct.name} loading="lazy" />
-                  <div>
-                    <span>{relatedProduct.tag}</span>
-                    <h3>{relatedProduct.name}</h3>
-                    <p>{currencyFormatter.format(relatedProduct.price)} CLP</p>
-                    <button type="button" className="secondary-action" onClick={() => onViewProduct(relatedProduct)}>
+                <article className="grid overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#0d1728]/80 shadow-[0_18px_45px_rgba(0,0,0,.24)]" key={relatedProduct.id}>
+                  <img src={relatedImage} alt={relatedProduct.name} loading="lazy" className="h-44 w-full bg-[radial-gradient(circle_at_50%_35%,#ffffff_0,#eef4fb_62%,#dce7f4_100%)] object-contain object-center" style={{ mixBlendMode: "multiply" }} />
+                  <div className="grid gap-2 p-4">
+                    <span className="font-mono text-xs font-black uppercase tracking-widest text-slate-400">{relatedProduct.tag}</span>
+                    <h3 className="m-0 text-xl font-black leading-tight tracking-[-0.03em] text-white break-words">{relatedProduct.name}</h3>
+                    <p className="m-0 text-sm text-slate-300">{currencyFormatter.format(relatedProduct.price)} CLP</p>
+                    <button
+                      type="button"
+                      className="mt-2 inline-flex min-h-11 min-w-0 w-full items-center justify-center rounded-xl border border-white/15 bg-white/8 px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:border-cyan-300 hover:bg-white/12 hover:text-cyan-200 hover:shadow-[0_0_0_4px_rgba(34,211,238,.10)]"
+                      onClick={() => onViewProduct(relatedProduct)}
+                    >
                       Ver producto
                     </button>
                   </div>
