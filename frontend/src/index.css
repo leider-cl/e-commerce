@@ -3,11 +3,11 @@
 @theme {
   --color-ink: #0f172a;
   --color-muted: #64748b;
-  --color-paper: #07101f;
-  --color-panel: #0d1728;
-  --color-line: #1e2b3f;
-  --color-brand-dark: #0F162B;
-  --color-brand-darker: #080d1a;
+  --color-paper: #ffffff;
+  --color-panel: #f5f7fb;
+  --color-line: #d8e0ea;
+  --color-brand-dark: #2f66b3;
+  --color-brand-darker: #1f4f91;
 }
 
 * { box-sizing: border-box; }
@@ -18,7 +18,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: radial-gradient(circle at 18% 0%, rgba(34,211,238,.16) 0, transparent 28rem), radial-gradient(circle at 86% 16%, rgba(59,130,246,.14) 0, transparent 30rem), linear-gradient(135deg, #050a15 0%, #0b1324 45%, #111827 100%);
+  background: #f5f7fb;
   -webkit-font-smoothing: antialiased;
 }
 

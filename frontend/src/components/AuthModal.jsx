@@ -54,11 +54,11 @@ export function AuthModal({ onClose }) {
           aria-labelledby="auth-modal-title"
           onMouseDown={(event) => event.stopPropagation()}
         >
-          <button className="absolute right-0 top-0 min-h-11 bg-slate-950 px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white" type="button" onClick={onClose} aria-label="Cerrar">
+          <button className="absolute right-0 top-0 min-h-11 bg-[#2f66b3] px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white" type="button" onClick={onClose} aria-label="Cerrar">
             Cerrar
           </button>
           <div className="p-8 pb-6">
-            <span className="mb-3 block font-mono text-xs font-black uppercase tracking-widest text-brand-dark">Cuenta</span>
+            <span className="mb-3 block font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">Cuenta</span>
             <h2 id="auth-modal-title" className="mt-3 mb-6 text-[clamp(1.6rem,5vw,2.25rem)] font-black leading-tight tracking-[-0.04em]">Revisa tu correo</h2>
             <p style={{ margin: "1rem 0", lineHeight: 1.5 }}>
               Te enviamos un link de verificación a <strong>{registeredEmail}</strong>.
@@ -66,7 +66,7 @@ export function AuthModal({ onClose }) {
             </p>
             <button
               type="button"
-              className="mt-2 inline-flex min-h-11 min-w-0 w-full items-center justify-center rounded-xl border border-cyan-400 bg-cyan-400 px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-950 no-underline transition hover:bg-cyan-300 hover:border-cyan-300"
+              className="mt-2 inline-flex min-h-11 min-w-0 w-full items-center justify-center rounded-xl border border-[#2f66b3] bg-[#2f66b3] px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:bg-[#285aa0] hover:border-[#285aa0]"
               onClick={() => {
                 setRegisteredEmail("");
                 setMode("login");
@@ -89,12 +89,12 @@ export function AuthModal({ onClose }) {
         aria-labelledby="auth-modal-title"
         onMouseDown={(event) => event.stopPropagation()}
       >
-        <button className="absolute right-0 top-0 min-h-11 bg-slate-950 px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white" type="button" onClick={onClose} aria-label="Cerrar">
+        <button className="absolute right-0 top-0 min-h-11 bg-[#2f66b3] px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white" type="button" onClick={onClose} aria-label="Cerrar">
           Cerrar
         </button>
 
         <div className="p-8 pb-6">
-          <span className="mb-3 block font-mono text-xs font-black uppercase tracking-widest text-brand-dark">Cuenta</span>
+          <span className="mb-3 block font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">Cuenta</span>
           <h2 id="auth-modal-title" className="mt-3 mb-6 text-[clamp(1.6rem,5vw,2.25rem)] font-black leading-tight tracking-[-0.04em]">
             {mode === "login" ? "Iniciar sesión" : "Crear cuenta"}
           </h2>
@@ -110,7 +110,7 @@ export function AuthModal({ onClose }) {
                   placeholder="Tu nombre"
                   required
                   autoComplete="name"
-                  className="min-h-11 w-full border border-slate-300 bg-white px-3 text-slate-900 outline-none focus:border-brand-dark"
+                  className="min-h-11 w-full border border-slate-300 bg-white px-3 text-slate-900 outline-none focus:border-[#2f66b3]"
                 />
               </label>
             ) : null}
@@ -124,7 +124,7 @@ export function AuthModal({ onClose }) {
                 placeholder="correo@ejemplo.cl"
                 required
                 autoComplete={mode === "login" ? "email" : "email"}
-                className="min-h-11 w-full border border-slate-300 bg-white px-3 text-slate-900 outline-none focus:border-brand-dark"
+                className="min-h-11 w-full border border-slate-300 bg-white px-3 text-slate-900 outline-none focus:border-[#2f66b3]"
               />
             </label>
 
@@ -138,15 +138,15 @@ export function AuthModal({ onClose }) {
                 required
                 minLength={6}
                 autoComplete={mode === "login" ? "current-password" : "new-password"}
-                className="min-h-11 w-full border border-slate-300 bg-white px-3 text-slate-900 outline-none focus:border-brand-dark"
+                className="min-h-11 w-full border border-slate-300 bg-white px-3 text-slate-900 outline-none focus:border-[#2f66b3]"
               />
             </label>
 
-            {error ? <p className="m-0 border border-brand-dark bg-slate-50 p-3 text-sm font-bold text-brand-dark" role="alert">{error}</p> : null}
+            {error ? <p className="m-0 border border-[#2f66b3] bg-slate-50 p-3 text-sm font-bold text-[#2f66b3]" role="alert">{error}</p> : null}
 
             <button
               type="submit"
-              className="mt-2 inline-flex min-h-11 min-w-0 w-full items-center justify-center rounded-xl border border-cyan-400 bg-cyan-400 px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-950 no-underline transition hover:bg-cyan-300 hover:border-cyan-300 disabled:cursor-not-allowed disabled:opacity-45"
+              className="mt-2 inline-flex min-h-11 min-w-0 w-full items-center justify-center rounded-xl border border-[#2f66b3] bg-[#2f66b3] px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:bg-[#285aa0] hover:border-[#285aa0] disabled:cursor-not-allowed disabled:opacity-45"
               disabled={submitting}
             >
               {submitting
@@ -161,14 +161,14 @@ export function AuthModal({ onClose }) {
             {mode === "login" ? (
               <>
                 ¿No tienes cuenta?{" "}
-                <button type="button" className="cursor-pointer border-0 bg-transparent p-0 font-bold text-brand-dark underline" onClick={() => switchMode("register")}>
-                  Registrate
+                <button type="button" className="cursor-pointer border-0 bg-transparent p-0 font-bold text-[#2f66b3] underline" onClick={() => switchMode("register")}>
+                  Reg?strate
                 </button>
               </>
             ) : (
               <>
                 ¿Ya tienes cuenta?{" "}
-                <button type="button" className="cursor-pointer border-0 bg-transparent p-0 font-bold text-brand-dark underline" onClick={() => switchMode("login")}>
+                <button type="button" className="cursor-pointer border-0 bg-transparent p-0 font-bold text-[#2f66b3] underline" onClick={() => switchMode("login")}>
                   Inicia sesión
                 </button>
               </>

@@ -11,10 +11,10 @@ const quickCategoryGroups = [
 
 export function CategoryStrip({ categories, selectedCategory, onSelectCategory, onSearchChange }) {
   return (
-    <aside className="h-fit overflow-hidden rounded-2xl border border-white/10 bg-[#0d1728]/82 shadow-[0_24px_80px_rgba(0,0,0,.24)] backdrop-blur-xl lg:sticky lg:top-44" id="categorias" aria-label="Categorías principales">
-      <div className="grid gap-1 border-b border-white/10 bg-white/5 px-4 py-4 font-mono text-lg font-black uppercase text-white">
+    <aside className="h-fit overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_12px_32px_rgba(15,23,42,.08)] lg:sticky lg:top-44" id="categorias" aria-label="Categorías principales">
+      <div className="grid gap-1 border-b border-slate-200 bg-slate-50 px-4 py-4 font-mono text-lg font-black uppercase text-slate-900">
         <span>Productos</span>
-        <small className="text-xs font-bold normal-case tracking-normal text-slate-400">Explorar por línea</small>
+        <small className="text-xs font-bold normal-case tracking-normal text-slate-500">Explorar por línea</small>
       </div>
 
       <div className="grid gap-1">
@@ -23,26 +23,26 @@ export function CategoryStrip({ categories, selectedCategory, onSelectCategory, 
 
           return (
             <button
-              className={`flex w-full items-center justify-between gap-3 border-b border-white/6 px-4 py-3 text-left font-mono text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 ${
+              className={`flex w-full items-center justify-between gap-3 border-b border-slate-200 px-4 py-3 text-left font-mono text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2f66b3]/40 ${
                 isSelected
-                  ? "bg-cyan-400 text-slate-950 shadow-inner hover:bg-cyan-300"
-                  : "bg-transparent text-slate-200 hover:bg-white/8 hover:text-cyan-200 focus-visible:bg-white/8 focus-visible:text-cyan-200"
+                  ? "bg-[#2f66b3] text-white shadow-inner hover:bg-[#285aa0]"
+                  : "bg-transparent text-slate-700 hover:bg-blue-50 hover:text-[#2f66b3] focus-visible:bg-blue-50 focus-visible:text-[#2f66b3]"
               }`}
               type="button"
               key={category}
               onClick={() => onSelectCategory(category)}
             >
               <span>{category}</span>
-              {isSelected ? <span className="h-2 w-2 rounded-full bg-slate-950/80" aria-hidden="true" /> : null}
+              {isSelected ? <span className="h-2 w-2 rounded-full bg-white" aria-hidden="true" /> : null}
             </button>
           );
         })}
       </div>
 
-      <div className="grid gap-3 border-t border-white/10 p-2">
+      <div className="grid gap-3 border-t border-slate-200 p-2">
         {quickCategoryGroups.map((group) => (
-          <section className="overflow-hidden rounded-xl border border-white/8" key={group.title}>
-            <h3 className="m-0 bg-white/5 px-3 py-3 font-mono text-xs font-black uppercase tracking-widest text-cyan-200">
+          <section className="overflow-hidden rounded-xl border border-slate-200" key={group.title}>
+            <h3 className="m-0 bg-blue-50 px-3 py-3 font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">
               {group.title}
             </h3>
             <div className="overflow-hidden">
@@ -54,7 +54,7 @@ export function CategoryStrip({ categories, selectedCategory, onSelectCategory, 
                     onSelectCategory("Todas");
                     onSearchChange(item);
                   }}
-                  className="flex w-full items-center justify-between gap-3 border-b border-white/6 bg-transparent px-4 py-3 text-left font-mono text-sm font-bold text-slate-200 transition hover:bg-white/8 hover:text-cyan-200 focus-visible:bg-white/8 focus-visible:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60"
+                  className="flex w-full items-center justify-between gap-3 border-b border-slate-200 bg-transparent px-4 py-3 text-left font-mono text-sm font-bold text-slate-700 transition hover:bg-blue-50 hover:text-[#2f66b3] focus-visible:bg-blue-50 focus-visible:text-[#2f66b3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2f66b3]/40"
                 >
                   {item}
                 </button>

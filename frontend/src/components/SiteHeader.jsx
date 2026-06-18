@@ -36,7 +36,7 @@ export function SiteHeader({
   }
 
   return (
-    <header className="sticky top-0 z-50 -mx-3 border-b border-white/10 bg-[#081120]/92 shadow-[0_18px_60px_rgba(0,0,0,.35)] backdrop-blur-xl sm:-mx-4 lg:-mx-5">
+    <header className="sticky top-0 z-50 -mx-3 border-b border-slate-200 bg-white shadow-[0_8px_28px_rgba(15,23,42,.08)] sm:-mx-4 lg:-mx-5">
       <div className="mx-auto grid min-h-24 w-full max-w-[96rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-4 lg:px-8">
         <a
           className="inline-flex w-fit flex-col no-underline"
@@ -47,22 +47,22 @@ export function SiteHeader({
             onNavigateHome();
           }}
         >
-          <span className="font-mono text-5xl font-black leading-none tracking-[0.08em] text-white drop-shadow-[0_0_18px_rgba(34,211,238,.18)]">
+          <span className="font-mono text-5xl font-black leading-none tracking-[0.08em] text-[#22324a]">
             LEIDER
           </span>
-          <span className="self-end font-mono text-xs font-black uppercase tracking-[0.25em] text-cyan-300">
+          <span className="self-end font-mono text-xs font-black uppercase tracking-[0.25em] text-[#2f66b3]">
             Shop
           </span>
         </a>
 
         <div className="flex items-center justify-end gap-3">
           {user ? (
-            <div className="flex items-center gap-2 text-sm font-semibold text-white">
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
               <span>{user.name}</span>
               <button
                 type="button"
                 onClick={logout}
-                className="min-h-11 rounded-xl border border-white/15 bg-white/8 px-3 font-mono text-xs font-black uppercase tracking-widest text-white transition hover:border-cyan-300 hover:text-cyan-200"
+                className="min-h-11 rounded-xl border border-slate-300 bg-white px-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 transition hover:border-[#2f66b3] hover:text-[#2f66b3]"
               >
                 Salir
               </button>
@@ -70,7 +70,7 @@ export function SiteHeader({
           ) : (
             <button
               type="button"
-              className="min-h-11 rounded-xl border border-white/15 bg-white/8 px-3 font-mono text-xs font-black uppercase tracking-widest text-white transition hover:border-cyan-300 hover:text-cyan-200"
+              className="min-h-11 rounded-xl border border-slate-300 bg-white px-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 transition hover:border-[#2f66b3] hover:text-[#2f66b3]"
               onClick={onOpenAuth}
             >
               Ingresar
@@ -78,7 +78,7 @@ export function SiteHeader({
           )}
 
           <a
-            className="relative inline-flex min-h-11 items-center gap-2 rounded-xl bg-cyan-400 px-4 font-mono text-xs font-black uppercase tracking-widest text-slate-950 no-underline shadow-[0_18px_34px_rgba(34,211,238,.18)]"
+            className="relative inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#2f66b3] px-4 font-mono text-xs font-black uppercase tracking-widest text-white no-underline shadow-[0_12px_24px_rgba(47,102,179,.18)]"
             href="/#carrito"
             ref={cartLinkRef}
             onClick={(event) => {
@@ -87,26 +87,26 @@ export function SiteHeader({
             }}
           >
             <span>Carrito</span>
-            <strong className="grid h-6 min-w-6 place-items-center rounded-full bg-slate-950 px-1 text-xs text-white">
+            <strong className="grid h-6 min-w-6 place-items-center rounded-full bg-white px-1 text-xs text-[#2f66b3]">
               {cartCount}
             </strong>
           </a>
         </div>
       </div>
 
-      <nav className="mx-auto flex min-h-14 w-full max-w-[96rem] flex-wrap items-center justify-center gap-2 border-t border-white/10 px-4 py-3 lg:px-8" aria-label="Navegación principal">
+      <nav className="mx-auto flex min-h-14 w-full max-w-[96rem] flex-wrap items-center justify-center gap-2 border-t border-slate-200 bg-[#2f66b3] px-4 py-3 lg:px-8" aria-label="Navegación principal">
         <ul className="m-0 flex list-none flex-wrap items-center justify-center gap-2 p-0">
           {navigationGroups.map((group) => (
             <li className="group relative" key={group.label}>
               <button
-                className="min-h-10 cursor-pointer rounded-xl border-0 bg-transparent px-4 py-3 font-mono text-xs font-black uppercase tracking-wide text-white/82 transition group-hover:bg-white/10 group-hover:text-cyan-200 focus-visible:bg-white/10 focus-visible:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60"
+                className="min-h-10 cursor-pointer rounded-xl border-0 bg-transparent px-4 py-3 font-mono text-xs font-black uppercase tracking-wide text-white transition group-hover:bg-white/15 group-hover:text-white focus-visible:bg-white/15 focus-visible:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
                 type="button"
                 aria-haspopup="true"
               >
                 {group.label}
               </button>
               <div
-                className="invisible absolute left-0 top-[calc(100%+.45rem)] z-50 grid min-w-56 translate-y-2 gap-1 rounded-2xl border border-white/10 bg-[#0d1728]/98 p-2 opacity-0 shadow-2xl backdrop-blur-xl transition duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
+                className="invisible absolute left-0 top-[calc(100%+.45rem)] z-50 grid min-w-56 translate-y-2 gap-1 rounded-2xl border border-slate-200 bg-white p-2 opacity-0 shadow-2xl transition duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
                 role="group"
                 aria-label={group.label}
               >
@@ -115,7 +115,7 @@ export function SiteHeader({
                     type="button"
                     key={item}
                     onClick={() => searchFromMenu(item)}
-                    className="min-h-10 rounded-xl px-3 text-left font-mono text-xs font-bold uppercase tracking-wide text-slate-200 transition hover:bg-cyan-400 hover:text-slate-950"
+                    className="min-h-10 rounded-xl px-3 text-left font-mono text-xs font-bold uppercase tracking-wide text-slate-700 transition hover:bg-[#2f66b3] hover:text-white"
                   >
                     {item}
                   </button>
@@ -126,7 +126,7 @@ export function SiteHeader({
           <li>
             <button
               type="button"
-              className="min-h-10 cursor-pointer rounded-xl border-0 bg-transparent px-4 py-3 font-mono text-xs font-black uppercase tracking-wide text-white/82 transition hover:bg-white/10 hover:text-cyan-200 focus-visible:bg-white/10 focus-visible:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60"
+              className="min-h-10 cursor-pointer rounded-xl border-0 bg-transparent px-4 py-3 font-mono text-xs font-black uppercase tracking-wide text-white transition hover:bg-white/15 hover:text-white focus-visible:bg-white/15 focus-visible:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
               onClick={() => onNavigateToSection("contacto")}
             >
               Contacto
