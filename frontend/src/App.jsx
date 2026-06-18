@@ -356,6 +356,7 @@ function App() {
             selectedCategory={selectedCategory}
             onSelectCategory={setSelectedCategory}
             loading={loading}
+            products={products}
             filteredProducts={filteredProducts}
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}

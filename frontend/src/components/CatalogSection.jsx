@@ -6,6 +6,7 @@ export function CatalogSection({
   categories,
   selectedCategory,
   onSelectCategory,
+  products,
   filteredProducts,
   searchTerm,
   onSearchChange,
@@ -22,6 +23,8 @@ export function CatalogSection({
           selectedCategory={selectedCategory}
           onSelectCategory={onSelectCategory}
           onSearchChange={onSearchChange}
+          products={products}
+          searchTerm={searchTerm}
         />
 
         <div className="min-w-0">
