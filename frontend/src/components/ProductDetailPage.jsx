@@ -1,3 +1,5 @@
+import { useEffect, useMemo } from "react";
+
 export function ProductDetailPage({
   product,
   selectedImageIndex,
@@ -10,11 +12,19 @@ export function ProductDetailPage({
   onViewProduct,
   loading = false,
 }) {
-  function getProductImages(currentProduct) {
-    if (!currentProduct) return [];
-    const images = currentProduct.image_urls?.length ? currentProduct.image_urls : [currentProduct.image_url];
-    return images.filter(Boolean);
-  }
+  const images = useMemo(() => {
+    if (!product) return [];
+    const productImages = product.image_urls?.length ? product.image_urls : [product.image_url];
+    return productImages.filter(Boolean);
+  }, [product?.image_url, product?.image_urls]);
+
+  const currentImage = images[selectedImageIndex] ?? images[0] ?? null;
+
+  useEffect(() => {
+    if (product && selectedImageIndex >= images.length) {
+      onSelectImageIndex(0);
+    }
+  }, [product?.id, images.length]);
 
   if (loading) {
     return (
@@ -43,9 +53,7 @@ export function ProductDetailPage({
     );
   }
 
-  const images = getProductImages(product);
-  const currentImage = images[selectedImageIndex] ?? images[0];
-  const reachedCartLimit = (cartQuantityByProductId.get(product.id) ?? 0) >= product.stock;
+  const reachedCartLimit = product ? (cartQuantityByProductId.get(product.id) ?? 0) >= product.stock : false;
 
   return (
     <section className="product-detail-page">
@@ -55,7 +63,11 @@ export function ProductDetailPage({
 
       <article className="product-detail-layout">
         <div className="product-detail-gallery">
-          <img src={currentImage} alt={product.name} draggable="false" />
+          {currentImage ? (
+            <img src={currentImage} alt={product.name} draggable="false" />
+          ) : (
+            <div className="product-visual-fallback">{product.category.slice(0, 2).toUpperCase()}</div>
+          )}
           {images.length > 1 ? (
             <div className="modal-thumbnails" aria-label="Imágenes del producto">
               {images.map((image, index) => (

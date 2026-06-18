@@ -152,6 +152,18 @@ authRouter.post("/auth/login", async (req, res) => {
     }
 
     const user = result.rows[0];
+
+    if (!user.password_hash) {
+      return res.status(401).json({ error: "Email o contraseña incorrectos" });
+    }
+
+    if (!user.email_verified) {
+      return res.status(403).json({
+        error: "Debes verificar tu email antes de iniciar sesión",
+        needsVerification: true,
+      });
+    }
+
     const valid = await bcrypt.compare(password, user.password_hash);
 
     if (!valid) {

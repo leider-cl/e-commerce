@@ -27,8 +27,11 @@ productsRouter.get("/products", async (_req, res) => {
   }
 });
 
-productsRouter.get("/products/:id", async (req, res) => {
+productsRouter.get("/products/:idOrSlug", async (req, res) => {
   try {
+    const { idOrSlug } = req.params;
+    const isNumeric = /^\d+$/.test(idOrSlug);
+
     const result = await pool.query(
       `SELECT
         id,
@@ -42,8 +45,8 @@ productsRouter.get("/products/:id", async (req, res) => {
         image_url,
         COALESCE(image_urls, ARRAY[image_url]) AS image_urls
       FROM products
-      WHERE id = $1`,
-      [req.params.id]
+      WHERE ${isNumeric ? "id = $1" : "slug = $1"}`,
+      [isNumeric ? Number(idOrSlug) : idOrSlug]
     );
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "Producto no encontrado" });
