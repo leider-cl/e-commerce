@@ -60,7 +60,9 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
                   onClick={showPreviousImage}
                   aria-label="Ver imagen anterior"
                 >
-                  ‹
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
                 </button>
                 <button
                   className="gallery-control gallery-control-next"
@@ -68,7 +70,9 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
                   onClick={showNextImage}
                   aria-label="Ver imagen siguiente"
                 >
-                  ›
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 6 15 12 9 18" />
+                  </svg>
                 </button>
                 <span className="image-count">{activeImageIndex + 1}/{images.length}</span>
               </>
