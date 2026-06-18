@@ -324,6 +324,8 @@ function App() {
         onOpenAuth={() => setAuthModalOpen(true)}
         onNavigateHome={navigateHome}
         onNavigateToSection={navigateToSection}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
       />
       {isProductDetailPage ? (
         <>

@@ -1,42 +1,83 @@
 import { useAuth } from "../context/useAuth";
 
-export function SiteHeader({ cartCount, cartLinkRef, onOpenAuth, onNavigateHome, onNavigateToSection }) {
+export function SiteHeader({
+  cartCount,
+  cartLinkRef,
+  onOpenAuth,
+  onNavigateHome,
+  onNavigateToSection,
+  searchTerm,
+  onSearchChange,
+}) {
   const { user, logout } = useAuth();
 
-  return (
-    <header className="site-header sticky top-0 z-10 flex items-center justify-between gap-4 min-h-18 px-0 py-3 bg-paper/88 backdrop-blur-md border-b border-line">
-      <a
-        className="brand inline-flex items-center gap-[0.7rem] min-h-11 font-mono font-bold tracking-[0.16em] no-underline"
-        href="/"
-        aria-label="Ir al inicio de LEIDER ecommerce"
-        onClick={(event) => {
-          event.preventDefault();
-          onNavigateHome();
-        }}
-      >
-        <span className="grid place-items-center w-9 h-9 text-inverse-text bg-inverse">L</span>
-        <span>LEIDER</span>
-      </a>
+  function submitSearch(event) {
+    event.preventDefault();
+    onNavigateToSection("catalogo");
+  }
 
-      <div className="flex items-center gap-3 ml-auto">
-        <nav className="hidden lg:flex items-center gap-6 font-mono text-xs font-bold tracking-widest uppercase" aria-label="Main navigation">
-          <a className="min-h-11 inline-flex items-center no-underline" href="#catalogo">Catálogo</a>
-          <a className="min-h-11 inline-flex items-center no-underline" href="#carrito" ref={cartLinkRef}>Carrito ({cartCount})</a>
-          <a className="min-h-11 inline-flex items-center no-underline" href="#contacto">Contacto</a>
+  return (
+    <header className="site-header">
+      <div className="header-mainbar">
+        <a
+          className="brand"
+          href="/"
+          aria-label="Ir al inicio de LEIDER Shop"
+          onClick={(event) => {
+            event.preventDefault();
+            onNavigateHome();
+          }}
+        >
+          <span className="brand-name">LEIDER</span>
+          <span className="brand-store">SHOP</span>
+        </a>
+
+        <form className="header-search" onSubmit={submitSearch} role="search">
+          <label className="sr-only" htmlFor="global-product-search">Buscar productos</label>
+          <input
+            id="global-product-search"
+            type="search"
+            placeholder="Ej: LoRaWAN, sensores, gateway"
+            value={searchTerm}
+            onChange={(event) => onSearchChange(event.target.value)}
+          />
+          <button type="submit" aria-label="Buscar productos">Buscar</button>
+        </form>
+
+        <div className="header-actions">
           {user ? (
-            <span className="inline-flex items-center gap-2 font-mono text-xs font-bold tracking-wide uppercase">
-              {user.name}
-              <button type="button" onClick={logout} className="bg-none border border-ink text-ink font-mono text-xs font-bold tracking-widest uppercase cursor-pointer min-h-9 px-3 transition-[background_color] duration-120 ease-in-out hover:bg-inverse hover:text-inverse-text">
-                Salir
-              </button>
-            </span>
+            <div className="header-user">
+              <span>{user.name}</span>
+              <button type="button" onClick={logout}>Salir</button>
+            </div>
           ) : (
-            <button type="button" onClick={onOpenAuth} className="bg-none border border-ink text-ink font-mono text-xs font-bold tracking-widest uppercase cursor-pointer min-h-9 px-3 transition-[background_color] duration-120 ease-in-out hover:bg-inverse hover:text-inverse-text">
+            <button type="button" className="header-account" onClick={onOpenAuth}>
               Ingresar
             </button>
           )}
-        </nav>
+
+          <a
+            className="header-cart"
+            href="/#carrito"
+            ref={cartLinkRef}
+            onClick={(event) => {
+              event.preventDefault();
+              onNavigateToSection("carrito");
+            }}
+          >
+            <span>Carrito</span>
+            <strong>{cartCount}</strong>
+          </a>
+        </div>
       </div>
+
+      <nav className="header-nav" aria-label="Navegación principal">
+        <button type="button" onClick={() => onNavigateToSection("catalogo")}>IoT Industrial</button>
+        <button type="button" onClick={() => onNavigateToSection("catalogo")}>LoRaWAN</button>
+        <button type="button" onClick={() => onNavigateToSection("catalogo")}>Sensores</button>
+        <button type="button" onClick={() => onNavigateToSection("catalogo")}>Controladores</button>
+        <button type="button" onClick={() => onNavigateToSection("contacto")}>Proyectos</button>
+      </nav>
     </header>
   );
 }

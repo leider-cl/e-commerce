@@ -1,6 +1,7 @@
 export function CategoryStrip({ categories, selectedCategory, onSelectCategory }) {
   return (
-    <section className="category-strip" id="categorias" aria-label="Categorías principales">
+    <aside className="category-strip" id="categorias" aria-label="Categorías principales">
+      <div className="category-strip-title">Productos</div>
       {categories.map((category) => (
         <button
           className={selectedCategory === category ? "is-active" : ""}
@@ -8,9 +9,10 @@ export function CategoryStrip({ categories, selectedCategory, onSelectCategory }
           key={category}
           onClick={() => onSelectCategory(category)}
         >
-          {category}
+          <span>{category}</span>
+          <strong>+</strong>
         </button>
       ))}
-    </section>
+    </aside>
   );
 }
