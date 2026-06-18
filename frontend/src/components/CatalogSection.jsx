@@ -7,6 +7,9 @@ export function CatalogSection({
   selectedCategory,
   onSelectCategory,
   products,
+  priceBounds,
+  selectedMaxPrice,
+  onMaxPriceChange,
   filteredProducts,
   searchTerm,
   onSearchChange,
@@ -25,6 +28,10 @@ export function CatalogSection({
           onSearchChange={onSearchChange}
           products={products}
           searchTerm={searchTerm}
+          priceBounds={priceBounds}
+          selectedMaxPrice={selectedMaxPrice}
+          onMaxPriceChange={onMaxPriceChange}
+          currencyFormatter={currencyFormatter}
         />
 
         <div className="min-w-0">

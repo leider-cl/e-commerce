@@ -31,10 +31,16 @@ export function CategoryStrip({
   onSearchChange,
   products = [],
   searchTerm = "",
+  priceBounds = { min: 0, max: 0 },
+  selectedMaxPrice = 0,
+  onMaxPriceChange,
+  currencyFormatter,
 }) {
   const activeSearch = searchTerm.trim().toLowerCase();
   const [categoriesOpen, setCategoriesOpen] = useState(true);
   const [openGroups, setOpenGroups] = useState(() => new Set(filterGroups.map((group) => group.title)));
+  const hasPrices = priceBounds.max > 0;
+  const safeSelectedMaxPrice = hasPrices ? selectedMaxPrice : 0;
 
   function handleCategorySelect(category) {
     onSearchChange("");
@@ -56,6 +62,14 @@ export function CategoryStrip({
       }
       return nextGroups;
     });
+  }
+
+  function handlePriceChange(event) {
+    onMaxPriceChange(Number(event.target.value));
+  }
+
+  function resetPriceFilter() {
+    onMaxPriceChange(priceBounds.max);
   }
 
   return (
@@ -154,6 +168,41 @@ export function CategoryStrip({
           );
         })}
       </div>
+
+      <section className="border-t border-slate-200 px-5 py-5" aria-labelledby="price-filter-title">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <h3 id="price-filter-title" className="m-0 font-mono text-xs font-black uppercase tracking-widest text-slate-500">Precio</h3>
+          <button
+            type="button"
+            className="cursor-pointer border-0 bg-transparent p-0 text-xs font-bold text-brand-dark underline-offset-4 hover:underline"
+            onClick={resetPriceFilter}
+            disabled={!hasPrices}
+          >
+            Limpiar
+          </button>
+        </div>
+
+        <div className="grid gap-3">
+          <div className="flex items-center justify-between gap-3 text-sm font-semibold text-slate-700">
+            <span>{currencyFormatter.format(priceBounds.min)}</span>
+            <span>{currencyFormatter.format(safeSelectedMaxPrice)}</span>
+          </div>
+          <input
+            type="range"
+            min={priceBounds.min}
+            max={priceBounds.max}
+            step="1000"
+            value={safeSelectedMaxPrice}
+            onChange={handlePriceChange}
+            className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-brand-dark disabled:cursor-not-allowed disabled:opacity-40"
+            aria-label="Filtrar por precio máximo"
+            disabled={!hasPrices}
+          />
+          <p className="m-0 text-xs leading-5 text-slate-500">
+            Mostrando productos hasta <strong className="text-slate-700">{currencyFormatter.format(safeSelectedMaxPrice)}</strong>.
+          </p>
+        </div>
+      </section>
     </aside>
   );
 }

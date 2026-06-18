@@ -38,6 +38,7 @@ function App() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [paymentResult, setPaymentResult] = useState(initialPaymentResult);
+  const [selectedMaxPrice, setSelectedMaxPrice] = useState(null);
 
   const currencyFormatter = useMemo(
     () =>
@@ -69,20 +70,37 @@ function App() {
     fetchData();
   }, []);
 
+  const priceBounds = useMemo(() => {
+    if (products.length === 0) return { min: 0, max: 0 };
+    const prices = products.map((product) => product.price);
+    return { min: 0, max: Math.max(...prices) };
+  }, [products]);
+
+  const activeMaxPrice = selectedMaxPrice ?? priceBounds.max;
+
+  useEffect(() => {
+    if (products.length === 0) return;
+    setSelectedMaxPrice((currentMaxPrice) => {
+      if (currentMaxPrice === null) return priceBounds.max;
+      return Math.min(currentMaxPrice, priceBounds.max);
+    });
+  }, [products.length, priceBounds.max]);
+
   const filteredProducts = useMemo(() => {
     const normalizedSearch = searchTerm.trim().toLowerCase();
 
     return products.filter((product) => {
       const matchesCategory = selectedCategory === "Todas" || product.category === selectedCategory;
+      const matchesPrice = priceBounds.max === 0 || product.price <= activeMaxPrice;
       const matchesSearch =
         normalizedSearch.length === 0 ||
         product.name.toLowerCase().includes(normalizedSearch) ||
         product.description.toLowerCase().includes(normalizedSearch) ||
         product.category.toLowerCase().includes(normalizedSearch);
 
-      return matchesCategory && matchesSearch;
+      return matchesCategory && matchesSearch && matchesPrice;
     });
-  }, [selectedCategory, searchTerm, products]);
+  }, [selectedCategory, searchTerm, products, activeMaxPrice, priceBounds.max]);
 
   const cartTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   const cartQuantityByProductId = useMemo(
@@ -357,6 +375,9 @@ function App() {
             onSelectCategory={setSelectedCategory}
             loading={loading}
             products={products}
+            priceBounds={priceBounds}
+            selectedMaxPrice={activeMaxPrice}
+            onMaxPriceChange={setSelectedMaxPrice}
             filteredProducts={filteredProducts}
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
