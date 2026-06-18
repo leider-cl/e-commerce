@@ -69,9 +69,9 @@ export function CartSection({
 
                 return (
                   <article className="grid grid-cols-[5rem_minmax(0,1fr)] gap-3 rounded-2xl border border-white/10 bg-white/6 p-3 shadow-[0_18px_45px_rgba(0,0,0,.16)]" key={item.id}>
-                    <div className="grid h-20 w-20 place-items-center overflow-hidden rounded-xl bg-white">
+                    <div className="grid h-20 w-20 place-items-center overflow-hidden rounded-xl bg-slate-100">
                       {imageUrl ? (
-                        <img src={imageUrl} alt={item.name} className="h-full w-full object-contain p-2" style={{ mixBlendMode: "multiply" }} />
+                        <img src={imageUrl} alt={item.name} className="h-full w-full object-cover object-center" />
                       ) : (
                         <span className="font-mono text-sm font-black text-slate-950">{item.category.slice(0, 2).toUpperCase()}</span>
                       )}

@@ -52,7 +52,7 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
       >
         {activeImage ? (
           <>
-            <img src={activeImage} alt={product.name} loading="lazy" draggable="false" className="h-48 w-[88%] rounded-2xl bg-slate-100/95 object-contain object-center p-4 shadow-[0_18px_42px_rgba(0,0,0,.25)] transition duration-300 group-hover:scale-[1.03]" />
+            <img src={activeImage} alt={product.name} loading="lazy" draggable="false" className="h-48 w-[88%] rounded-2xl bg-slate-100/95 object-cover object-center shadow-[0_18px_42px_rgba(0,0,0,.25)] transition duration-300 group-hover:scale-[1.03]" />
             {images.length > 1 ? (
               <>
                 <button

@@ -70,9 +70,9 @@ export function ProductDetailPage({
       </button>
 
       <article className="grid gap-8 overflow-hidden rounded-[1.5rem] border border-white/10 bg-[linear-gradient(135deg,rgba(16,28,46,.96),rgba(7,15,29,.98))] p-5 shadow-[0_30px_100px_rgba(0,0,0,.38)] ring-1 ring-cyan-300/5 md:grid-cols-[minmax(0,1.08fr)_minmax(21rem,0.92fr)] lg:p-7">
-        <div className="grid content-start gap-4 rounded-[1.2rem] border border-white/10 bg-[radial-gradient(circle_at_50%_15%,rgba(34,211,238,.16),transparent_42%),linear-gradient(145deg,#101b2d,#091222)] p-4 shadow-inner">
+        <div className="product-detail-gallery grid content-start gap-4 rounded-[1.2rem] border border-white/10 bg-[radial-gradient(circle_at_50%_15%,rgba(34,211,238,.16),transparent_42%),linear-gradient(145deg,#101b2d,#091222)] p-4 shadow-inner">
           {currentImage ? (
-            <img src={currentImage} alt={product.name} draggable="false" className="h-[min(30rem,58vh)] w-full rounded-2xl bg-slate-100/95 object-contain object-center p-5 shadow-[0_22px_55px_rgba(0,0,0,.28)]" />
+            <img src={currentImage} alt={product.name} draggable="false" className="h-[min(30rem,58vh)] w-full rounded-2xl bg-slate-100/95 object-cover object-center shadow-[0_22px_55px_rgba(0,0,0,.28)]" />
           ) : (
             <div className="grid h-64 w-full place-items-center rounded-xl bg-[#0d1728]/50 font-mono text-3xl font-black text-slate-500">
               {product.category.slice(0, 2).toUpperCase()}
@@ -82,13 +82,13 @@ export function ProductDetailPage({
             <div className="mt-4 flex gap-2" aria-label="Imágenes del producto">
               {images.map((image, index) => (
                 <button
-                  className={`h-14 w-14 cursor-pointer rounded-xl border bg-slate-100/95 p-1 transition ${index === selectedImageIndex ? "border-cyan-300 shadow-[0_0_0_2px_rgba(34,211,238,.25)]" : "border-white/10 opacity-70 hover:opacity-100"}`}
+                  className={`h-14 w-14 cursor-pointer overflow-hidden rounded-xl border bg-slate-100/95 transition ${index === selectedImageIndex ? "border-cyan-300 shadow-[0_0_0_2px_rgba(34,211,238,.25)]" : "border-white/10 opacity-70 hover:opacity-100"}`}
                   type="button"
                   key={image}
                   onClick={() => onSelectImageIndex(index)}
                   aria-label={`Ver imagen ${index + 1}`}
                 >
-                  <img src={image} alt="" draggable="false" className="h-full w-full object-contain" />
+                  <img src={image} alt="" draggable="false" className="h-full w-full object-cover object-center" />
                 </button>
               ))}
             </div>
