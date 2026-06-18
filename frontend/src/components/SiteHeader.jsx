@@ -26,6 +26,7 @@ export function SiteHeader({
   onNavigateHome,
   onNavigateToSection,
   onSearchChange,
+  onOpenCart,
 }) {
   const { user, logout } = useAuth();
 
@@ -68,7 +69,7 @@ export function SiteHeader({
             ref={cartLinkRef}
             onClick={(event) => {
               event.preventDefault();
-              onNavigateToSection("carrito");
+              onOpenCart();
             }}
           >
             <span>Carrito</span>

@@ -28,6 +28,7 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState("Todas");
   const [searchTerm, setSearchTerm] = useState("");
   const [cartItems, setCartItems] = useState([]);
+  const [cartOpen, setCartOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState(["Todas"]);
   const [loading, setLoading] = useState(true);
@@ -142,6 +143,7 @@ function App() {
     }
 
     setCartNotice("");
+    setCartOpen(true);
     animateProductToCart(animationPayload ?? {});
 
     setCartItems((currentItems) => {
@@ -293,6 +295,26 @@ function App() {
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
+  useEffect(() => {
+    if (!cartOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    function handleEscape(event) {
+      if (event.key === "Escape") {
+        setCartOpen(false);
+      }
+    }
+
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [cartOpen]);
+
 
   useEffect(() => {
     if (loading) return undefined;
@@ -325,6 +347,7 @@ function App() {
         onNavigateHome={navigateHome}
         onNavigateToSection={navigateToSection}
         onSearchChange={setSearchTerm}
+        onOpenCart={() => setCartOpen(true)}
       />
       {isProductDetailPage ? (
         <>
@@ -339,18 +362,6 @@ function App() {
             relatedProducts={relatedProducts}
             onViewProduct={openProductDetails}
             loading={loading}
-          />
-          <CartSection
-            cartItems={cartItems}
-            cartNotice={cartNotice}
-            currencyFormatter={currencyFormatter}
-            cartTotal={cartTotal}
-            user={user}
-            checkoutLoading={checkoutLoading}
-            onCheckout={handleCheckout}
-            onDecreaseItem={decreaseCartItem}
-            onIncreaseItem={increaseCartItem}
-            onRemoveFromCart={removeFromCart}
           />
           <SiteFooter />
         </>
@@ -369,22 +380,26 @@ function App() {
             onAddToCart={addToCart}
             onViewDetails={openProductDetails}
           />
-          <CartSection
-            cartItems={cartItems}
-            cartNotice={cartNotice}
-            currencyFormatter={currencyFormatter}
-            cartTotal={cartTotal}
-            user={user}
-            checkoutLoading={checkoutLoading}
-            onCheckout={handleCheckout}
-            onDecreaseItem={decreaseCartItem}
-            onIncreaseItem={increaseCartItem}
-            onRemoveFromCart={removeFromCart}
-          />
           <ContactSection />
           <SiteFooter />
         </>
       )}
+
+      <CartSection
+        isOpen={cartOpen}
+        cartItems={cartItems}
+        cartNotice={cartNotice}
+        currencyFormatter={currencyFormatter}
+        cartTotal={cartTotal}
+        user={user}
+        checkoutLoading={checkoutLoading}
+        onCheckout={handleCheckout}
+        onDecreaseItem={decreaseCartItem}
+        onIncreaseItem={increaseCartItem}
+        onRemoveFromCart={removeFromCart}
+        onClose={() => setCartOpen(false)}
+        onRequestLogin={() => setAuthModalOpen(true)}
+      />
 
       {authModalOpen ? <AuthModal onClose={() => setAuthModalOpen(false)} /> : null}
 

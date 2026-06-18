@@ -151,26 +151,39 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .product-specs dt { @apply font-mono text-xs font-black uppercase tracking-widest text-slate-950; }
   .product-specs dd { @apply m-0 text-slate-600; }
 
-  .cart-section { @apply border-t border-slate-200 py-12 xl:py-16; }
-  .cart-summary { @apply border border-slate-200 bg-white p-5 shadow-sm; }
-  .cart-summary > p { @apply m-0 text-slate-600 leading-7; }
-  .cart-items { @apply grid gap-3; }
-  .cart-item { @apply grid gap-3 border-b border-slate-100 pb-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center; }
-  .cart-item > div:first-child { @apply grid gap-1; }
-  .cart-item span { @apply text-slate-600; }
-  .cart-item-controls { @apply flex items-center gap-3 sm:justify-self-end; }
-  .quantity-stepper { @apply grid grid-cols-[2.75rem_2.75rem_2.75rem] border border-slate-300; }
-  .quantity-stepper button { @apply min-h-10 cursor-pointer border-0 bg-white p-0 font-mono text-lg font-black text-slate-950 hover:bg-slate-50; }
-  .quantity-stepper button:disabled { @apply cursor-not-allowed opacity-30; }
-  .quantity-stepper span { @apply grid min-h-10 place-items-center border-x border-slate-300 font-black text-slate-950; }
-  .cart-item-remove { @apply min-h-10 cursor-pointer border border-slate-200 bg-white px-4 font-mono text-xs font-black uppercase tracking-widest text-slate-500 hover:border-brand-red hover:text-brand-red; }
-  .cart-notice { @apply mb-3 border border-brand-red bg-slate-50 p-3 font-bold text-brand-red; }
-  .cart-total { @apply mt-4 flex items-center justify-between gap-4 border-t border-slate-200 pt-4; }
-  .cart-total span { @apply text-slate-600; }
-  .cart-total strong { @apply text-[clamp(1.35rem,5vw,2rem)] font-black; }
-  .cart-checkout-actions { @apply mt-5 grid gap-3 border-t border-slate-100 pt-5; }
+  .cart-drawer { @apply pointer-events-none fixed inset-0 z-[1200]; }
+  .cart-drawer.is-open { @apply pointer-events-auto; }
+  .cart-drawer-backdrop { @apply absolute inset-0 cursor-pointer border-0 bg-black/0 p-0 opacity-0 transition duration-200; }
+  .cart-drawer.is-open .cart-drawer-backdrop { @apply bg-black/65 opacity-100 backdrop-blur-sm; }
+  .cart-drawer-panel { @apply absolute right-0 top-0 flex h-full w-[min(100%,28rem)] translate-x-full flex-col border-l border-white/10 bg-[#081120] text-white shadow-[-28px_0_90px_rgba(0,0,0,.42)] transition duration-300 ease-out; }
+  .cart-drawer.is-open .cart-drawer-panel { @apply translate-x-0; }
+  .cart-drawer-header { @apply flex items-start justify-between gap-4 border-b border-white/10 p-5; }
+  .cart-drawer-header span { @apply font-mono text-xs font-black uppercase tracking-widest text-cyan-300; }
+  .cart-drawer-header h2 { @apply m-0 mt-2 text-[clamp(1.75rem,5vw,2.5rem)] font-black leading-none tracking-[-0.04em]; }
+  .cart-drawer-close { @apply grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-xl border border-white/10 bg-white/8 text-2xl leading-none text-white transition hover:border-cyan-300 hover:text-cyan-200; }
+  .cart-items { @apply grid flex-1 content-start gap-3 overflow-y-auto p-5; }
+  .cart-item { @apply grid grid-cols-[5rem_minmax(0,1fr)] gap-3 rounded-2xl border border-white/10 bg-white/6 p-3 shadow-[0_18px_45px_rgba(0,0,0,.16)]; }
+  .cart-item-media { @apply grid h-20 w-20 place-items-center overflow-hidden rounded-xl bg-white; }
+  .cart-item-media img { @apply h-full w-full object-contain p-2; mix-blend-mode: multiply; }
+  .cart-item-media span { @apply font-mono text-sm font-black text-slate-950; }
+  .cart-item-body { @apply grid min-w-0 gap-2; }
+  .cart-item-body strong { @apply text-sm font-black leading-snug text-white wrap-break-word; }
+  .cart-item-body > span { @apply text-sm text-slate-300; }
+  .cart-item-controls { @apply flex flex-wrap items-center gap-2; }
+  .quantity-stepper { @apply grid grid-cols-[2.4rem_2.4rem_2.4rem] overflow-hidden rounded-xl border border-white/10 bg-white/8; }
+  .quantity-stepper button { @apply min-h-10 cursor-pointer border-0 bg-transparent p-0 font-mono text-lg font-black text-white transition hover:bg-cyan-400 hover:text-slate-950 disabled:cursor-not-allowed disabled:opacity-30; }
+  .quantity-stepper span { @apply grid min-h-10 place-items-center border-x border-white/10 font-black text-white; }
+  .cart-item-remove { @apply min-h-10 cursor-pointer rounded-xl border border-white/10 bg-transparent px-3 font-mono text-xs font-black uppercase tracking-widest text-slate-300 transition hover:border-cyan-300 hover:text-cyan-200; }
+  .cart-notice { @apply mx-5 mt-5 rounded-2xl border border-cyan-300/30 bg-cyan-300/10 p-3 text-sm font-bold text-cyan-100; }
+  .cart-total { @apply mx-5 flex items-center justify-between gap-4 border-t border-white/10 pt-5; }
+  .cart-total span { @apply text-sm text-slate-300; }
+  .cart-total strong { @apply text-[clamp(1.35rem,5vw,2rem)] font-black text-white; }
+  .cart-checkout-actions { @apply mt-auto grid gap-3 border-t border-white/10 p-5; }
   .cart-checkout-actions .primary-action, .cart-checkout-actions .secondary-action { @apply w-full justify-center; }
-  .cart-login-hint { @apply m-0 text-center text-sm text-slate-500; }
+  .cart-login-hint { @apply m-0 text-center text-sm text-slate-400; }
+  .cart-empty-state { @apply m-5 mt-8 grid gap-4 rounded-2xl border border-cyan-300/20 bg-cyan-300/8 p-5 text-slate-100; }
+  .cart-empty-state span { @apply font-mono text-xs font-black uppercase tracking-widest text-cyan-300; }
+  .cart-empty-state p { @apply m-0 leading-7 text-slate-300; }
 
   .contact-section { @apply border-t border-white/10 py-12 xl:py-16; }
   .contact-heading p { @apply m-0 max-w-176 text-slate-300 leading-7; }
