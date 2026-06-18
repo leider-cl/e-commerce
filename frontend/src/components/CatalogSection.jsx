@@ -40,14 +40,6 @@ export function CatalogSection({
         />
 
         <div className="min-w-0">
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-5" aria-label="Marcas destacadas">
-            <span className="grid min-h-20 place-items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-center font-mono text-sm font-black uppercase tracking-wide text-slate-200 shadow-[0_18px_45px_rgba(0,0,0,.14)]">Milesight</span>
-            <span className="grid min-h-20 place-items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-center font-mono text-sm font-black uppercase tracking-wide text-slate-200 shadow-[0_18px_45px_rgba(0,0,0,.14)]">LoRaWAN</span>
-            <span className="grid min-h-20 place-items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-center font-mono text-sm font-black uppercase tracking-wide text-slate-200 shadow-[0_18px_45px_rgba(0,0,0,.14)]">IoT</span>
-            <span className="grid min-h-20 place-items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-center font-mono text-sm font-black uppercase tracking-wide text-slate-200 shadow-[0_18px_45px_rgba(0,0,0,.14)]">RS485</span>
-            <span className="grid min-h-20 place-items-center rounded-2xl border border-white/10 bg-white/8 px-4 text-center font-mono text-sm font-black uppercase tracking-wide text-slate-200 shadow-[0_18px_45px_rgba(0,0,0,.14)]">4-20mA</span>
-          </div>
-
           <div className="mb-5 mt-7 flex flex-col gap-2">
             <span className="font-mono text-xs font-black uppercase tracking-widest text-cyan-300">Catálogo</span>
             <h2 className="m-0 max-w-full text-[clamp(2rem,5vw,3.25rem)] font-black leading-none tracking-[-0.04em] text-white break-words">Productos destacados</h2>
