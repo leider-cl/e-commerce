@@ -1,5 +1,5 @@
 export function PaymentResult({ status, orderId, onDismiss }) {
-  const isOk = status === "paid";
+  const isOk = status === "paid" || status === "success";
 
   return (
     <div className="payment-result-backdrop" onMouseDown={onDismiss}>
