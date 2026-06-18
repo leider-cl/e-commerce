@@ -4,17 +4,17 @@ const quickCategoryGroups = [
     items: ["LoRaWAN", "RS485", "Gateway"],
   },
   {
-    title: "Se?ales industriales",
+    title: "Señales industriales",
     items: ["4-20mA", "SDI-12", "Sensores"],
   },
 ];
 
 export function CategoryStrip({ categories, selectedCategory, onSelectCategory, onSearchChange }) {
   return (
-    <aside className="category-strip" id="categorias" aria-label="Categor?as principales">
+    <aside className="category-strip" id="categorias" aria-label="Categorías principales">
       <div className="category-strip-title">
         <span>Productos</span>
-        <small>Explorar por l?nea</small>
+        <small>Explorar por línea</small>
       </div>
 
       <div className="category-list">
@@ -26,16 +26,15 @@ export function CategoryStrip({ categories, selectedCategory, onSelectCategory, 
             onClick={() => onSelectCategory(category)}
           >
             <span>{category}</span>
-            <strong>{selectedCategory === category ? "?" : "+"}</strong>
           </button>
         ))}
       </div>
 
-      <div className="category-accordions">
+      <div className="category-quick-groups">
         {quickCategoryGroups.map((group) => (
-          <details key={group.title}>
-            <summary>{group.title}</summary>
-            <div>
+          <section className="category-quick-group" key={group.title}>
+            <h3>{group.title}</h3>
+            <div className="category-quick-links">
               {group.items.map((item) => (
                 <button
                   type="button"
@@ -49,7 +48,7 @@ export function CategoryStrip({ categories, selectedCategory, onSelectCategory, 
                 </button>
               ))}
             </div>
-          </details>
+          </section>
         ))}
       </div>
     </aside>
