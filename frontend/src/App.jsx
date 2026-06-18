@@ -317,26 +317,23 @@ function App() {
 
 
   useEffect(() => {
-    if (loading) return undefined;
-
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (reduceMotion) return undefined;
 
     const ctx = gsap.context(() => {
-      const timeline = gsap.timeline({ defaults: { duration: 0.7, ease: "power3.out" } });
+      const timeline = gsap.timeline({ defaults: { duration: 0.3, ease: "power2.out" } });
 
       timeline
-        .from(".site-header", { y: -18, autoAlpha: 0, clearProps: "all" })
-        .from(".category-strip button", { y: 14, autoAlpha: 0, stagger: 0.06, clearProps: "all" }, "-=0.3")
-        .from(".catalog-tools", { y: 16, autoAlpha: 0, clearProps: "all" }, "-=0.25")
-        .from(".product-card", { y: 22, autoAlpha: 0, stagger: 0.08, clearProps: "all" }, "-=0.15")
-        .from(".cart-summary", { y: 20, autoAlpha: 0, clearProps: "all" }, "-=0.2")
-        .from(".contact-card", { y: 20, autoAlpha: 0, stagger: 0.08, clearProps: "all" }, "-=0.2");
+        .from(".site-header", { y: -12, autoAlpha: 0, clearProps: "all" })
+        .from(".category-strip button", { y: 8, autoAlpha: 0, stagger: 0.03, clearProps: "all" }, "-=0.12")
+        .from(".catalog-tools", { y: 10, autoAlpha: 0, clearProps: "all" }, "-=0.1")
+        .from(".product-card", { y: 12, autoAlpha: 0, stagger: 0.04, clearProps: "all" }, "-=0.08")
+        .from(".contact-card", { y: 10, autoAlpha: 0, stagger: 0.04, clearProps: "all" }, "-=0.08");
     }, pageRef);
 
     return () => ctx.revert();
-  }, [loading]);
+  }, []);
 
   return (
     <main className="site-shell" ref={pageRef}>
