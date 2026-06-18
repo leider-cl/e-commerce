@@ -25,7 +25,8 @@ function App() {
   const { user } = useAuth();
   const pageRef = useRef(null);
   const cartLinkRef = useRef(null);
-  const [selectedCategory, setSelectedCategory] = useState("Todas");
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedSidebarFilters, setSelectedSidebarFilters] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [cartItems, setCartItems] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
@@ -93,17 +94,17 @@ function App() {
     const normalizedSearch = searchTerm.trim().toLowerCase();
 
     return products.filter((product) => {
-      const matchesCategory = selectedCategory === "Todas" || product.category === selectedCategory;
+      const haystack = `${product.name} ${product.description} ${product.category}`.toLowerCase();
+      const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(product.category);
       const matchesPrice = priceBounds.max === 0 || (product.price >= activePriceRange.min && product.price <= activePriceRange.max);
-      const matchesSearch =
-        normalizedSearch.length === 0 ||
-        product.name.toLowerCase().includes(normalizedSearch) ||
-        product.description.toLowerCase().includes(normalizedSearch) ||
-        product.category.toLowerCase().includes(normalizedSearch);
+      const matchesSearch = normalizedSearch.length === 0 || haystack.includes(normalizedSearch);
+      const matchesSidebarFilters =
+        selectedSidebarFilters.length === 0 ||
+        selectedSidebarFilters.some((filter) => haystack.includes(filter.toLowerCase()));
 
-      return matchesCategory && matchesSearch && matchesPrice;
+      return matchesCategory && matchesSearch && matchesSidebarFilters && matchesPrice;
     });
-  }, [selectedCategory, searchTerm, products, activePriceRange.min, activePriceRange.max, priceBounds.max]);
+  }, [selectedCategories, selectedSidebarFilters, searchTerm, products, activePriceRange.min, activePriceRange.max, priceBounds.max]);
 
   const cartTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   const cartQuantityByProductId = useMemo(
@@ -297,6 +298,27 @@ function App() {
     navigateTo("/");
   }
 
+  function toggleCategoryFilter(category) {
+    setSearchTerm("");
+    if (category === "Todas") {
+      setSelectedCategories([]);
+      return;
+    }
+    setSelectedCategories((currentCategories) =>
+      currentCategories.includes(category)
+        ? currentCategories.filter((currentCategory) => currentCategory !== category)
+        : [...currentCategories, category],
+    );
+  }
+
+  function toggleSidebarFilter(filter) {
+    setSelectedSidebarFilters((currentFilters) =>
+      currentFilters.includes(filter)
+        ? currentFilters.filter((currentFilter) => currentFilter !== filter)
+        : [...currentFilters, filter],
+    );
+  }
+
   function navigateToSection(sectionId) {
     setSelectedProductImageIndex(0);
     navigateTo(`/#${sectionId}`, { scrollToId: sectionId });
@@ -380,8 +402,10 @@ function App() {
         <>
           <CatalogSection
             categories={categories}
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
+            selectedCategories={selectedCategories}
+            selectedSidebarFilters={selectedSidebarFilters}
+            onToggleCategory={toggleCategoryFilter}
+            onToggleSidebarFilter={toggleSidebarFilter}
             loading={loading}
             products={products}
             priceBounds={priceBounds}

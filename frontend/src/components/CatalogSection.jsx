@@ -4,8 +4,10 @@ import { ProductCard } from "./ProductCard";
 export function CatalogSection({
   loading,
   categories,
-  selectedCategory,
-  onSelectCategory,
+  selectedCategories,
+  selectedSidebarFilters,
+  onToggleCategory,
+  onToggleSidebarFilter,
   products,
   priceBounds,
   selectedPriceRange,
@@ -23,8 +25,10 @@ export function CatalogSection({
       <div className="grid gap-6 pt-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
         <CategoryStrip
           categories={categories}
-          selectedCategory={selectedCategory}
-          onSelectCategory={onSelectCategory}
+          selectedCategories={selectedCategories}
+          selectedSidebarFilters={selectedSidebarFilters}
+          onToggleCategory={onToggleCategory}
+          onToggleSidebarFilter={onToggleSidebarFilter}
           onSearchChange={onSearchChange}
           products={products}
           searchTerm={searchTerm}

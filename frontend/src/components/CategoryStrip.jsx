@@ -26,8 +26,10 @@ function getSearchCount(term, products) {
 
 export function CategoryStrip({
   categories,
-  selectedCategory,
-  onSelectCategory,
+  selectedCategories = [],
+  selectedSidebarFilters = [],
+  onToggleCategory,
+  onToggleSidebarFilter,
   onSearchChange,
   products = [],
   searchTerm = "",
@@ -44,13 +46,11 @@ export function CategoryStrip({
   const safeSelectedMaxPrice = hasPrices ? selectedPriceRange.max : 0;
 
   function handleCategorySelect(category) {
-    onSearchChange("");
-    onSelectCategory(category);
+    onToggleCategory(category);
   }
 
   function handleFilterSelect(item) {
-    onSelectCategory("Todas");
-    onSearchChange(item);
+    onToggleSidebarFilter(item);
   }
 
   function toggleGroup(groupTitle) {
@@ -111,7 +111,7 @@ export function CategoryStrip({
         {categoriesOpen ? (
           <div className="grid gap-2" id="category-filter-list">
             {categories.map((category) => {
-              const isSelected = selectedCategory === category && activeSearch.length === 0;
+              const isSelected = category === "Todas" ? selectedCategories.length === 0 : selectedCategories.includes(category);
               const count = getCategoryCount(category, products);
 
               return (
@@ -156,7 +156,7 @@ export function CategoryStrip({
               {isGroupOpen ? (
                 <div className="grid gap-3" id={`filter-group-${group.title.toLowerCase().replaceAll(" ", "-")}`}>
                   {group.items.map((item) => {
-                    const isActive = activeSearch === item.toLowerCase();
+                    const isActive = selectedSidebarFilters.includes(item);
                     const count = getSearchCount(item, products);
 
                     return (
