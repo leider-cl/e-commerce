@@ -41,7 +41,7 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
   const reachedStockLimit = cartQuantity >= product.stock;
 
   return (
-    <article className="product-card group grid min-h-full min-w-0 overflow-hidden rounded-xl border border-slate-200 bg-white p-3 shadow-[0_10px_26px_rgba(15,23,42,.08)] transition hover:-translate-y-1 hover:border-[#2f66b3]/50 hover:shadow-[0_18px_40px_rgba(47,102,179,.14)]">
+    <article className="product-card group grid min-h-full min-w-0 overflow-hidden rounded-xl border border-slate-200 bg-white p-3 shadow-[0_10px_26px_rgba(15,23,42,.08)] transition hover:-translate-y-1 hover:border-brand-dark/50 hover:shadow-[0_18px_40px_rgba(47,102,179,.14)]">
       <div
         className="relative grid min-h-56 place-items-center overflow-hidden rounded-lg border border-slate-200 bg-slate-50 p-4 select-none"
         style={{ touchAction: "pan-y" }}
@@ -56,7 +56,7 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
             {images.length > 1 ? (
               <>
                 <button
-                  className="absolute top-1/2 left-3 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl border border-white/15 bg-[#2f66b3] text-white shadow-lg transition hover:bg-[#285aa0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2f66b3]/50"
+                  className="absolute top-1/2 left-3 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl border border-white/15 bg-brand-dark text-white shadow-lg transition hover:bg-brand-darker focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-dark/50"
                   type="button"
                   onClick={showPreviousImage}
                   aria-label="Ver imagen anterior"
@@ -66,7 +66,7 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
                   </svg>
                 </button>
                 <button
-                  className="absolute top-1/2 right-3 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl border border-white/15 bg-[#2f66b3] text-white shadow-lg transition hover:bg-[#285aa0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2f66b3]/50"
+                  className="absolute top-1/2 right-3 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl border border-white/15 bg-brand-dark text-white shadow-lg transition hover:bg-brand-darker focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-dark/50"
                   type="button"
                   onClick={showNextImage}
                   aria-label="Ver imagen siguiente"
@@ -75,7 +75,7 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
                     <polyline points="9 6 15 12 9 18" />
                   </svg>
                 </button>
-                <span className="absolute right-3 top-3 rounded-full border border-blue-200 bg-[#2f66b3] px-2 py-1 font-mono text-[0.65rem] font-black leading-none text-white shadow-lg">
+                <span className="absolute right-3 top-3 rounded-full border border-blue-200 bg-brand-dark px-2 py-1 font-mono text-[0.65rem] font-black leading-none text-white shadow-lg">
                   {activeImageIndex + 1}/{images.length}
                 </span>
               </>
@@ -89,16 +89,16 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
       </div>
 
       <div className="flex flex-col px-2 pb-2 pt-4">
-        <div className="flex flex-wrap justify-between gap-3 font-mono text-[0.68rem] font-black uppercase tracking-widest text-[#2f66b3]">
+        <div className="flex flex-wrap justify-between gap-3 font-mono text-[0.68rem] font-black uppercase tracking-widest text-brand-dark">
           <span>{product.tag}</span>
           <span>{product.stock} disponibles</span>
         </div>
-        <h3 className="mt-3 mb-2 text-xl font-black leading-tight tracking-[-0.03em] text-slate-900 break-words">
-          <button type="button" className="m-0 cursor-pointer border-0 bg-transparent p-0 text-left font-[inherit] leading-[inherit] tracking-[inherit] text-inherit hover:text-[#2f66b3] underline decoration-1 underline-offset-4" onClick={() => onViewDetails(product)}>
+        <h3 className="mt-3 mb-2 text-xl font-black leading-tight tracking-[-0.03em] text-slate-900 wrap-break-word">
+          <button type="button" className="m-0 cursor-pointer border-0 bg-transparent p-0 text-left font-[inherit] leading-[inherit] tracking-[inherit] text-inherit hover:text-brand-dark underline decoration-1 underline-offset-4" onClick={() => onViewDetails(product)}>
             {product.name}
           </button>
         </h3>
-        <p className="m-0 text-sm leading-6 text-slate-600 break-words">{product.description}</p>
+        <p className="m-0 text-sm leading-6 text-slate-600 wrap-break-word">{product.description}</p>
 
         <div className="mt-auto flex flex-col gap-4 pt-4">
           <div className="flex items-baseline gap-1">
@@ -108,7 +108,7 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
           <div className="grid w-full min-w-0 grid-cols-1 gap-2 rounded-[1rem] bg-slate-100 p-1 sm:grid-cols-2">
             <button
               type="button"
-              className="inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 no-underline transition hover:border-[#2f66b3] hover:text-[#2f66b3] hover:shadow-[0_0_0_4px_rgba(47,102,179,.10)]"
+              className="inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 no-underline transition hover:border-brand-dark hover:text-brand-dark hover:shadow-[0_0_0_4px_rgba(47,102,179,.10)]"
               onClick={() => onViewDetails(product)}
             >
               Ver detalle
@@ -116,7 +116,7 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
             <button
               type="button"
               disabled={reachedStockLimit}
-              className="inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-[#2f66b3] bg-[#2f66b3] px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:bg-[#285aa0] hover:border-[#285aa0] disabled:cursor-not-allowed disabled:opacity-45"
+              className="inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-brand-dark bg-brand-dark px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:bg-brand-darker hover:border-brand-darker disabled:cursor-not-allowed disabled:opacity-45"
               onClick={(event) =>
                 onAddToCart(product, {
                   imageUrl: activeImage,

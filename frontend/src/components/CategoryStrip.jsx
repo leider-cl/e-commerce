@@ -23,10 +23,10 @@ export function CategoryStrip({ categories, selectedCategory, onSelectCategory, 
 
           return (
             <button
-              className={`flex w-full items-center justify-between gap-3 border-b border-slate-200 px-4 py-3 text-left font-mono text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2f66b3]/40 ${
+              className={`flex w-full items-center justify-between gap-3 border-b border-slate-200 px-4 py-3 text-left font-mono text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-dark/40 ${
                 isSelected
-                  ? "bg-[#2f66b3] text-white shadow-inner hover:bg-[#285aa0]"
-                  : "bg-transparent text-slate-700 hover:bg-blue-50 hover:text-[#2f66b3] focus-visible:bg-blue-50 focus-visible:text-[#2f66b3]"
+                  ? "bg-brand-dark text-white shadow-inner hover:bg-brand-darker"
+                  : "bg-transparent text-slate-700 hover:bg-blue-50 hover:text-brand-dark focus-visible:bg-blue-50 focus-visible:text-brand-dark"
               }`}
               type="button"
               key={category}
@@ -42,7 +42,7 @@ export function CategoryStrip({ categories, selectedCategory, onSelectCategory, 
       <div className="grid gap-3 border-t border-slate-200 p-2">
         {quickCategoryGroups.map((group) => (
           <section className="overflow-hidden rounded-xl border border-slate-200" key={group.title}>
-            <h3 className="m-0 bg-blue-50 px-3 py-3 font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">
+            <h3 className="m-0 bg-blue-50 px-3 py-3 font-mono text-xs font-black uppercase tracking-widest text-brand-dark">
               {group.title}
             </h3>
             <div className="overflow-hidden">
@@ -54,7 +54,7 @@ export function CategoryStrip({ categories, selectedCategory, onSelectCategory, 
                     onSelectCategory("Todas");
                     onSearchChange(item);
                   }}
-                  className="flex w-full items-center justify-between gap-3 border-b border-slate-200 bg-transparent px-4 py-3 text-left font-mono text-sm font-bold text-slate-700 transition hover:bg-blue-50 hover:text-[#2f66b3] focus-visible:bg-blue-50 focus-visible:text-[#2f66b3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2f66b3]/40"
+                  className="flex w-full items-center justify-between gap-3 border-b border-slate-200 bg-transparent px-4 py-3 text-left font-mono text-sm font-bold text-slate-700 transition hover:bg-blue-50 hover:text-brand-dark focus-visible:bg-blue-50 focus-visible:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-dark/40"
                 >
                   {item}
                 </button>

@@ -30,7 +30,7 @@ export function ProductDetailPage({
     return (
       <section className="py-8 xl:py-14">
         <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-[0_10px_28px_rgba(15,23,42,.07)]">
-          <span className="mb-3 block font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">Producto</span>
+          <span className="mb-3 block font-mono text-xs font-black uppercase tracking-widest text-brand-dark">Producto</span>
           <h1 className="m-0 mb-3 text-[clamp(1.9rem,5vw,3rem)] font-black leading-none tracking-tighter text-slate-900">Cargando producto</h1>
           <p className="m-0 text-slate-600">Estamos preparando la información técnica.</p>
         </div>
@@ -43,13 +43,13 @@ export function ProductDetailPage({
       <section className="py-8 xl:py-14">
         <button
           type="button"
-          className="mb-5 inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 no-underline transition hover:border-[#2f66b3] hover:bg-blue-50 hover:text-[#2f66b3] hover:shadow-[0_0_0_4px_rgba(47,102,179,.10)]"
+          className="mb-5 inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 no-underline transition hover:border-brand-dark hover:bg-blue-50 hover:text-brand-dark hover:shadow-[0_0_0_4px_rgba(47,102,179,.10)]"
           onClick={onBackToCatalog}
         >
           Volver al catálogo
         </button>
         <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-[0_10px_28px_rgba(15,23,42,.07)]">
-          <span className="mb-3 block font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">Producto</span>
+          <span className="mb-3 block font-mono text-xs font-black uppercase tracking-widest text-brand-dark">Producto</span>
           <h1 className="m-0 mb-3 text-[clamp(1.9rem,5vw,3rem)] font-black leading-none tracking-tighter text-slate-900">Producto no encontrado</h1>
           <p className="m-0 text-slate-600">El producto solicitado no existe o ya no está disponible.</p>
         </div>
@@ -63,7 +63,7 @@ export function ProductDetailPage({
     <section className="py-8 xl:py-14">
       <button
         type="button"
-        className="mb-5 inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 no-underline transition hover:border-[#2f66b3] hover:bg-blue-50 hover:text-[#2f66b3] hover:shadow-[0_0_0_4px_rgba(47,102,179,.10)]"
+        className="mb-5 inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 no-underline transition hover:border-brand-dark hover:bg-blue-50 hover:text-brand-dark hover:shadow-[0_0_0_4px_rgba(47,102,179,.10)]"
         onClick={onBackToCatalog}
       >
         Volver al catálogo
@@ -82,7 +82,7 @@ export function ProductDetailPage({
             <div className="mt-4 flex gap-2" aria-label="Imágenes del producto">
               {images.map((image, index) => (
                 <button
-                  className={`h-14 w-14 cursor-pointer overflow-hidden rounded-xl border bg-slate-100/95 transition ${index === selectedImageIndex ? "border-[#2f66b3] shadow-[0_0_0_2px_rgba(47,102,179,.20)]" : "border-slate-200 opacity-70 hover:opacity-100"}`}
+                  className={`h-14 w-14 cursor-pointer overflow-hidden rounded-xl border bg-slate-100/95 transition ${index === selectedImageIndex ? "border-brand-dark shadow-[0_0_0_2px_rgba(47,102,179,.20)]" : "border-slate-200 opacity-70 hover:opacity-100"}`}
                   type="button"
                   key={image}
                   onClick={() => onSelectImageIndex(index)}
@@ -96,28 +96,28 @@ export function ProductDetailPage({
         </div>
 
         <div className="min-w-0">
-          <span className="mb-3 block font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">{product.tag}</span>
-          <h1 className="mt-3 mb-4 max-w-180 text-[clamp(2rem,4.6vw,3.15rem)] font-black leading-tight tracking-[-0.04em] text-slate-900 break-words">{product.name}</h1>
-          <p className="max-w-160 text-slate-600 leading-7 break-words">{product.description}</p>
+          <span className="mb-3 block font-mono text-xs font-black uppercase tracking-widest text-brand-dark">{product.tag}</span>
+          <h1 className="mt-3 mb-4 max-w-180 text-[clamp(2rem,4.6vw,3.15rem)] font-black leading-tight tracking-[-0.04em] text-slate-900 wrap-break-word">{product.name}</h1>
+          <p className="max-w-160 text-slate-600 leading-7 wrap-break-word">{product.description}</p>
 
           <dl className="my-6 grid gap-0 border-t border-slate-200">
             <div className="grid gap-1 border-b border-slate-200 py-3">
-              <dt className="font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">Categoría</dt>
+              <dt className="font-mono text-xs font-black uppercase tracking-widest text-brand-dark">Categoría</dt>
               <dd className="m-0 text-slate-700">{product.category}</dd>
             </div>
             <div className="grid gap-1 border-b border-slate-200 py-3">
-              <dt className="font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">Stock</dt>
+              <dt className="font-mono text-xs font-black uppercase tracking-widest text-brand-dark">Stock</dt>
               <dd className="m-0 text-slate-700">{product.stock} disponibles</dd>
             </div>
             <div className="grid gap-1 border-b border-slate-200 py-3">
-              <dt className="font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">Precio</dt>
+              <dt className="font-mono text-xs font-black uppercase tracking-widest text-brand-dark">Precio</dt>
               <dd className="m-0 text-slate-700">{currencyFormatter.format(product.price)} CLP</dd>
             </div>
           </dl>
 
           <button
             type="button"
-            className="inline-flex min-h-12 min-w-0 w-full items-center justify-center rounded-xl border border-[#2f66b3] bg-[#2f66b3] px-5 py-3 font-mono text-sm font-black uppercase tracking-widest text-white no-underline shadow-[0_12px_28px_rgba(47,102,179,.18)] transition hover:bg-[#285aa0] hover:border-[#285aa0] disabled:cursor-not-allowed disabled:opacity-45"
+            className="inline-flex min-h-12 min-w-0 w-full items-center justify-center rounded-xl border border-brand-dark bg-brand-dark px-5 py-3 font-mono text-sm font-black uppercase tracking-widest text-white no-underline shadow-[0_12px_28px_rgba(47,102,179,.18)] transition hover:bg-brand-darker hover:border-brand-darker disabled:cursor-not-allowed disabled:opacity-45"
             disabled={reachedCartLimit}
             onClick={() =>
               onAddToCart(product, {
@@ -134,8 +134,8 @@ export function ProductDetailPage({
       {relatedProducts.length > 0 ? (
         <section className="mt-8 border-t border-slate-200 pt-8" aria-labelledby="related-products-title">
           <div className="mb-4 mt-10 flex flex-col gap-2">
-            <span className="font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">También podría interesarte</span>
-            <h2 id="related-products-title" className="text-[clamp(1.8rem,4vw,2.8rem)] m-0 max-w-full font-black leading-none tracking-[-0.04em] text-slate-900 break-words">Productos similares</h2>
+            <span className="font-mono text-xs font-black uppercase tracking-widest text-brand-dark">También podría interesarte</span>
+            <h2 id="related-products-title" className="text-[clamp(1.8rem,4vw,2.8rem)] m-0 max-w-full font-black leading-none tracking-[-0.04em] text-slate-900 wrap-break-word">Productos similares</h2>
           </div>
           <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,16rem),16rem))] gap-4">
             {relatedProducts.map((relatedProduct) => {
@@ -145,11 +145,11 @@ export function ProductDetailPage({
                   <img src={relatedImage} alt={relatedProduct.name} loading="lazy" className="h-44 w-full bg-[radial-gradient(circle_at_50%_35%,#ffffff_0,#eef4fb_62%,#dce7f4_100%)] object-contain object-center" style={{ mixBlendMode: "multiply" }} />
                   <div className="grid gap-2 p-4">
                     <span className="font-mono text-xs font-black uppercase tracking-widest text-slate-400">{relatedProduct.tag}</span>
-                    <h3 className="m-0 text-xl font-black leading-tight tracking-[-0.03em] text-slate-900 break-words">{relatedProduct.name}</h3>
+                    <h3 className="m-0 text-xl font-black leading-tight tracking-[-0.03em] text-slate-900 wrap-break-word">{relatedProduct.name}</h3>
                     <p className="m-0 text-sm text-slate-600">{currencyFormatter.format(relatedProduct.price)} CLP</p>
                     <button
                       type="button"
-                      className="mt-2 inline-flex min-h-11 min-w-0 w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 no-underline transition hover:border-[#2f66b3] hover:text-[#2f66b3] hover:shadow-[0_0_0_4px_rgba(47,102,179,.10)]"
+                      className="mt-2 inline-flex min-h-11 min-w-0 w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 no-underline transition hover:border-brand-dark hover:text-brand-dark hover:shadow-[0_0_0_4px_rgba(47,102,179,.10)]"
                       onClick={() => onViewProduct(relatedProduct)}
                     >
                       Ver producto

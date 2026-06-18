@@ -24,7 +24,7 @@ export function PaymentResult({ status, orderId, onDismiss }) {
         )}
         <button
           type="button"
-          className="mt-2 inline-flex min-h-11 min-w-0 w-full items-center justify-center rounded-xl border border-[#2f66b3] bg-[#2f66b3] px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:bg-[#285aa0] hover:border-[#285aa0]"
+          className="mt-2 inline-flex min-h-11 min-w-0 w-full items-center justify-center rounded-xl border border-brand-dark bg-brand-dark px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:bg-brand-darker hover:border-brand-darker"
           onClick={onDismiss}
         >
           {isOk ? "Seguir navegando" : "Volver al carrito"}

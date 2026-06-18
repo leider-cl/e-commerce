@@ -50,7 +50,7 @@ export function SiteHeader({
           <span className="font-mono text-5xl font-black leading-none tracking-[0.08em] text-[#22324a]">
             LEIDER
           </span>
-          <span className="self-end font-mono text-xs font-black uppercase tracking-[0.25em] text-[#2f66b3]">
+          <span className="self-end font-mono text-xs font-black uppercase tracking-[0.25em] text-brand-dark">
             Shop
           </span>
         </a>
@@ -62,7 +62,7 @@ export function SiteHeader({
               <button
                 type="button"
                 onClick={logout}
-                className="min-h-11 rounded-xl border border-slate-300 bg-white px-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 transition hover:border-[#2f66b3] hover:text-[#2f66b3]"
+                className="min-h-11 rounded-xl border border-slate-300 bg-white px-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 transition hover:border-brand-dark hover:text-brand-dark"
               >
                 Salir
               </button>
@@ -70,7 +70,7 @@ export function SiteHeader({
           ) : (
             <button
               type="button"
-              className="min-h-11 rounded-xl border border-slate-300 bg-white px-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 transition hover:border-[#2f66b3] hover:text-[#2f66b3]"
+              className="min-h-11 rounded-xl border border-slate-300 bg-white px-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 transition hover:border-brand-dark hover:text-brand-dark"
               onClick={onOpenAuth}
             >
               Ingresar
@@ -78,7 +78,7 @@ export function SiteHeader({
           )}
 
           <a
-            className="relative inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#2f66b3] px-4 font-mono text-xs font-black uppercase tracking-widest text-white no-underline shadow-[0_12px_24px_rgba(47,102,179,.18)]"
+            className="relative inline-flex min-h-11 items-center gap-2 rounded-xl bg-brand-dark px-4 font-mono text-xs font-black uppercase tracking-widest text-white no-underline shadow-[0_12px_24px_rgba(47,102,179,.18)]"
             href="/#carrito"
             ref={cartLinkRef}
             onClick={(event) => {
@@ -87,14 +87,14 @@ export function SiteHeader({
             }}
           >
             <span>Carrito</span>
-            <strong className="grid h-6 min-w-6 place-items-center rounded-full bg-white px-1 text-xs text-[#2f66b3]">
+            <strong className="grid h-6 min-w-6 place-items-center rounded-full bg-white px-1 text-xs text-brand-dark">
               {cartCount}
             </strong>
           </a>
         </div>
       </div>
 
-      <nav className="mx-auto flex min-h-14 w-full max-w-[96rem] flex-wrap items-center justify-center gap-2 border-t border-slate-200 bg-[#2f66b3] px-4 py-3 lg:px-8" aria-label="Navegación principal">
+      <nav className="mx-auto flex min-h-14 w-full max-w-[96rem] flex-wrap items-center justify-center gap-2 border-t border-slate-200 bg-brand-dark px-4 py-3 lg:px-8" aria-label="Navegación principal">
         <ul className="m-0 flex list-none flex-wrap items-center justify-center gap-2 p-0">
           {navigationGroups.map((group) => (
             <li className="group relative" key={group.label}>
@@ -115,7 +115,7 @@ export function SiteHeader({
                     type="button"
                     key={item}
                     onClick={() => searchFromMenu(item)}
-                    className="min-h-10 rounded-xl px-3 text-left font-mono text-xs font-bold uppercase tracking-wide text-slate-700 transition hover:bg-[#2f66b3] hover:text-white"
+                    className="min-h-10 rounded-xl px-3 text-left font-mono text-xs font-bold uppercase tracking-wide text-slate-700 transition hover:bg-brand-dark hover:text-white"
                   >
                     {item}
                   </button>

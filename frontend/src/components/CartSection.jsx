@@ -43,12 +43,12 @@
       >
         <div className="flex items-start justify-between gap-4 border-b border-slate-200 p-5">
           <div>
-            <span className="font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">Carrito</span>
+            <span className="font-mono text-xs font-black uppercase tracking-widest text-brand-dark">Carrito</span>
             <h2 className="m-0 mt-2 text-[clamp(1.75rem,5vw,2.5rem)] font-black leading-none tracking-[-0.04em]">Selección para cotizar</h2>
           </div>
           <button
             type="button"
-            className="grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-xl border border-slate-300 bg-white text-2xl leading-none text-slate-700 transition hover:border-[#2f66b3] hover:text-[#2f66b3]"
+            className="grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-xl border border-slate-300 bg-white text-2xl leading-none text-slate-700 transition hover:border-brand-dark hover:text-brand-dark"
             onClick={onClose}
             aria-label="Cerrar carrito"
           >
@@ -57,7 +57,7 @@
         </div>
 
         {cartNotice ? (
-          <p className="mx-5 mt-5 rounded-2xl border border-blue-200 bg-blue-50 p-3 text-sm font-bold text-[#2f66b3]" role="alert">
+          <p className="mx-5 mt-5 rounded-2xl border border-blue-200 bg-blue-50 p-3 text-sm font-bold text-brand-dark" role="alert">
             {cartNotice}
           </p>
         ) : null}
@@ -72,7 +72,7 @@
                   <article className="grid grid-cols-[5rem_minmax(0,1fr)] gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_8px_22px_rgba(15,23,42,.08)]" key={item.id}>
                     <button
                       type="button"
-                      className="grid h-20 w-20 cursor-pointer place-items-center overflow-hidden rounded-xl border border-transparent bg-slate-100 p-0 transition hover:border-[#2f66b3] focus-visible:border-[#2f66b3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2f66b3]/30"
+                      className="grid h-20 w-20 cursor-pointer place-items-center overflow-hidden rounded-xl border border-transparent bg-slate-100 p-0 transition hover:border-brand-dark focus-visible:border-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-dark/30"
                       onClick={() => onViewProduct(item)}
                       aria-label={`Ver producto ${item.name}`}
                     >
@@ -86,7 +86,7 @@
                     <div className="grid min-w-0 gap-2">
                       <button
                         type="button"
-                        className="cursor-pointer border-0 bg-transparent p-0 text-left text-sm font-black leading-snug text-slate-900 underline-offset-4 transition hover:text-[#2f66b3] hover:underline focus-visible:text-[#2f66b3] focus-visible:outline-none"
+                        className="cursor-pointer border-0 bg-transparent p-0 text-left text-sm font-black leading-snug text-slate-900 underline-offset-4 transition hover:text-brand-dark hover:underline focus-visible:text-brand-dark focus-visible:outline-none"
                         onClick={() => onViewProduct(item)}
                       >
                         {item.name}
@@ -99,7 +99,7 @@
                             type="button"
                             onClick={() => onDecreaseItem(item.id)}
                             disabled={item.quantity <= 1}
-                            className="min-h-10 cursor-pointer border-0 bg-transparent p-0 font-mono text-lg font-black text-slate-800 transition hover:bg-[#2f66b3] hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
+                            className="min-h-10 cursor-pointer border-0 bg-transparent p-0 font-mono text-lg font-black text-slate-800 transition hover:bg-brand-dark hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
                             aria-label="Disminuir cantidad"
                           >
                             −
@@ -109,7 +109,7 @@
                             type="button"
                             onClick={() => onIncreaseItem(item.id)}
                             disabled={item.quantity >= item.stock}
-                            className="min-h-10 cursor-pointer border-0 bg-transparent p-0 font-mono text-lg font-black text-slate-800 transition hover:bg-[#2f66b3] hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
+                            className="min-h-10 cursor-pointer border-0 bg-transparent p-0 font-mono text-lg font-black text-slate-800 transition hover:bg-brand-dark hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
                             aria-label="Aumentar cantidad"
                           >
                             +
@@ -117,7 +117,7 @@
                         </div>
                         <button
                           type="button"
-                          className="min-h-10 cursor-pointer rounded-xl border border-slate-300 bg-white px-3 font-mono text-xs font-black uppercase tracking-widest text-slate-600 transition hover:border-[#2f66b3] hover:text-[#2f66b3]"
+                          className="min-h-10 cursor-pointer rounded-xl border border-slate-300 bg-white px-3 font-mono text-xs font-black uppercase tracking-widest text-slate-600 transition hover:border-brand-dark hover:text-brand-dark"
                           onClick={() => onRemoveFromCart(item.id)}
                         >
                           Quitar
@@ -137,7 +137,7 @@
             <div className="mt-auto grid gap-3 border-t border-slate-200 p-5">
               <button
                 type="button"
-                className="inline-flex min-h-11 min-w-0 w-full items-center justify-center rounded-xl border border-[#2f66b3] bg-[#2f66b3] px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:bg-[#285aa0] hover:border-[#285aa0] disabled:cursor-not-allowed disabled:opacity-45"
+                className="inline-flex min-h-11 min-w-0 w-full items-center justify-center rounded-xl border border-brand-dark bg-brand-dark px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:bg-brand-darker hover:border-brand-darker disabled:cursor-not-allowed disabled:opacity-45"
                 onClick={handleCheckout}
                 disabled={checkoutLoading}
               >
@@ -145,7 +145,7 @@
               </button>
               <button
                 type="button"
-                className="inline-flex min-h-11 min-w-0 w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 no-underline transition hover:border-[#2f66b3] hover:text-[#2f66b3] hover:shadow-[0_0_0_4px_rgba(47,102,179,.10)]"
+                className="inline-flex min-h-11 min-w-0 w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 no-underline transition hover:border-brand-dark hover:text-brand-dark hover:shadow-[0_0_0_4px_rgba(47,102,179,.10)]"
                 onClick={onClose}
               >
                 Seguir cotizando
@@ -155,11 +155,11 @@
           </>
         ) : (
           <div className="m-5 mt-8 grid gap-4 rounded-2xl border border-blue-200 bg-blue-50 p-5 text-slate-800">
-            <span className="font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">Sin productos</span>
+            <span className="font-mono text-xs font-black uppercase tracking-widest text-brand-dark">Sin productos</span>
             <p className="m-0 leading-7 text-slate-600">Agrega productos para preparar una solicitud de cotización.</p>
             <button
               type="button"
-              className="inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 no-underline transition hover:border-[#2f66b3] hover:text-[#2f66b3] hover:shadow-[0_0_0_4px_rgba(47,102,179,.10)]"
+              className="inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 no-underline transition hover:border-brand-dark hover:text-brand-dark hover:shadow-[0_0_0_4px_rgba(47,102,179,.10)]"
               onClick={onClose}
             >
               Explorar catálogo
