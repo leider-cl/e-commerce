@@ -26,27 +26,6 @@ export function CatalogSection({
         />
 
         <div className="marketplace-content">
-          <section className="store-hero">
-            <div className="store-hero-copy">
-              <span>Soluciones técnicas LEIDER</span>
-              <h1>IoT, sensores y control industrial para operación real.</h1>
-              <p>
-                Equipamiento seleccionado para integración en terreno: controladores, comunicación LoRaWAN,
-                sensores y componentes para proyectos industriales.
-              </p>
-              <div className="store-hero-actions">
-                <button type="button" className="primary-action" onClick={() => document.getElementById("product-search")?.focus()}>
-                  Buscar producto
-                </button>
-                {featuredProduct ? (
-                  <button type="button" className="secondary-action" onClick={() => onViewDetails(featuredProduct)}>
-                    Ver destacado
-                  </button>
-                ) : null}
-              </div>
-            </div>
-          </section>
-
           <div className="brand-strip" aria-label="Marcas destacadas">
             <span>Milesight</span>
             <span>LoRaWAN</span>
