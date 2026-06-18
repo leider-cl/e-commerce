@@ -18,16 +18,25 @@ export function CategoryStrip({ categories, selectedCategory, onSelectCategory, 
       </div>
 
       <div className="grid gap-1">
-        {categories.map((category) => (
-          <button
-            className={`flex w-full items-center justify-between gap-3 border-b border-white/6 bg-transparent px-4 py-3 text-left font-mono text-sm font-bold text-slate-200 transition hover:bg-white/8 hover:text-cyan-200 focus-visible:bg-white/8 focus-visible:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 ${selectedCategory === category ? "bg-cyan-400 text-slate-950 shadow-inner" : ""}`}
-            type="button"
-            key={category}
-            onClick={() => onSelectCategory(category)}
-          >
-            <span>{category}</span>
-          </button>
-        ))}
+        {categories.map((category) => {
+          const isSelected = selectedCategory === category;
+
+          return (
+            <button
+              className={`flex w-full items-center justify-between gap-3 border-b border-white/6 px-4 py-3 text-left font-mono text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 ${
+                isSelected
+                  ? "bg-cyan-400 text-slate-950 shadow-inner hover:bg-cyan-300"
+                  : "bg-transparent text-slate-200 hover:bg-white/8 hover:text-cyan-200 focus-visible:bg-white/8 focus-visible:text-cyan-200"
+              }`}
+              type="button"
+              key={category}
+              onClick={() => onSelectCategory(category)}
+            >
+              <span>{category}</span>
+              {isSelected ? <span className="h-2 w-2 rounded-full bg-slate-950/80" aria-hidden="true" /> : null}
+            </button>
+          );
+        })}
       </div>
 
       <div className="grid gap-3 border-t border-white/10 p-2">

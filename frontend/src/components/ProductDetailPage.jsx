@@ -43,7 +43,7 @@ export function ProductDetailPage({
       <section className="py-8 xl:py-14">
         <button
           type="button"
-          className="mb-5 inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-white/15 bg-white/8 px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:border-cyan-300 hover:bg-white/12 hover:text-cyan-200 hover:shadow-[0_0_0_4px_rgba(34,211,238,.10)]"
+          className="mb-5 inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-white/15 bg-white/8 px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:border-cyan-300 hover:bg-cyan-300/10 hover:text-cyan-100 hover:shadow-[0_0_0_4px_rgba(34,211,238,.10)]"
           onClick={onBackToCatalog}
         >
           Volver al catálogo
@@ -63,16 +63,16 @@ export function ProductDetailPage({
     <section className="py-8 xl:py-14">
       <button
         type="button"
-        className="mb-5 inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-white/15 bg-white/8 px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:border-cyan-300 hover:bg-white/12 hover:text-cyan-200 hover:shadow-[0_0_0_4px_rgba(34,211,238,.10)]"
+        className="mb-5 inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-white/15 bg-white/8 px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-white no-underline transition hover:border-cyan-300 hover:bg-cyan-300/10 hover:text-cyan-100 hover:shadow-[0_0_0_4px_rgba(34,211,238,.10)]"
         onClick={onBackToCatalog}
       >
         Volver al catálogo
       </button>
 
-      <article className="grid gap-8 rounded-2xl border border-white/10 bg-[#0d1728]/90 p-5 shadow-[0_24px_80px_rgba(0,0,0,.24)] md:grid-cols-[minmax(0,1.1fr)_minmax(22rem,0.9fr)] lg:p-8">
-        <div className="grid content-start gap-4 rounded-xl border border-white/10 bg-[radial-gradient(circle_at_50%_35%,#ffffff_0,#eef4fb_62%,#dce7f4_100%)] p-4">
+      <article className="grid gap-8 overflow-hidden rounded-[1.5rem] border border-white/10 bg-[linear-gradient(135deg,rgba(16,28,46,.96),rgba(7,15,29,.98))] p-5 shadow-[0_30px_100px_rgba(0,0,0,.38)] ring-1 ring-cyan-300/5 md:grid-cols-[minmax(0,1.08fr)_minmax(21rem,0.92fr)] lg:p-7">
+        <div className="grid content-start gap-4 rounded-[1.2rem] border border-white/10 bg-[radial-gradient(circle_at_50%_15%,rgba(34,211,238,.16),transparent_42%),linear-gradient(145deg,#101b2d,#091222)] p-4 shadow-inner">
           {currentImage ? (
-            <img src={currentImage} alt={product.name} draggable="false" className="h-[min(32rem,60vh)] w-full object-contain object-center" style={{ mixBlendMode: "multiply" }} />
+            <img src={currentImage} alt={product.name} draggable="false" className="h-[min(30rem,58vh)] w-full rounded-2xl bg-slate-100/95 object-contain object-center p-5 shadow-[0_22px_55px_rgba(0,0,0,.28)]" />
           ) : (
             <div className="grid h-64 w-full place-items-center rounded-xl bg-[#0d1728]/50 font-mono text-3xl font-black text-slate-500">
               {product.category.slice(0, 2).toUpperCase()}
@@ -82,13 +82,13 @@ export function ProductDetailPage({
             <div className="mt-4 flex gap-2" aria-label="Imágenes del producto">
               {images.map((image, index) => (
                 <button
-                  className={`h-14 w-14 cursor-pointer rounded-lg border p-1 ${index === selectedImageIndex ? "border-cyan-300 shadow-[0_0_0_2px_rgba(34,211,238,.25)]" : "border-white/10 bg-[#0d1728]/60"}`}
+                  className={`h-14 w-14 cursor-pointer rounded-xl border bg-slate-100/95 p-1 transition ${index === selectedImageIndex ? "border-cyan-300 shadow-[0_0_0_2px_rgba(34,211,238,.25)]" : "border-white/10 opacity-70 hover:opacity-100"}`}
                   type="button"
                   key={image}
                   onClick={() => onSelectImageIndex(index)}
                   aria-label={`Ver imagen ${index + 1}`}
                 >
-                  <img src={image} alt="" draggable="false" className="h-full w-full object-contain" style={{ mixBlendMode: "multiply" }} />
+                  <img src={image} alt="" draggable="false" className="h-full w-full object-contain" />
                 </button>
               ))}
             </div>
@@ -97,7 +97,7 @@ export function ProductDetailPage({
 
         <div className="min-w-0">
           <span className="mb-3 block font-mono text-xs font-black uppercase tracking-widest text-cyan-300">{product.tag}</span>
-          <h1 className="mt-3 mb-4 max-w-180 text-[clamp(2.2rem,5vw,3.5rem)] font-black leading-tight tracking-[-0.04em] text-white break-words">{product.name}</h1>
+          <h1 className="mt-3 mb-4 max-w-180 text-[clamp(2rem,4.6vw,3.15rem)] font-black leading-tight tracking-[-0.04em] text-white break-words">{product.name}</h1>
           <p className="max-w-160 text-slate-300 leading-7 break-words">{product.description}</p>
 
           <dl className="my-6 grid gap-0 border-t border-white/10">
@@ -117,7 +117,7 @@ export function ProductDetailPage({
 
           <button
             type="button"
-            className="inline-flex min-h-12 min-w-0 w-full items-center justify-center rounded-xl border border-cyan-400 bg-cyan-400 px-5 py-3 font-mono text-sm font-black uppercase tracking-widest text-slate-950 no-underline transition hover:bg-cyan-300 hover:border-cyan-300 disabled:cursor-not-allowed disabled:opacity-45"
+            className="inline-flex min-h-12 min-w-0 w-full items-center justify-center rounded-xl border border-cyan-400 bg-cyan-400 px-5 py-3 font-mono text-sm font-black uppercase tracking-widest text-slate-950 no-underline shadow-[0_14px_35px_rgba(34,211,238,.18)] transition hover:bg-cyan-300 hover:border-cyan-300 disabled:cursor-not-allowed disabled:opacity-45"
             disabled={reachedCartLimit}
             onClick={() =>
               onAddToCart(product, {
