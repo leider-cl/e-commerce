@@ -1,7 +1,10 @@
 ﻿import { chmodSync, existsSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
-const distPath = new URL("../dist", import.meta.url).pathname;
+const outputPaths = [
+  new URL("../dist", import.meta.url).pathname,
+  new URL("../out", import.meta.url).pathname,
+];
 
 function chmodRecursive(path) {
   if (!existsSync(path)) return;
@@ -16,4 +19,6 @@ function chmodRecursive(path) {
   }
 }
 
-chmodRecursive(distPath);
+for (const outputPath of outputPaths) {
+  chmodRecursive(outputPath);
+}

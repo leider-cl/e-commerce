@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { SiteHeader } from "./components/SiteHeader";
@@ -10,18 +12,19 @@ import { AuthModal } from "./components/AuthModal";
 import { PaymentResult } from "./components/PaymentResult";
 import { useAuth } from "./context/useAuth";
 
-const API_URL = import.meta.env.VITE_API_URL || "/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
-const paymentParams = new URLSearchParams(window.location.search);
-const initialPaymentResult = (() => {
+function getInitialPaymentResult() {
+  if (typeof window === "undefined") return null;
+  const paymentParams = new URLSearchParams(window.location.search);
   const status = paymentParams.get("status");
   if (status) {
     return { status, orderId: paymentParams.get("order_id") || null };
   }
   return null;
-})();
+}
 
-function App() {
+function App({ initialProducts = [], initialCategories = [] }) {
   const { user } = useAuth();
   const pageRef = useRef(null);
   const cartLinkRef = useRef(null);
@@ -30,15 +33,15 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [cartItems, setCartItems] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState(["Todas"]);
-  const [loading, setLoading] = useState(true);
-  const [currentPath, setCurrentPath] = useState(() => window.location.pathname);
+  const [products, setProducts] = useState(initialProducts);
+  const [categories, setCategories] = useState(["Todas", ...initialCategories]);
+  const [loading, setLoading] = useState(initialProducts.length === 0);
+  const [currentPath, setCurrentPath] = useState(() => (typeof window === "undefined" ? "/" : window.location.pathname));
   const [selectedProductImageIndex, setSelectedProductImageIndex] = useState(0);
   const [cartNotice, setCartNotice] = useState("");
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
-  const [paymentResult, setPaymentResult] = useState(initialPaymentResult);
+  const [paymentResult, setPaymentResult] = useState(() => getInitialPaymentResult());
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
 
   const currencyFormatter = useMemo(
@@ -68,8 +71,12 @@ function App() {
         setLoading(false);
       }
     }
+    if (initialProducts.length > 0 && initialCategories.length > 0) {
+      return;
+    }
+
     fetchData();
-  }, []);
+  }, [initialProducts.length, initialCategories.length]);
 
   const priceBounds = useMemo(() => {
     if (products.length === 0) return { min: 0, max: 0 };

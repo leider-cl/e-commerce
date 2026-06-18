@@ -30,15 +30,12 @@ export function CategoryStrip({
   selectedSidebarFilters = [],
   onToggleCategory,
   onToggleSidebarFilter,
-  onSearchChange,
   products = [],
-  searchTerm = "",
   priceBounds = { min: 0, max: 0 },
   selectedPriceRange = { min: 0, max: 0 },
   onPriceRangeChange,
   currencyFormatter,
 }) {
-  const activeSearch = searchTerm.trim().toLowerCase();
   const [categoriesOpen, setCategoriesOpen] = useState(true);
   const [openGroups, setOpenGroups] = useState(() => new Set(filterGroups.map((group) => group.title)));
   const hasPrices = priceBounds.max > 0;

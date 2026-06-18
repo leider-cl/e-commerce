@@ -1,9 +1,13 @@
+"use client";
+
 import { useState, useEffect, useCallback } from "react";
 import { AuthContext } from "./auth-context";
 
-const API_URL = import.meta.env.VITE_API_URL || "/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 function getInitialToken() {
+  if (typeof window === "undefined") return null;
+
   const params = new URLSearchParams(window.location.search);
   const tokenParam = params.get("token");
 
