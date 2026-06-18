@@ -112,17 +112,18 @@ function App() {
     gsap.to(floatingImage, {
       x: targetRect.left + targetRect.width / 2 - sourceRect.left - sourceRect.width / 2,
       y: targetRect.top + targetRect.height / 2 - sourceRect.top - sourceRect.height / 2,
-      scale: 0.16,
-      rotate: -5,
-      autoAlpha: 0.35,
-      duration: 0.72,
-      ease: "power3.inOut",
+      scale: 0.18,
+      rotate: -3,
+      autoAlpha: 0,
+      duration: 0.34,
+      ease: "power2.out",
+      overwrite: "auto",
       onComplete: () => {
         floatingImage.remove();
         gsap.fromTo(
           cartLinkRef.current,
           { scale: 1 },
-          { scale: 1.08, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out" },
+          { scale: 1.06, duration: 0.1, yoyo: true, repeat: 1, ease: "power1.out", overwrite: "auto" },
         );
       },
     });
