@@ -1,5 +1,24 @@
 import { useAuth } from "../context/useAuth";
 
+const navigationGroups = [
+  {
+    label: "IoT Industrial",
+    items: ["Controladores IoT", "Sensores", "Telemetr?a", "Monitoreo remoto"],
+  },
+  {
+    label: "LoRaWAN",
+    items: ["Gateways", "Nodos", "Antenas", "Redes privadas"],
+  },
+  {
+    label: "Instrumentaci?n",
+    items: ["RS485", "SDI-12", "4-20mA", "Energ?a solar"],
+  },
+  {
+    label: "Proyectos",
+    items: ["Integraci?n", "Soporte t?cnico", "Cotizaciones"],
+  },
+];
+
 export function SiteHeader({
   cartCount,
   cartLinkRef,
@@ -16,6 +35,11 @@ export function SiteHeader({
     onNavigateToSection("catalogo");
   }
 
+  function searchFromMenu(term) {
+    onSearchChange(term);
+    onNavigateToSection("catalogo");
+  }
+
   return (
     <header className="site-header">
       <div className="header-mainbar">
@@ -28,16 +52,17 @@ export function SiteHeader({
             onNavigateHome();
           }}
         >
-          <span className="brand-name">LEIDER</span>
-          <span className="brand-store">SHOP</span>
+          <span className="brand-mark">LEIDER</span>
+          <span className="brand-store">Industrial Shop</span>
         </a>
 
         <form className="header-search" onSubmit={submitSearch} role="search">
           <label className="sr-only" htmlFor="global-product-search">Buscar productos</label>
+          <span className="search-context">Cat?logo</span>
           <input
             id="global-product-search"
             type="search"
-            placeholder="Ej: LoRaWAN, sensores, gateway"
+            placeholder="Buscar LoRaWAN, sensores, gateway..."
             value={searchTerm}
             onChange={(event) => onSearchChange(event.target.value)}
           />
@@ -71,12 +96,20 @@ export function SiteHeader({
         </div>
       </div>
 
-      <nav className="header-nav" aria-label="Navegación principal">
-        <button type="button" onClick={() => onNavigateToSection("catalogo")}>IoT Industrial</button>
-        <button type="button" onClick={() => onNavigateToSection("catalogo")}>LoRaWAN</button>
-        <button type="button" onClick={() => onNavigateToSection("catalogo")}>Sensores</button>
-        <button type="button" onClick={() => onNavigateToSection("catalogo")}>Controladores</button>
-        <button type="button" onClick={() => onNavigateToSection("contacto")}>Proyectos</button>
+      <nav className="header-nav" aria-label="Navegaci?n principal">
+        {navigationGroups.map((group) => (
+          <details className="nav-dropdown" key={group.label}>
+            <summary>{group.label}</summary>
+            <div className="nav-dropdown-panel">
+              {group.items.map((item) => (
+                <button type="button" key={item} onClick={() => searchFromMenu(item)}>
+                  {item}
+                </button>
+              ))}
+            </div>
+          </details>
+        ))}
+        <button type="button" className="nav-direct" onClick={() => onNavigateToSection("contacto")}>Contacto</button>
       </nav>
     </header>
   );

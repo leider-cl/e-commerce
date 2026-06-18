@@ -14,8 +14,6 @@ export function CatalogSection({
   onAddToCart,
   onViewDetails,
 }) {
-  const featuredProduct = filteredProducts[0];
-
   return (
     <section className="catalog-section" id="catalogo">
       <div className="marketplace-layout">
@@ -23,9 +21,24 @@ export function CatalogSection({
           categories={categories}
           selectedCategory={selectedCategory}
           onSelectCategory={onSelectCategory}
+          onSearchChange={onSearchChange}
         />
 
         <div className="marketplace-content">
+          <div className="catalog-showcase" aria-label="Resumen de tienda LEIDER">
+            <div>
+              <span>LEIDER Shop</span>
+              <h1>Equipamiento IoT industrial para terreno.</h1>
+              <p>Controladores, sensores e interfaces para proyectos de telemetr?a, automatizaci?n y monitoreo.</p>
+            </div>
+            <div className="showcase-metrics" aria-label="Capacidades destacadas">
+              <span>LoRaWAN</span>
+              <span>RS485</span>
+              <span>SDI-12</span>
+              <span>4-20mA</span>
+            </div>
+          </div>
+
           <div className="brand-strip" aria-label="Marcas destacadas">
             <span>Milesight</span>
             <span>LoRaWAN</span>
@@ -35,7 +48,7 @@ export function CatalogSection({
           </div>
 
           <div className="section-heading catalog-heading">
-            <span>Catálogo</span>
+            <span>Cat?logo</span>
             <h2>Productos destacados</h2>
           </div>
 
@@ -48,6 +61,16 @@ export function CatalogSection({
               value={searchTerm}
               onChange={(event) => onSearchChange(event.target.value)}
             />
+            <label className="sr-only" htmlFor="category-filter">Filtrar por categor?a</label>
+            <select
+              id="category-filter"
+              value={selectedCategory}
+              onChange={(event) => onSelectCategory(event.target.value)}
+            >
+              {categories.map((category) => (
+                <option value={category} key={category}>{category}</option>
+              ))}
+            </select>
             <span>{filteredProducts.length} resultados</span>
           </div>
 
