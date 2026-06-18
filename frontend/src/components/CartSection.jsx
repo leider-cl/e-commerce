@@ -1,4 +1,4 @@
-export function CartSection({
+﻿export function CartSection({
   isOpen,
   cartItems,
   cartNotice,
@@ -12,6 +12,7 @@ export function CartSection({
   onRemoveFromCart,
   onClose,
   onRequestLogin,
+  onViewProduct,
 }) {
   const hasItems = cartItems.length > 0;
 
@@ -38,12 +39,12 @@ export function CartSection({
       <section
         className={`absolute right-0 top-0 flex h-full w-[min(100%,28rem)] flex-col border-l border-slate-200 bg-white text-slate-900 shadow-[-24px_0_70px_rgba(15,23,42,.18)] transition duration-300 ease-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}
         id="carrito"
-        aria-label="Carrito de cotización"
+        aria-label="Carrito de cotizaciÃ³n"
       >
         <div className="flex items-start justify-between gap-4 border-b border-slate-200 p-5">
           <div>
             <span className="font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">Carrito</span>
-            <h2 className="m-0 mt-2 text-[clamp(1.75rem,5vw,2.5rem)] font-black leading-none tracking-[-0.04em]">Selección para cotizar</h2>
+            <h2 className="m-0 mt-2 text-[clamp(1.75rem,5vw,2.5rem)] font-black leading-none tracking-[-0.04em]">SelecciÃ³n para cotizar</h2>
           </div>
           <button
             type="button"
@@ -51,7 +52,7 @@ export function CartSection({
             onClick={onClose}
             aria-label="Cerrar carrito"
           >
-            ×
+            Ã—
           </button>
         </div>
 
@@ -69,16 +70,27 @@ export function CartSection({
 
                 return (
                   <article className="grid grid-cols-[5rem_minmax(0,1fr)] gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_8px_22px_rgba(15,23,42,.08)]" key={item.id}>
-                    <div className="grid h-20 w-20 place-items-center overflow-hidden rounded-xl bg-slate-100">
+                    <button
+                      type="button"
+                      className="grid h-20 w-20 cursor-pointer place-items-center overflow-hidden rounded-xl border border-transparent bg-slate-100 p-0 transition hover:border-[#2f66b3] focus-visible:border-[#2f66b3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2f66b3]/30"
+                      onClick={() => onViewProduct(item)}
+                      aria-label={`Ver producto ${item.name}`}
+                    >
                       {imageUrl ? (
                         <img src={imageUrl} alt={item.name} className="h-full w-full object-cover object-center" />
                       ) : (
                         <span className="font-mono text-sm font-black text-slate-950">{item.category.slice(0, 2).toUpperCase()}</span>
                       )}
-                    </div>
+                    </button>
 
                     <div className="grid min-w-0 gap-2">
-                      <strong className="text-sm font-black leading-snug text-slate-900 break-words">{item.name}</strong>
+                      <button
+                        type="button"
+                        className="cursor-pointer border-0 bg-transparent p-0 text-left text-sm font-black leading-snug text-slate-900 underline-offset-4 transition hover:text-[#2f66b3] hover:underline focus-visible:text-[#2f66b3] focus-visible:outline-none"
+                        onClick={() => onViewProduct(item)}
+                      >
+                        {item.name}
+                      </button>
                       <span className="text-sm text-slate-600">{currencyFormatter.format(item.price)} c/u</span>
 
                       <div className="flex flex-wrap items-center gap-2">
@@ -90,7 +102,7 @@ export function CartSection({
                             className="min-h-10 cursor-pointer border-0 bg-transparent p-0 font-mono text-lg font-black text-slate-800 transition hover:bg-[#2f66b3] hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
                             aria-label="Disminuir cantidad"
                           >
-                            −
+                            âˆ’
                           </button>
                           <span className="grid min-h-10 place-items-center border-x border-slate-300 font-black text-slate-900">{item.quantity}</span>
                           <button
@@ -118,7 +130,7 @@ export function CartSection({
             </div>
 
             <div className="mx-5 flex items-center justify-between gap-4 border-t border-slate-200 pt-5">
-              <span className="text-sm text-slate-600">Total referencial · CLP</span>
+              <span className="text-sm text-slate-600">Total referencial Â· CLP</span>
               <strong className="text-[clamp(1.35rem,5vw,2rem)] font-black text-slate-900">{currencyFormatter.format(cartTotal)}</strong>
             </div>
 
@@ -129,7 +141,7 @@ export function CartSection({
                 onClick={handleCheckout}
                 disabled={checkoutLoading}
               >
-                {checkoutLoading ? "Procesando..." : user ? "Ir a compra" : "Iniciar sesión para comprar"}
+                {checkoutLoading ? "Procesando..." : user ? "Ir a compra" : "Iniciar sesiÃ³n para comprar"}
               </button>
               <button
                 type="button"
@@ -138,19 +150,19 @@ export function CartSection({
               >
                 Seguir cotizando
               </button>
-              {!user ? <p className="m-0 text-center text-sm text-slate-500">Inicia sesión para continuar con el pago.</p> : null}
+              {!user ? <p className="m-0 text-center text-sm text-slate-500">Inicia sesiÃ³n para continuar con el pago.</p> : null}
             </div>
           </>
         ) : (
           <div className="m-5 mt-8 grid gap-4 rounded-2xl border border-blue-200 bg-blue-50 p-5 text-slate-800">
             <span className="font-mono text-xs font-black uppercase tracking-widest text-[#2f66b3]">Sin productos</span>
-            <p className="m-0 leading-7 text-slate-600">Agrega productos para preparar una solicitud de cotización.</p>
+            <p className="m-0 leading-7 text-slate-600">Agrega productos para preparar una solicitud de cotizaciÃ³n.</p>
             <button
               type="button"
               className="inline-flex min-h-11 min-w-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-mono text-xs font-black uppercase tracking-widest text-slate-700 no-underline transition hover:border-[#2f66b3] hover:text-[#2f66b3] hover:shadow-[0_0_0_4px_rgba(47,102,179,.10)]"
               onClick={onClose}
             >
-              Explorar catálogo
+              Explorar catÃ¡logo
             </button>
           </div>
         )}
@@ -158,3 +170,4 @@ export function CartSection({
     </aside>
   );
 }
+

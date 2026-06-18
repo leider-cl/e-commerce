@@ -286,6 +286,11 @@ function App() {
     navigateTo(`/productos/${product.id}`);
   }
 
+  function openCartProductDetails(product) {
+    setCartOpen(false);
+    openProductDetails(product);
+  }
+
   function backToCatalog() {
     setSelectedProductImageIndex(0);
     navigateTo("/");
@@ -378,6 +383,7 @@ function App() {
         onRemoveFromCart={removeFromCart}
         onClose={() => setCartOpen(false)}
         onRequestLogin={() => setAuthModalOpen(true)}
+        onViewProduct={openCartProductDetails}
       />
 
       {authModalOpen ? <AuthModal onClose={() => setAuthModalOpen(false)} /> : null}
