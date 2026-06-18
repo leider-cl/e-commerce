@@ -254,10 +254,28 @@ function App() {
         .slice(0, 3)
     : products.filter((product) => String(product.id) !== productIdFromPath && product.slug !== productIdFromPath).slice(0, 3);
 
-  function navigateTo(path) {
+  function navigateTo(path, { scrollToId } = {}) {
     window.history.pushState({}, "", path);
     setCurrentPath(window.location.pathname);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    window.requestAnimationFrame(() => {
+      if (scrollToId) {
+        document.getElementById(scrollToId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  function navigateHome() {
+    setSelectedProductImageIndex(0);
+    navigateTo("/");
+  }
+
+  function navigateToSection(sectionId) {
+    setSelectedProductImageIndex(0);
+    navigateTo(`/#${sectionId}`, { scrollToId: sectionId });
   }
 
   function openProductDetails(product) {
@@ -300,7 +318,13 @@ function App() {
 
   return (
     <main className="site-shell" ref={pageRef}>
-      <SiteHeader cartCount={cartCount} cartLinkRef={cartLinkRef} onOpenAuth={() => setAuthModalOpen(true)} />
+      <SiteHeader
+        cartCount={cartCount}
+        cartLinkRef={cartLinkRef}
+        onOpenAuth={() => setAuthModalOpen(true)}
+        onNavigateHome={navigateHome}
+        onNavigateToSection={navigateToSection}
+      />
       {isProductDetailPage ? (
         <>
           <ProductDetailPage

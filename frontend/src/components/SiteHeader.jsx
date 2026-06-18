@@ -1,11 +1,19 @@
 import { useAuth } from "../context/useAuth";
 
-export function SiteHeader({ cartCount, cartLinkRef, onOpenAuth }) {
+export function SiteHeader({ cartCount, cartLinkRef, onOpenAuth, onNavigateHome, onNavigateToSection }) {
   const { user, logout } = useAuth();
 
   return (
     <header className="site-header sticky top-0 z-10 flex items-center justify-between gap-4 min-h-18 px-0 py-3 bg-paper/88 backdrop-blur-md border-b border-line">
-      <a className="brand inline-flex items-center gap-[0.7rem] min-h-11 font-mono font-bold tracking-[0.16em] no-underline" href="#top" aria-label="LEIDER ecommerce home">
+      <a
+        className="brand inline-flex items-center gap-[0.7rem] min-h-11 font-mono font-bold tracking-[0.16em] no-underline"
+        href="/"
+        aria-label="Ir al inicio de LEIDER ecommerce"
+        onClick={(event) => {
+          event.preventDefault();
+          onNavigateHome();
+        }}
+      >
         <span className="grid place-items-center w-9 h-9 text-inverse-text bg-inverse">L</span>
         <span>LEIDER</span>
       </a>
