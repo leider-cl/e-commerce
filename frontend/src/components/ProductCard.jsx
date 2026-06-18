@@ -84,7 +84,11 @@ export function ProductCard({ product, onAddToCart, onViewDetails, currencyForma
           <span>{product.tag}</span>
           <span>{product.stock} disponibles</span>
         </div>
-        <h3>{product.name}</h3>
+        <h3>
+          <button type="button" className="product-title-link" onClick={() => onViewDetails(product)}>
+            {product.name}
+          </button>
+        </h3>
         <p>{product.description}</p>
 
         <div className="product-footer">

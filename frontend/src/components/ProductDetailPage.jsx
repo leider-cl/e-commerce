@@ -112,7 +112,7 @@ export function ProductDetailPage({
       {relatedProducts.length > 0 ? (
         <section className="related-products-section" aria-labelledby="related-products-title">
           <div className="section-heading compact-heading">
-            <span>Tambi?n podr?a interesarte</span>
+            <span>También podría interesarte</span>
             <h2 id="related-products-title">Productos similares</h2>
           </div>
           <div className="related-products-grid">

@@ -241,18 +241,18 @@ function App() {
     }
   }
 
-  const productSlugFromPath = currentPath.startsWith("/productos/")
+  const productIdFromPath = currentPath.startsWith("/productos/")
     ? decodeURIComponent(currentPath.replace("/productos/", "").split("/")[0])
     : null;
-  const currentProduct = productSlugFromPath
-    ? products.find((product) => product.slug === productSlugFromPath)
+  const currentProduct = productIdFromPath
+    ? products.find((product) => String(product.id) === productIdFromPath || product.slug === productIdFromPath)
     : null;
-  const isProductDetailPage = Boolean(productSlugFromPath);
+  const isProductDetailPage = Boolean(productIdFromPath);
   const relatedProducts = currentProduct
     ? products
         .filter((product) => product.id !== currentProduct.id && product.category === currentProduct.category)
         .slice(0, 3)
-    : products.filter((product) => product.slug !== productSlugFromPath).slice(0, 3);
+    : products.filter((product) => String(product.id) !== productIdFromPath && product.slug !== productIdFromPath).slice(0, 3);
 
   function navigateTo(path) {
     window.history.pushState({}, "", path);
@@ -262,7 +262,7 @@ function App() {
 
   function openProductDetails(product) {
     setSelectedProductImageIndex(0);
-    navigateTo(`/productos/${product.slug}`);
+    navigateTo(`/productos/${product.id}`);
   }
 
   function backToCatalog() {
