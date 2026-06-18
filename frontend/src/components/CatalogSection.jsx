@@ -1,6 +1,5 @@
 import { CategoryStrip } from "./CategoryStrip";
 import { ProductCard } from "./ProductCard";
-import { useEffect, useRef, useState } from "react";
 
 export function CatalogSection({
   loading,
@@ -15,20 +14,6 @@ export function CatalogSection({
   onAddToCart,
   onViewDetails,
 }) {
-  const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
-  const categoryMenuRef = useRef(null);
-
-  useEffect(() => {
-    function closeOnOutsideClick(event) {
-      if (!categoryMenuRef.current?.contains(event.target)) {
-        setIsCategoryMenuOpen(false);
-      }
-    }
-
-    document.addEventListener("pointerdown", closeOnOutsideClick);
-    return () => document.removeEventListener("pointerdown", closeOnOutsideClick);
-  }, []);
-
   return (
     <section className="pb-12" id="catalogo">
       <div className="grid gap-6 pt-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
@@ -55,71 +40,6 @@ export function CatalogSection({
               onChange={(event) => onSearchChange(event.target.value)}
               className="min-h-11 w-full rounded-xl border border-white/10 bg-white/8 px-4 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-300 focus:bg-white/12 focus:shadow-[0_0_0_4px_rgba(34,211,238,.10)]"
             />
-            <div className="relative" ref={categoryMenuRef}>
-              <label
-                className="sr-only absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0"
-                style={{ clip: "rect(0 0 0 0)" }}
-                id="category-filter-label"
-              >
-                Filtrar por categoría
-              </label>
-              <button
-                type="button"
-                aria-haspopup="listbox"
-                aria-expanded={isCategoryMenuOpen}
-                aria-labelledby="category-filter-label category-filter-button"
-                id="category-filter-button"
-                onClick={() => setIsCategoryMenuOpen((current) => !current)}
-                onKeyDown={(event) => {
-                  if (event.key === "Escape") setIsCategoryMenuOpen(false);
-                }}
-                className="flex min-h-11 w-full items-center justify-between gap-3 rounded-xl border border-white/10 bg-[#182337] px-4 text-left text-sm text-white shadow-inner shadow-white/5 outline-none transition hover:border-cyan-300/70 hover:bg-[#1d2a40] focus:border-cyan-300 focus:shadow-[0_0_0_4px_rgba(34,211,238,.10)]"
-              >
-                <span className="truncate">{selectedCategory}</span>
-                <span
-                  aria-hidden="true"
-                  className={`grid size-5 shrink-0 place-items-center rounded-full bg-cyan-300/10 text-cyan-300 transition-transform ${isCategoryMenuOpen ? "rotate-180" : ""}`}
-                >
-                  <svg viewBox="0 0 20 20" className="size-3" fill="currentColor">
-                    <path d="M5.5 7.5 10 12l4.5-4.5h-9Z" />
-                  </svg>
-                </span>
-              </button>
-
-              {isCategoryMenuOpen ? (
-                <div
-                  role="listbox"
-                  aria-labelledby="category-filter-label"
-                  className="absolute right-0 z-30 mt-2 w-full min-w-48 overflow-hidden rounded-xl border border-cyan-300/20 bg-[#111c2e] p-1.5 shadow-[0_22px_60px_rgba(0,0,0,.42)] ring-1 ring-white/8"
-                >
-                  {categories.map((category) => {
-                    const isSelected = category === selectedCategory;
-
-                    return (
-                      <button
-                        type="button"
-                        role="option"
-                        aria-selected={isSelected}
-                        value={category}
-                        key={category}
-                        onClick={() => {
-                          onSelectCategory(category);
-                          setIsCategoryMenuOpen(false);
-                        }}
-                        className={`flex min-h-10 w-full items-center justify-between rounded-lg px-3 text-left text-sm transition ${
-                          isSelected
-                            ? "bg-cyan-300 text-[#06111f] font-bold"
-                            : "text-slate-200 hover:bg-white/10 hover:text-white"
-                        }`}
-                      >
-                        <span className="truncate">{category}</span>
-                        {isSelected ? <span className="text-xs">•</span> : null}
-                      </button>
-                    );
-                  })}
-                </div>
-              ) : null}
-            </div>
             <span className="font-mono text-xs font-black uppercase tracking-widest text-slate-300">{filteredProducts.length} resultados</span>
           </div>
 
